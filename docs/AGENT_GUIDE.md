@@ -48,6 +48,12 @@ Public examples and workflow tests are authored mechanics, not model efficacy.
 A direct-file smoke in the current Codex session can qualify instruction loading
 and draft creation, but is neither blinded nor an independent audit/pilot.
 
+For 0.5 first-use observation, the source distribution includes
+evaluation/USABILITY_05.md: obtain actual participant consent, retain notes privately,
+and record prompts/actions/time/failures rather than inventing a user study from
+package smoke. The supported entry and manual fallback above need no new CLI
+controller or additional model process. No new real-user observation is claimed.
+
 Observed entry: the current Codex session read the wheel-installed skill and
 linked docs, authored a one-row public save-button draft, captured exact bytes,
 checked/rendered it and reused revision 1. The missing UI stayed an evidence gap;
