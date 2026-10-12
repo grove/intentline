@@ -29,7 +29,7 @@ Function/file digests are in `tests/compatibility/checkout-identity.json`; its
 OfflineGit shim is test scaffolding, never a runtime peer or host/model emulator.
 
 The test-only tests/compatibility/proofline_native_input.py byte snapshot comes
-from grove/proofline 06128ba491ac7ad9fd1df66322681815efde796c, checks/intentline_input.py,
+from grove/proofline 2285a434c1c33e73f8d89a6c3267abcaa37e9b95, checks/intentline_input.py,
 Apache-2.0 (Copyright 2026 Proofline contributors). Its pinned identity records
 shared producer-validator ancestry; no independent review is claimed. The snapshot
 is not installed/imported by the Intentline runtime and performs no inference.
