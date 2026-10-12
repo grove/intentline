@@ -47,3 +47,10 @@ authorization and real candidate review/proof; planning is not execution evidenc
 Public examples and workflow tests are authored mechanics, not model efficacy.
 A direct-file smoke in the current Codex session can qualify instruction loading
 and draft creation, but is neither blinded nor an independent audit/pilot.
+
+Observed entry: the current Codex session read the wheel-installed skill and
+linked docs, authored a one-row public save-button draft, captured exact bytes,
+checked/rendered it and reused revision 1. The missing UI stayed an evidence gap;
+no audit/adoption occurred. Source-distribution evaluation/results/host-smoke.json
+binds the installed skill/artifact and draft hashes. This self-context unblinded
+smoke does not qualify automatic discovery, first-time onboarding or efficacy.
