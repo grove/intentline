@@ -1,4 +1,4 @@
-# Intentline 0.4
+# Intentline — 0.5 engineering preparation
 
 Turn an original request into a source-grounded acceptance agreement using an
 existing coding assistant or manual JSON authoring. The offline Python CLI
@@ -32,9 +32,17 @@ Private work belongs in an ignored `.intentline/work/<slug>/`. Intentline never
 edits project ignore files; explicitly ignore your work directory before use
 in another repository. Captured sources can contain sensitive information.
 
-[The 0.4 scorecard](docs/SCORECARD_0.4.md) separates tested engineering from
-unmeasured usefulness. Version 0.4.0 is an engineering candidate in five stacked
-PRs; merge and release publication require separate authorization.
+[The 0.5 scorecard](docs/SCORECARD_0.5.md) separates engineering readiness from
+unmeasured usefulness. The starting merged code is version 0.4.0 at
+`587ef061287f02d4d7328f7c291bf57b85892603`, with all six CI matrix cells passed.
+No GitHub Release was observed on 12 October 2026; PyPI publication is unverified.
+The 0.5 changes are published for review in [PRs #26–#30](https://github.com/grove/intentline/pull/30).
+Each original review head passed the six-cell CI matrix. Source package metadata
+is now experimental `0.5.0rc1`; the RC also passed all six CI cells. PR #30
+tracks the current report head and checks.
+No tag/package release or main merge has occurred; usefulness remains unmeasured.
+See [the implementation report](docs/IMPLEMENTATION_0.5.md) and
+[retained 0.4 evidence](docs/SCORECARD_0.4.md).
 The [0.3](docs/SCORECARD_0.3.md) and [0.2](docs/SCORECARD_0.2.md) evidence remains retained.
 
 For optional sizing, ask your existing assistant to use

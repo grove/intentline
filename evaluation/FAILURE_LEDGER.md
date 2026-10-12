@@ -90,3 +90,63 @@ the initial Git commit had only 119 tests. Repair commits those two already-test
 files, including the stronger positive assertion that equivalent reordering reuses
 exactly the same digest and appends no history. All genuinely malformed/missing/
 cyclic/unsupported allocation mutants continue to refuse; no safety gate is removed.
+
+## 0.5 preparation, 12 October 2026
+
+No actual independent model-planning failures or holdout scores were supplied.
+Semantic skills, old probe answers and all earlier result/registration bytes remain
+unchanged. Real development triage must retain exact source/plan/revision identity,
+actual run provenance and independently documented expectations; investigate both
+omissions and invented scope, retain adverse outputs, and register a distinct untouched
+holdout before tuning. No empty semantic-correction PR or speculative feature was made.
+
+- The first relocated Python 3.11 shim invocation could not import encodings; setting
+  its apparent prefix did not repair the incomplete installation. A working standalone
+  3.11.17 was located and the exact archived main's 120-test suite passed. No system
+  files or production compatibility checks were weakened. One baseline archive command
+  was initially invoked outside the repository; its zero-test output is not qualification.
+- Authored negative controls reproduced private reference/review aliases, cross-task
+  input and instruction leaks, and task-review/scoring timestamps on the wrong side
+  of registration. Four new tests had nine failing subcases before repair; corpus-wide
+  content hashes and chronology checks in the existing evaluators repair them. The
+  12-test combined evaluator suite passed afterward, retaining valid controls and
+  adverse assignment/unknown usage accounting. This is deterministic security evidence,
+  not an observed model quality improvement or authenticated independent review.
+- The intake diagnostic's initial owner/repo regex accepted `../escape`; its negative
+  test failed. Requiring an alphanumeric owner/repository start fixes the traversal-like
+  identity, alongside existing path no-follow/hash controls. The intake suite passed.
+- A final cross-candidate private-parent-content test initially called a slicing fixture
+  on a test object without its save_plan method. The test now builds a real native
+  parent using existing prepare/propose/export APIs; its private-content negative
+  passes and the five-test intake suite passes. No production source/identity check
+  was disabled to repair the harness.
+- Current pinned Proofline S6 states one Proofline false acceptance. Producer offline
+  controls do not remedy or authenticate that finding. The new native receipt retains
+  blocked_trust_gate, no candidate/coverage/execution records and null usage. No live
+  delivery, proof PASS or green CI was substituted for trust remediation.
+
+Final local suite: 136 tests on both macOS/Python 3.11.17 and 3.14.8, 135 pass and
+one actual-Windows probe skip. Fresh wheel/sdist first qualification passed on both
+interpreters; final artifact hashes and privacy/build receipts are retained locally.
+No 0.5 remote CI, PR/merge, release or empirical benefit is claimed.
+
+## 0.5 publication and RC qualification, 12 October 2026
+
+After the dated preparation above, the user authorized commits, ordinary pushes
+and five focused stacked PRs (#26–#30). Every original head passed push and PR
+CI across all six Linux/macOS/Windows × Python 3.11/3.14 cells. There were no
+0.5 failed CI runs in those observed attempts. Experimental metadata 0.5.0rc1
+followed that engineering gate; RC commit `756e9560ca5afd3373fcf881b4838d1880a89b21`
+passed the two local 136-test suites, both fresh wheel/sdist workflow smokes and
+[six-cell exact-head CI](https://github.com/grove/intentline/actions/runs/38275126589).
+The old preparation, adverse controls and empirical not_run receipts remain
+unchanged. Publication did not authorize main merge, tag/package release, model
+spending or outreach. Reviewers/independence and usefulness remain unverified.
+
+The publication whitespace check initially flagged deliberate CRLF in frozen
+source captures and Markdown hard breaks in the original attached plan. These
+exact bytes were preserved; the adjusted check treats CR as a line ending and
+excludes only that unchanged attachment's intentional hard breaks. No production
+validation, test or privacy gate was suppressed. Local Git metadata required
+escalated execution after the default sandbox refused index.lock; this did not
+use a GitHub checkout to bypass filesystem controls.
