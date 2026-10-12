@@ -73,3 +73,24 @@ cannot approve it. Report self_check for author-context work and keep authentica
 unverified. Never manufacture approval, auto-call adopt, or turn this audit into
 implementation/proof. Adverse disputes need legitimate resolution in a new exact
 revision; a later ready report cannot erase a retained adverse report.
+
+## Optional slicing audit
+
+Read the [slicing guide](../../docs/SLICING.md) and exact current parent plus
+recorded slice plan; NO SPLIT needs no mandatory audit. Check original promise →
+complete parent → qualified children/parent checks, and every child criterion →
+source-bound promise/necessary enabling condition. Challenge false split triggers,
+credible merges, lost obligations, invented features, scoped exceptions, exclusions,
+cross-cutting security/compatibility constraints, impossible prerequisites, missing
+parent integration owner and candidate-derived oracles. Missing harness is a gap,
+not automatically a product blocker. Name the smallest correction for each material
+finding and distinguish structural coverage from semantic assessment.
+
+An optional retained report uses the [slice audit schema](../../schema/slice-audit-v1.schema.json)
+and `slice audit-record --work WORK --report PRIVATE_JSON --json`. Bind the exact
+parent contract/source and slice-plan hashes, reported actor, offset timestamp and
+source-cited findings. Outcomes are NO_MATERIAL_FINDINGS, CHANGES_NEEDED or BLOCKED;
+none approves the plan. Author-context work is self_check; a different process or
+fresh chat never authenticates independent review. Authentication is unverified.
+A favorable report cannot erase an adverse report. Preserve disagreements and
+coverage limits. No implementation, approval, mandatory second model or proof run.
