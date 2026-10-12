@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "manifest": {
+      "const": "intentline.sources"
+    },
+    "schema_version": {
+      "const": 2
+    },
+    "root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "pattern": "^S[1-9][0-9]*$"
+          },
+          "role": {
+            "enum": [
+              "request",
+              "amendment",
+              "context"
+            ]
+          },
+          "relative_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "original_location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "identity": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "device": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "inode": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "device",
+              "inode"
+            ],
+            "additionalProperties": false
+          },
+          "declared_authority": {
+            "enum": [
+              "user_request",
+              "operator_asserted_amendment",
+              "unverified_context"
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2097152
+          },
+          "provenance": {
+            "enum": [
+              "current",
+              "frozen_historical"
+            ]
+          },
+          "predecessor_source_bundle_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "predecessor_source_id": {
+            "type": "string",
+            "pattern": "^S[1-9][0-9]*$"
+          }
+        },
+        "required": [
+          "source_id",
+          "role",
+          "relative_path",
+          "original_location",
+          "identity",
+          "declared_authority",
+          "sha256",
+          "bytes",
+          "provenance"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "predecessor": {
+      "type": "object",
+      "properties": {
+        "contract_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "contract_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_bundle_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "snapshot_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "contract_id",
+        "revision",
+        "contract_sha256",
+        "source_bundle_sha256",
+        "snapshot_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "ancestors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "manifest",
+    "schema_version",
+    "root",
+    "sources",
+    "predecessor",
+    "ancestors"
+  ],
+  "additionalProperties": false
+}

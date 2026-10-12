@@ -1,6 +1,7 @@
 """Read-only validation of external planning studies. Never executes an arm."""
 import argparse
 from collections import Counter
+from datetime import datetime
 import json
 import math
 from pathlib import Path
@@ -39,6 +40,26 @@ def snapshot(root, ref):
     raw, _ = read_file(path)
     require(sha(raw) == ref['sha256'], 'Snapshot identity mismatch')
     return raw
+
+
+def private_inputs(study):
+    """Compare content identities across the whole corpus, including renamed copies."""
+    private = {ref['sha256'] for task in study['tasks']
+               for ref in ([task['reference']] if task['reference'] is not None else [])
+               + [review['record'] for review in task['reviews']]}
+    visible = [arm['instructions'] for arm in study['arms'].values()]
+    visible += [ref for task in study['tasks'] for ref in [task['request']] + task['context']
+                + ([task['parent']] if 'parent' in task else [])]
+    require(not private.intersection(ref['sha256'] for ref in visible),
+            'Private reference/review content leaked into model-visible inputs')
+    return private
+
+
+def chronology(value, registered_at, review=False):
+    timestamp(value)
+    date, registered = datetime.fromisoformat(value), datetime.fromisoformat(registered_at)
+    require(date <= registered if review else date >= registered,
+            'Task review must precede registration' if review else 'Scoring must follow registration')
 
 
 def validate(study, root):
@@ -92,7 +113,7 @@ def validate(study, root):
         for review in task['reviews']:
             fields(review, ['actor', 'timestamp', 'conflicts', 'corrections', 'record'])
             string(review['actor'])
-            timestamp(review['timestamp'])
+            chronology(review['timestamp'], study['registered_at'], review=True)
             require(isinstance(review['conflicts'], list) and isinstance(review['corrections'], list), 'Review disclosures required')
             snapshot(root, review['record'])
             actors.append(review['actor'])
@@ -107,6 +128,7 @@ def validate(study, root):
                     and not any(r['conflicts'] for r in task['reviews']) and task['reference'] is not None,
                     'Eligible task needs distinct author/checker/two reviewers and reference')
         tasks[task['id']] = task
+    private_inputs(study)
     require(isinstance(study['assignments'], list), 'Assignments must include every arm, including failures')
     assignments, blind_ids = set(), set()
     for run in study['assignments']:
@@ -141,7 +163,7 @@ def validate(study, root):
             fields(score, ['blind_id', 'output_sha256', 'reviewer', 'timestamp', 'blinded', 'conflicts', 'dimensions', 'citations'])
             require(run['output'] is not None and score['output_sha256'] == run['output']['sha256']
                     and score['blind_id'] == run['blind_id'], 'Score subject mismatch')
-            timestamp(score['timestamp'])
+            chronology(score['timestamp'], study['registered_at'])
             string(score['reviewer'])
             require(score['blinded'] is True and score['conflicts'] == [], 'Unblinded/conflicted score')
             require(score['reviewer'] not in (task['author'], task['checker']) and score['reviewer'] not in scorers,
