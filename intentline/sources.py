@@ -38,6 +38,8 @@ def capture(source, contexts, root, stdin=None):
             raise IntentlineError('Original request is empty')
         source_id = f'S{index}'
         blobs[source_id] = data
+        if sum(len(b) for b in blobs.values()) > 8 * 1024 * 1024:
+            raise IntentlineError('Source bundle exceeds 8 MiB')
         rows.append({'source_id': source_id, 'role': 'request' if index == 1 else 'context',
                      'relative_path': relative, 'original_location': origin, 'identity': identity,
                      'declared_authority': 'user_request' if index == 1 else 'unverified_context',
@@ -68,6 +70,8 @@ def prepare(source, contexts, root, out, stdin=None):
                     if before != data:
                         raise IntentlineError('Interrupted or corrupted source capture', 3)
         if existing is None:
+            if freshness(manifest):
+                raise IntentlineError('Source changed before capture publication')
             work.write('source-manifest.json', encoded)
     return {'summary': 'Sources captured; no semantic requirements inferred',
             'work': str(absolute(out)), 'source_bundle_sha256': sha(encoded), 'sources': manifest['sources']}

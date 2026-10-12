@@ -12,7 +12,8 @@ MAX_FILE = 2 * 1024 * 1024
 
 def absolute(path):
     raw = os.fspath(path)
-    if not raw or '\x00' in raw or '\\' in raw or any(p in ('.', '..') for p in raw.split('/')):
+    if (not raw or any(ord(c) < 32 for c in raw) or '\\' in raw
+            or '//' in raw or any(p in ('.', '..') for p in raw.split('/'))):
         raise IntentlineError('Ambiguous, Windows-style, or traversing path')
     return Path(os.path.abspath(raw))
 

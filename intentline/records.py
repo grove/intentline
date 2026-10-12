@@ -1,6 +1,7 @@
 """Canonical JSON and immutable records."""
 import hashlib
 import json
+import math
 import re
 
 from .errors import IntentlineError
@@ -25,8 +26,13 @@ def parse(data):
         return obj
     def invalid(value):
         raise IntentlineError(f'Non-finite JSON number: {value}')
+    def finite(value):
+        parsed = float(value)
+        if not math.isfinite(parsed):
+            raise IntentlineError('Non-finite JSON number')
+        return parsed
     try:
-        return json.loads(text(data), object_pairs_hook=pairs, parse_constant=invalid)
+        return json.loads(text(data), object_pairs_hook=pairs, parse_constant=invalid, parse_float=finite)
     except (ValueError, RecursionError) as exc:
         raise IntentlineError('Malformed JSON') from exc
 
@@ -43,6 +49,10 @@ def fields(obj, required, optional=()):
 def string(value):
     if not isinstance(value, str) or not value.strip() or any(ord(c) < 32 and c not in '\n\r\t' for c in value):
         raise IntentlineError('Expected nonempty text without control characters')
+    try:
+        value.encode('utf-8')
+    except UnicodeEncodeError as exc:
+        raise IntentlineError('Malformed Unicode text') from exc
 
 
 def digest(value):
