@@ -1,0 +1,1 @@
+Produce a concise acceptance plan from the exact original request and permitted project sources. Preserve material promises, scope and independently falsifiable checks. Use the installed Intentline 0.2 planning skill.

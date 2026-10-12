@@ -1,0 +1,1 @@
+Produce a concise acceptance plan from the exact original request and permitted project sources. Preserve material promises, scope and independently falsifiable checks. Use P2P plan-acceptance skill alone; no delivery controller or publication.
