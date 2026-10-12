@@ -56,3 +56,22 @@ Initial external study: not_run. Missing: independently eligible task/checker/tw
 reviewer records, qualified isolated hosts and pinned execution models, explicit
 external inference budget/spending authorization. No ambient credentials used.
 The holdout remains unregistered and untouched; no holdout outcomes were read.
+
+## 0.3 external evaluation status
+
+Reuse the same three-arm protocol and rubric. `results/planning-03-not-run.json`
+and its distinct `cases/registration_03.json` bind the 0.3 arm instructions without
+rewriting the 0.2 registration. There are zero eligible tasks, zero assignments
+and zero completed, failed, refused, timed-out or interrupted real arm attempts.
+All unknown preparation/execution tokens, billing, latency and effort remain
+null; no efficacy estimate or superiority claim follows from offline tests.
+Task/checker/two-reviewer records, isolated hosts, matched pinned models, blind
+scorers and explicit inference authorization are unavailable. No holdout is
+registered, read or tuned. Public lifecycle fixtures are engineering regressions.
+
+`results/proofline-native-03-not-run.json` separately records live native delivery
+as not_run. Offline native admission uses the exact separately owned Proofline
+snapshot pinned in `tests/compatibility/native-identity.json`; shared validator
+ancestry is disclosed and does not imply independent review. A real run still
+needs actual caller adoption, spending/host authorization and candidate/review/
+proof/status receipts. No inference or external effect runs in this protocol or CI.

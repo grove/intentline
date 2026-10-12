@@ -68,3 +68,22 @@ enter native model-visible contexts. Only unauthenticated record/hash qualificat
 are included. A separately authorized consumer must validate its own exact
 contract/source-chain adoption, current clean product documents, permissions and
 candidate receipts. Export/inspection never invokes Proofline or paid inference.
+
+The separate [Proofline native consumer PR #6](https://github.com/grove/proofline/pull/6)
+is offline-qualified at `2285a434c1c33e73f8d89a6c3267abcaa37e9b95`, pending
+merge and live qualification. Its `inspect-intentline BUNDLE` command reads native
+inputs; `deliver --intentline-bundle BUNDLE --adopt-contract-sha256 CONTRACT_HASH
+--adopt-source-chain-sha256 CHAIN_HASH --adopt-bundle-sha256 BUNDLE_HASH
+--approval-reference ACTUAL_REFERENCE` requires the independently authorized
+caller's exact adoption. Never generate that caller assertion from Intentline's
+recorded actor, marker, hashes, approved label or exported template alone.
+Current binding documents must be regular tracked files matching the clean
+product HEAD; deleted, dirty or changed documents stop dispatch. The existing
+candidate isolation, review/proof, permission-map and final receipt controls remain
+Proofline-owned. Offline fixture roles/receipts do not establish live delivery.
+
+Intentline keeps native original/amendment files separate and declares indexed
+combined source displays non-verbatim. No predecessor adoption raw bytes or
+private approval-reference text enter native bundles or worker metadata. Its
+optional product-root check runs only when explicitly selected. Lore and P2P
+remain advisory optional peers; none is a required install or runtime import.

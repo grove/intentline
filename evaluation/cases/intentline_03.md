@@ -1,0 +1,1 @@
+Produce a concise acceptance plan from the exact original request and explicitly selected project sources. Preserve material promises, scope and independently falsifiable checks. Use the installed Intentline 0.3 planning skill. For a source amendment, preserve every original stream and account for every prior obligation; do not infer adoption from an old agreement.

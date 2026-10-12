@@ -1,5 +1,7 @@
 """Explicit build qualification, not imported by CLI or ordinary unit tests."""
 import argparse
+import copy
+import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -43,11 +45,14 @@ def main(argv=None):
                 for link in re.findall(r'\]\(([^)]+)\)',text):
                     assert (skill.parent/link).is_file(),f'Broken installed skill link: {link}'
             assert (data/'docs/SCORECARD_0.2.md').is_file()
-            for command in ('prepare','propose','check','render','status','audit-record','adopt','export'):
+            assert (data/'docs/SCORECARD_0.3.md').is_file()
+            for schema in ('acceptance-v1','source-bundle-v2','continuity-v1','native-handoff-v1'):
+                assert (data/('schema/'+schema+'.schema.json')).is_file()
+            for command in ('prepare','propose','check','render','status','review','approval-request','amend-source','reconcile','inspect-native','audit-record','adopt','export'):
                 run(python,'-B','-m','intentline',command,'--help',cwd=root,env=env)
             executable=prefix/('Scripts/intentline.exe' if os.name == 'nt' else 'bin/intentline')
             run(executable,'--help',cwd=root,env=env)
-            assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.2.0'
+            assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.3.0'
             # Installed manual workflow uses the shipped public example, not a live agent.
             source=data/'examples/username-validation/request.md';work=root/(kind+'-work')
             command=[str(python),'-B','-m','intentline','prepare','--source',str(source),'--root',str(data),'--out',str(work),'--json']
@@ -61,14 +66,33 @@ def main(argv=None):
                 draft['source_bundle_sha256']=captured['data']['source_bundle_sha256']
                 path=root/(kind+'-draft.json');path.write_text(json.dumps(draft),encoding='utf-8')
                 run(python,'-B','-m','intentline','propose','--work',work,'--draft',path,'--json',cwd=root,env=env)
-                for command in ('check','render','status'):
+                for command in ('check','render','status','review','approval-request'):
                     run(python,'-B','-m','intentline',command,'--work',work,'--json',cwd=root,env=env)
+                pointer=json.loads(run(python,'-B','-m','intentline','status','--work',work,'--json',cwd=root,env=env))['data']
+                amendment=root/(kind+'-amendment.md');amendment.write_text('Reject usernames longer than 32 characters\n',encoding='utf-8')
+                successor=root/(kind+'-successor')
+                captured=json.loads(run(python,'-B','-m','intentline','amend-source','--work',work,'--amendment',amendment,'--root',root,'--out',successor,'--expected-contract-sha256',pointer['contract_sha256'],'--json',cwd=root,env=env))['data']
+                draft['contract_id']+='-successor';draft['source_bundle_sha256']=captured['source_bundle_sha256']
+                row=copy.deepcopy(draft['requirements'][0]);row.update(id='R2',statement='Reject usernames longer than 32 characters',boundaries=['33 characters'],oracle='Validation error for 33-character username',planned_evidence='Call public validation interface with 33 characters',source_refs=[{'source_id':'S2','line_start':1,'line_end':1,'quote':'Reject usernames longer than 32 characters'}]);draft['requirements'].append(row)
+                def canonical(value):return (json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\n').encode('utf-8')
+                mapping={'record':'intentline.continuity','schema_version':1,'predecessor_contract_sha256':pointer['contract_sha256'],'predecessor_source_bundle_sha256':pointer['source_bundle_sha256'],'contract_sha256':hashlib.sha256(canonical(draft)).hexdigest(),'source_bundle_sha256':draft['source_bundle_sha256'],'mappings':[{'from':['R1'],'to':['R1'],'disposition':'preserved','reason':'Unchanged obligation; semantic audit remains external','source_refs':draft['requirements'][0]['source_refs']}],'added_requirement_ids':['R2'],'other_changes':[]}
+                path.write_bytes(canonical(draft));mapping_path=root/(kind+'-continuity.json');mapping_path.write_bytes(canonical(mapping))
+                run(python,'-B','-m','intentline','reconcile','--work',successor,'--draft',path,'--continuity',mapping_path,'--json',cwd=root,env=env)
+                for command in ('review','approval-request'):
+                    run(python,'-B','-m','intentline',command,'--work',successor,'--json',cwd=root,env=env)
+                native=root/(kind+'-native');run(python,'-B','-m','intentline','export','--work',successor,'--format','proofline-native','--out',native,'--json',cwd=root,env=env)
+                inspection=json.loads(run(python,'-B','-m','intentline','inspect-native','--bundle',native,'--json',cwd=root,env=env))['data']
+                assert inspection['authorization']=='not_established'
+                run(python,'-I','-B',native/'inspect_bundle.py',native,cwd=root,env=env)
             print(kind+': installed CLI, skill links, version, dependency and workflow controls pass')
         with tarfile.open(archives[0]) as archive:
             names=archive.getnames()
             assert any(n.endswith('/evaluation/planning_02.py') for n in names)
             assert any(n.endswith('/evaluation/baseline/identity.json') for n in names)
             assert any(n.endswith('/INTENTLINE_0.2_IMPLEMENTATION_PLAN.md') for n in names)
+            assert any(n.endswith('/INTENTLINE_0.3_IMPLEMENTATION_PLAN.md') for n in names)
+            assert any(n.endswith('/evaluation/baseline_02/pyproject.toml') for n in names)
+            assert any(n.endswith('/tests/compatibility/proofline_native_input.py') for n in names)
             for name in names:
                 path=PurePosixPath(name)
                 assert not path.is_absolute() and '..' not in path.parts

@@ -24,7 +24,8 @@ def references(row, blobs, manifest):
         if ref['quote'] not in (exact, exact.removesuffix('\n').removesuffix('\r')):
             raise IntentlineError('Quotation mismatch against saved source bytes')
     basis = row.get('basis')
-    if basis in ('request', 'necessary_invariant') and not any(roles[r['source_id']] in ('request', 'amendment') for r in row['source_refs']):
+    request_roles = ('request', 'amendment') if manifest['schema_version'] == 2 else ('request',)
+    if basis in ('request', 'necessary_invariant') and not any(roles[r['source_id']] in request_roles for r in row['source_refs']):
         raise IntentlineError('Requested/inferred outcomes require original-request support')
     if basis == 'project_constraint' and not any(roles[r['source_id']] == 'context' for r in row['source_refs']):
         raise IntentlineError('Project constraint requires selected project context')

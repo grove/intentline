@@ -51,6 +51,8 @@ class Review(WorkCase):
         r = review(self.work, 1)
         self.assertEqual([row['id'] for row in r['diff']['removed']], ['R1', 'R2'])
         self.assertEqual(r['diff']['semantic_equivalence'], 'not_established')
+        self.assertIn('Removed: R1 —',r['markdown'])
+        self.assertIn(r['predecessor']['contract_sha256'],r['markdown'])
         self.source.write_text('changed')
         self.assertEqual(review(self.work)['status'], 'STALE')
         with self.assertRaises(IntentlineError): review(self.work, 9)
