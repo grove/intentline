@@ -178,6 +178,9 @@ def inspect(work_path):
             flags.append('STALE')
         from .audits import readiness
         extra, counts = readiness(work, c, pointer, manifest, blobs)
+        stale = list(dict.fromkeys(stale + freshness(manifest)))
+        if stale and 'STALE' not in flags:
+            flags.append('STALE')
         flags.extend(extra)
         if stale or 'STALE' in flags:
             flags = [f for f in flags if f not in ('READY_FOR_ADOPTION', 'ADOPTED_ASSERTED')]

@@ -6,7 +6,7 @@ delivery report; validate with `python -B -m unittest discover -v` at that commi
 
 | Gate | Observed result |
 |---|---|
-| Offline unit/integration suite | 43 tests pass on local macOS Python 3.12.14 and 3.14.8; zero skips |
+| Offline unit/integration suite | 44 tests pass on local macOS Python 3.12.14 and 3.14.8; zero skips |
 | Source fidelity, quotation and immutable history | Tested positive/negative controls |
 | Staleness, source/approval identity, revision invalidation | Tested |
 | Cooperative contention, process termination, interrupted recovery | Tested locally |

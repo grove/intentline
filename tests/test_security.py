@@ -60,6 +60,22 @@ class Security(WorkCase):
             with self.assertRaisesRegex(IntentlineError, 'changed during inspection'):
                 inspect(self.work)
 
+    def test_source_changes_during_inspection_cannot_claim_freshness(self):
+        if not self.setup_work():
+            return
+        propose(self.work, self.draft_path)
+        original = Directory.read
+        def race(directory, name, *args, **kwargs):
+            result = original(directory, name, *args, **kwargs)
+            if name == '000001.json':
+                self.source.write_text('changed during contract inspection')
+            return result
+        with patch.object(Directory, 'read', race):
+            status, _ = inspect(self.work)
+        self.assertEqual(status['status'], 'STALE')
+        self.assertEqual(status['stale_sources'], ['S1'])
+        self.assertEqual(status['exit_code'], 2)
+
     def test_readonly_commands_zero_writes_exec_and_egress(self):
         if not self.setup_work():
             return
