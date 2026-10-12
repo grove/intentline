@@ -22,3 +22,8 @@ All three upstream main identities rechecked on 2026-10-12.
 Proofline contributors). Its surrounding imports/exception are offline test
 scaffolding. Full upstream file and function digests are retained in
 `tests/compatibility/identity.json`. This file is test-only, never a runtime import.
+
+`tests/compatibility/proofline_checkout.py` extracts exact `git_bytes`,
+`capture_base` and `validate_links` from the same pinned Apache-2.0 Proofline file.
+Function/file digests are in `tests/compatibility/checkout-identity.json`; its
+OfflineGit shim is test scaffolding, never a runtime peer or host/model emulator.

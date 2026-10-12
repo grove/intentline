@@ -27,8 +27,12 @@ partial interrupted outputs can be retried with the same identity. Changed expor
 need a new output directory; existing files are never overwritten. Output is private
 on supported POSIX filesystems. Export only reviewed data to a handoff location.
 
-Proofline compatibility is an offline test of the exact pinned direct parser
-function and exported input bytes. It is not a live delivery or model evaluation.
+Proofline compatibility includes exact pinned direct parser and clean tracked
+checkout admission controls, complete exported-input identities and downstream
+context race rejection. It is not live delivery or model evaluation. See the
+source distribution/checkout evaluation/PROOFLINE_HANDOFF.md for read-only
+inspection, an operator-run bounded smoke and immutable evidence recording.
+No paid execution occurs in normal commands or CI. Live qualification is not_run.
 The optional P2P approved-contract exporter is deferred: Intentline assertions
 are not authenticated P2P approval and the real approved-contract path has not
 been qualified end to end for Intentline.
