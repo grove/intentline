@@ -55,6 +55,38 @@ PR-04's explicit fallback, the engineering-prepared `not_run` decision stands;
 the empirical acceptance-planning question remains open. No product repair,
 new runner, release or measured advantage follows from this preparation.
 
+### Source-history completion and native-limit audit, 12 October 2026
+
+A further [dated sanitized receipt](../evaluation/results/ai-development-06-source-completion.json)
+records the unchanged, source-only frozen replacement screen: ten historical
+requests from each of three repositories. All thirty creation texts are now
+documentarily available: fourteen unedited bodies and sixteen explicit creation
+revisions. Fifty-three revision strings and thirty-seven adjacent diffs are
+retained privately. API history does not authenticate human authorship. A restored
+creation body changes one earlier rejection to blocked; the revised screen has
+thirteen rejected, seventeen blocked, zero passing and zero selected cases.
+
+Pre-task documentation can establish applicable accepted contracts without
+acceptance of a proposed repair strategy. Deeper review found scoped-contract
+and limited-context evidence-gap hypotheses; those remain unqualified preparation,
+with source relevance, criticality and independent critique outstanding. No local
+missing file is treated as proof of an unavailable harness. Original cohorts,
+controls, disagreements and rejected retrievals remain immutable.
+
+The pinned native runtime audit distinguishes per-operation retry limits from
+successful tool continuations, authentication recovery, prewarm and compaction.
+Its post-response usage budgets can overshoot and skip accounting when usage is
+absent. No existing hard provider-call/spend facility or full model-role host was
+qualified. No experiment inference was dispatched. Source qualification also
+requires actual isolated preparation-role records and a bounded grant; shared
+research cannot be promoted by completing documentary acquisition alone.
+
+Engineering work is complete under the plan's prepared `not_run` fallback.
+The measured comparison is still incomplete: source/control qualification,
+role-host and enforced-limit witnesses, explicit inference authority, calibration,
+then the first-task smoke gate and nine planning attempts remain. Formal human
+independence remains unverified; release and new publication remain separate.
+
 The sections below retain earlier dated preparation observations, including
 their original main, draft-publication and pending-validation states.
 

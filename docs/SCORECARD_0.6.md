@@ -47,6 +47,22 @@ resolution (or a newly frozen source-only replacement cohort), actual complete
 role-host qualification, enforced limits, explicit bounded inference authority,
 calibration and the nine-arm-attempt comparison. Versioned release is separate.
 
+Further source-history completion is captured in a separate
+[sanitized receipt](../evaluation/results/ai-development-06-source-completion.json).
+The frozen thirty-case replacement population is unchanged. All thirty creation
+texts are documentarily recovered; the corrected screen has thirteen rejected,
+seventeen blocked, zero passing and zero selected cases. Historical contracts and
+limited-context gap hypotheses advance preparation without qualifying controls.
+The full pinned runtime audit confirms retry settings do not cap successful
+continuations and post-response usage budgets do not establish hard provider
+request/spend limits. No qualified task, host, judge or measured output follows.
+
+**Remaining 0.6 work is empirical:** source/control qualification, actual host and
+limit witnesses, explicit bounded inference authorization, calibration and the
+three-task/three-arm comparison. Engineering is complete under the permitted
+prepared `not_run` fallback. Formal human evaluation and a versioned release are
+separate, unperformed work; usage and billed costs remain unknown.
+
 The observations below are preserved dated preparation records. Their earlier
 main, draft-PR, test-count and pending-CI statements describe those earlier stages.
 
