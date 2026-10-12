@@ -59,6 +59,8 @@ def parser():
 
 
 def execute(args):
+    from .paths import capability
+    capability()
     if args.command == "inspect-native":
         from .native_handoff import inspect_native
         return inspect_native(args.bundle)
