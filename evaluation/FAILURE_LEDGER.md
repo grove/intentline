@@ -66,3 +66,27 @@ and failed both Windows cells. The new skill test used the Windows default text
 encoding rather than UTF-8, misreading the A→B→A instruction. Repair: explicitly
 read the UTF-8 skill in that test; its required instruction and source bytes are
 unchanged. The narrow actual Windows API probe passed in both failed jobs.
+
+0.4 integration packaging setup: the ambient 3.14 environment has no build CLI,
+and sandboxed PyPI DNS prevented installing it in the temporary build environment.
+Packaging tools are installed only in a task-specific temporary environment using
+host network permission; Intentline's runtime dependencies remain empty.
+
+Integration adversarial publication checks additionally exercise changes during
+the final plan/audit pointer write. Publication now rechecks after writing and
+restores the prior pointer (or removes only its newly published marker) on observed
+failure, preserving immutable orphan bytes for safe retry. Full contribution
+roles also retain every original source citation; multi-R contributions require
+actual quoted support for each attributed R. These are engineering controls, not
+empirical efficacy or independent review evidence.
+
+0.4 PR-05 initial head `9fa30791329fe049933e48d1d92cf3c4de1b877e`:
+CI runs 38256351464 and 38256357389 passed both Windows cells and failed
+all four POSIX cells at the old `test_negative_coverage_mutants` reorder case.
+The integration code normalized equivalent collection reordering, as required by
+the plan, but its updated coverage test and SLICING documentation had been omitted
+from staging. The local 120-test suite and tested sdist included these changes;
+the initial Git commit had only 119 tests. Repair commits those two already-tested
+files, including the stronger positive assertion that equivalent reordering reuses
+exactly the same digest and appends no history. All genuinely malformed/missing/
+cyclic/unsupported allocation mutants continue to refuse; no safety gate is removed.

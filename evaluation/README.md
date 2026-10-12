@@ -75,3 +75,37 @@ snapshot pinned in `tests/compatibility/native-identity.json`; shared validator
 ancestry is disclosed and does not imply independent review. A real run still
 needs actual caller adoption, spending/host authorization and candidate/review/
 proof/status receipts. No inference or external effect runs in this protocol or CI.
+
+## Separately registered 0.4 slicing extension
+
+The original planning_02 evaluator, registrations, receipts and rubric are unchanged.
+`slicing_04.py` adapts that evaluator's record checks and reuses its unchanged secure
+snapshot, usage and interval primitives. It never executes an arm. New arms are
+ordinary agent decomposition, Intentline slice, and P2P slice-contract alone;
+no delivery controller. It requires the same exact parent acceptance/source-chain
+payload for all arms, alongside original source documents. A task's `parent`
+snapshot stores {envelope, files_utf8}, the data of a complete native parent bundle;
+its source streams must match request followed by context snapshots exactly.
+The payload is inspected as advisory data; its scripts are never executed.
+
+```
+python -B -m evaluation.slicing_04 validate PRIVATE_STUDY.json --private-root PRIVATE_ROOT
+python -B -m evaluation.slicing_04 report evaluation/results/slicing-04-not-run.json --private-root evaluation
+```
+
+Register 6–9 genuine pinned licensed tasks from at least three projects before
+execution, with separate author/checker and two additional independent task/source/
+gold reviews. Bind matched model/version/reasoning/tools/budgets and attributable
+preparation. Keep private gold, reviews, outputs and blind scores outside tracked
+files. Retain failed/refused/timeout/interrupted/not_run assignments and disagreements;
+unknown usage/effort/billing stays null. External isolation/identity must be actually
+established; names, hashes and this validator do not authenticate independence.
+Use the separate [slicing rubric](rubric_04.md); do not modify the registered
+three-arm planning comparison or tune a holdout. No model spending is authorized.
+
+The public 0.4 development registration has zero tasks and assignments; it is
+readiness evidence only. It preregisters arm instructions and protocol without
+claiming a genuine pilot exists. New real tasks/settings require a separate frozen
+pilot registration before any run. The dated not_run receipt names missing humans,
+qualified hosts, pinned models, budgets and blind scoring. No measured benefit,
+actual acceptance, cost savings or independent review is claimed.

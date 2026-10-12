@@ -78,3 +78,16 @@ Example mapping: `{"from":["R1"],"to":["R1"],"disposition":"changed",
 "line_start":1,"line_end":1,"quote":"Disable retries by default"}]}`.
 The full schema is [continuity-v1](../schema/continuity-v1.schema.json); original
 schema-1 records and canonical bytes are not migrated.
+
+## Separate advisory allocation, schema 1
+
+Intentline 0.4 adds intentline.slicing, intentline.slice-audit and
+intentline.slice-handoff schemas 1. Acceptance schema 1, source manifests 1/2,
+continuity, audit/adoption and canonical original bytes remain unchanged. A plan
+never rewrites its parent. Exact source/contract/chain/continuity hashes bind every
+recommendation; same-parent replacement explicitly supersedes retained prior bytes.
+NO SPLIT has no children. A split's structural map covers every parent R in both
+directions and names complete parent final ownership, but meaning remains unverified.
+Children inherit every constraint/exclusion and are advisory contributions, not
+separately approved agreements. Gaps remain gaps; negative cases and integration
+never disappear when children later succeed. See [normative fields/limits](SLICING.md).

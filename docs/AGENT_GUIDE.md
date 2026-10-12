@@ -68,3 +68,15 @@ When exact chat bytes are unavailable, provide an exact amendment file; the agen
 must disclose non-verbatim provenance and incomplete persistence. Planning/review
 never grants adoption or delivery authority. Only explicitly requested recording
 of an actual external adoption uses adopt. Independent audits remain optional.
+
+## One-request optional slicing
+
+Invoke the packaged intentline-slice skill for a current parent. It handles JSON,
+source citations, exact identities and read-only preview internally. NO SPLIT is
+the preferred successful result for coherent work. Save only on an explicit local
+record request; there is no mandatory audit/model or automatic child creation.
+For a justified split, preserve the whole original parent, flat qualified S#:C#
+contributions, conservative constraint/exclusion inheritance, observable prerequisite
+outcomes and a named assembled-parent verifier. Optional audit reports remain
+actor-unverified; self-context work is self_check. Parent adoption never grants
+child acceptance. Follow [slicing](SLICING.md) and [handoff limits](SLICING_INTEGRATIONS.md).

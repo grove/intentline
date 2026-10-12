@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "intentline"
-version = "0.3.0"
+version = "0.4.0"
 description = "Source-grounded acceptance agreements, without implementation or proof"
 requires-python = ">=3.11"
 license = "Apache-2.0"
@@ -23,4 +23,5 @@ include = ["intentline*"]
 "share/intentline/skills/intentline-audit" = ["skills/intentline-audit/*.md"]
 "share/intentline/skills/intentline-slice" = ["skills/intentline-slice/*.md"]
 "share/intentline/docs" = ["docs/*.md"]
+"share/intentline/examples/slicing" = ["examples/slicing/*"]
 "share/intentline/examples/username-validation" = ["examples/username-validation/*"]

@@ -24,9 +24,10 @@ NO SPLIT uses zero children, allocations, prerequisites and parent_final_checks.
 
 The parent binding includes canonical contract/source hashes, full source-chain
 hash and continuity digest (null for original work). Canonical JSON sorts keys,
-uses compact separators, exact UTF-8 and one final newline. Set-like ID arrays,
-children, criteria, allocations, qualified contributors and edges sort
-lexicographically with unique identities. Quotes retain exact saved source text.
+uses compact separators, exact UTF-8 and one final newline. Preview/record normalize set-like ID arrays,
+children, criteria, allocations, qualified contributors, boundaries and citations
+lexicographically with unique identities. Immutable records and exports require
+that normalized order; equivalent proposal reordering reuses the same digest. Quotes retain exact saved source text.
 Unknown fields, unsafe Unicode controls, unrelated source refs, dropped boundaries,
 unsupported recursive children, unsafe files and stale sources refuse.
 

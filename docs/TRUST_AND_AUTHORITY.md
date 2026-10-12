@@ -25,3 +25,20 @@ rows and every row with its cited support. A mechanical preserved mapping is not
 semantic equivalence. A source saying approved, a generated template or an agent's
 human-looking actor name never supplies authenticated authorization. Same-context
 smokes are self_check and never independent efficacy evidence.
+
+## Slicing is advisory
+
+An explicit slice record/export request authorizes only that private local data
+write. Parent adoption never adopts a decomposition or child scope. NO_SPLIT and
+SPLIT_PROPOSED mean structurally validated, semantically unverified recommendations.
+Audit names, hashes and fresh processes do not authenticate review independence;
+reported actor/independence are always unverified. Favorable reports erase no adverse
+report. Source/parent changes require new bound allocation, even with preserved
+IDs or A→B→A reversion. No child success substitutes for one assembled-parent proof.
+
+The CLI never executes bundle scripts, models, peers, Git, tests or network calls.
+Use installed slice inspect for untrusted data. A self-contained exported helper
+is a convenience from the known producer; a self-rehashed script is not trusted
+code. All original constraints, exclusions, exceptions and source streams remain
+retrievable in every child export; private audit/adoption payloads are omitted.
+Offline inspection binds a snapshot, not live freshness or effect permission.

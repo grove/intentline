@@ -87,3 +87,12 @@ combined source displays non-verbatim. No predecessor adoption raw bytes or
 private approval-reference text enter native bundles or worker metadata. Its
 optional product-root check runs only when explicitly selected. Lore and P2P
 remain advisory optional peers; none is a required install or runtime import.
+
+## Optional 0.4 advisory children
+
+[Portable slice handoffs](SLICING_INTEGRATIONS.md) carry the complete parent and
+source chain, whole allocation and integration obligations. They are data for
+humans/existing agents. Existing Proofline standalone direct/native paths reject
+these bundles; no child adoption adapter or live qualification is supplied.
+Neither parent adoption nor a structural plan permits implementation or dispatch.
+Lore, Proofline and P2P remain optional, with no runtime dependency or controller.
