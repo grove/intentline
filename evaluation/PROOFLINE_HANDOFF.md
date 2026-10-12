@@ -74,3 +74,9 @@ checkout (unapproved-contract zero-dispatch admission, unique direct IDs, exact
 tracked byte/mode/export-ignore capture). Its native inspect_contract rejected
 the exported Intentline advisory brief: “Unsupported contract: expected the
 current P2P Markdown heading”. No consumer model path was invoked.
+
+0.3 native bundles add a portable inspector and full successor continuity, separate
+from the pinned direct compatibility path above. Native offline inspection is
+not live delivery, authentication or independent proof. Native consumer qualification
+belongs to a separate Proofline PR. No task-specific paid inference grant exists;
+the live gate remains not_run. Never auto-degrade a failed native request to direct.

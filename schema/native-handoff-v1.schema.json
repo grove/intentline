@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "record": {
+      "const": "intentline.native-handoff"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "authorization": {
+      "const": "not_established"
+    },
+    "consumer_execution": {
+      "const": "not_observed"
+    },
+    "contract_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999999
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_bundle_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_chain_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "continuity_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requirement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^R[1-9][0-9]*$"
+      },
+      "minItems": 1
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "authentication": {
+          "const": "unverified"
+        },
+        "audits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "outcome": {
+                "const": "READY_FOR_ADOPTION"
+              },
+              "reported_independence": {
+                "enum": [
+                  "self_check",
+                  "unverified_independence",
+                  "independent"
+                ]
+              },
+              "authentication": {
+                "const": "unverified"
+              }
+            },
+            "required": [
+              "sha256",
+              "outcome",
+              "reported_independence",
+              "authentication"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "adoptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "approval_file_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "assertion": {
+                "const": "operator_asserted"
+              },
+              "authentication": {
+                "const": "unverified"
+              }
+            },
+            "required": [
+              "sha256",
+              "approval_file_sha256",
+              "assertion",
+              "authentication"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "authentication",
+        "audits",
+        "adoptions"
+      ],
+      "additionalProperties": false
+    },
+    "files": {
+      "type": "object",
+      "minProperties": 5,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "propertyNames": {
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]*$"
+      }
+    }
+  },
+  "required": [
+    "record",
+    "schema_version",
+    "authorization",
+    "consumer_execution",
+    "contract_id",
+    "revision",
+    "contract_sha256",
+    "source_bundle_sha256",
+    "source_chain_sha256",
+    "continuity_sha256",
+    "requirement_ids",
+    "provenance",
+    "files"
+  ],
+  "additionalProperties": false
+}

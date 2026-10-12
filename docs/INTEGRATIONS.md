@@ -44,3 +44,27 @@ new prepare flag, peer installation, inference or registry access. The small
 inspector reports envelope/identity limits, never binding constraints. Use actual
 captured originals for applicable policy and preserve all report qualifications.
 No-Lore planning works unchanged; planning benefit is unmeasured.
+
+Native handoff (experimental, offline-qualified): `export --work WORK --format
+proofline-native --out BUNDLE [--product-root PRODUCT]` exports a ready input,
+never authority. Complete fresh planned evidence, settled decisions and undisputed
+current assertions are required, but adoption may be absent. The final
+native-manifest.json binds every file, the full current history, original/amended
+sources, all necessary ancestors and continuity. Current binding context needs
+an exact selected product root. Successors cannot silently fall back to direct
+briefs; markdown/JSON exports preserve their archives too.
+
+`inspect-native --bundle BUNDLE --json` validates captured identities without
+following historical private origins, writing or executing anything. The exported
+`python -I -B BUNDLE/inspect_bundle.py BUNDLE` inspector uses only the standard
+library and needs no installed Intentline. POSIX no-follow capability is required.
+It reports authorization not_established and consumer_execution not_observed.
+The native brief is a deterministic unapproved display of complete canonical JSON.
+All file/metadata records are bounded to 2 MiB; total portable payload is bounded
+at 44 MiB. Excess refuses without truncation.
+
+Raw audit/approval payloads, actor names, approval paths and references do not
+enter native model-visible contexts. Only unauthenticated record/hash qualifications
+are included. A separately authorized consumer must validate its own exact
+contract/source-chain adoption, current clean product documents, permissions and
+candidate receipts. Export/inspection never invokes Proofline or paid inference.

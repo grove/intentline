@@ -65,3 +65,10 @@ be explicitly selected. Original and amendment bytes remain separate.
 contract and strict continuity schema 1, publishing current.json last under one
 writer lock. `propose` still handles later same-source revisions. Successors need
 new external adoption; old assertions never transfer, including A→B→A reversion.
+
+`export --format proofline-native` creates an experimental ready native input with
+full contract/source/continuity history and protected provenance hashes. It is
+inspectable without adoption; its authorization is always not_established.
+`inspect-native --bundle DIR` is read-only, offline and requires no peer. A ready
+native plan cannot retain evidence gaps; advisory direct export for supported
+original work keeps its existing gap semantics. Successor direct handoff refuses.
