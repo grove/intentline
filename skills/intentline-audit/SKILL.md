@@ -7,7 +7,7 @@ Read [contract](../../docs/CONTRACT.md) and [authority](../../docs/TRUST_AND_AUT
 Use a fresh independent host agent context when the host can provide one.
 Otherwise report self_check (author context) or unverified_independence.
 Actor names, processes, hashes and agent claims do not prove independence.
-Authentication is always unverified in 0.1, even for reported independent work;
+Authentication is always unverified in 0.2, even for reported independent work;
 no authenticated host-attestation format is qualified in this release.
 
 Read the exact current revision, original byte-preserved request, manifest,
@@ -38,3 +38,17 @@ Bind the report with `python -B -m intentline audit-record --work WORK
 identity only. Return findings, coverage limits, exact subject hashes and next
 correction/decision. Never invoke adopt, manufacture approval evidence, implement,
 publish, or claim real independence that the host has not established.
+
+For each material source promise, identify its row (or omission); for each row and
+exclusion, identify its support (or unjustified addition). Check the complete
+source envelope even when the draft's own coverage text sounds convincing.
+An omission finding may have empty requirement_ids but still quotes the original
+source. In a weak-oracle finding, name the wrong behavior that would escape the
+proposed check and the smallest independent expected observation. Keep parent
+rules and scoped exceptions together, proposals/reports/rejected work nonbinding,
+and boundary variations consolidated. Missing observation is a gap; only an
+unresolved promised outcome or authority choice warrants a decision blocker.
+Do not edit the plan or require a second exhaustive pass after the material
+finding is resolved. Self-context work is self_check; separate contexts remain
+unverified_independence unless external evidence establishes identity/isolation.
+The record's authentication remains unverified; no attestation format is qualified.

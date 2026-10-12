@@ -102,3 +102,16 @@ An optional consequential audit uses the separately invoked audit skill. No
 automatic adopt, audit agent, export or delivery. Parent/child lifecycle, runtime
 prerequisite imports and controller delivery remain unsupported; an explicitly
 supplied parent constraint may be ordinary context with that limitation disclosed.
+
+## Concrete traps (development probes, not efficacy evidence)
+
+Before choosing a check, state the independent expected answer and one plausible
+counterexample: calling a candidate again to compute its own expectation is a
+weak oracle. Trace explicit exclusions as well as every material promise;
+nonbinding advice cannot quietly become acceptance. Keep a general accepted rule,
+its narrow exception and a later unapproved proposal distinct in the same context.
+A reported historical success or inspected declaration is not runtime proof.
+Related empty/spaces/tabs variations belong in one outcome's boundaries rather
+than overlapping R rows. A settled outcome without an observation harness is a
+gap, not an outcome question. These are the authored probes in the release's
+failure ledger, not a claim of measured prompt improvement.
