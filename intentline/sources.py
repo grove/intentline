@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 
 from .errors import IntentlineError
-from .paths import Directory, MAX_FILE, absolute, read_file, text
+from .paths import Directory, MAX_FILE, absolute, capability, read_file, text
 from .records import canonical, digest, fields, integer, parse, sha, string
 
 
@@ -48,6 +48,7 @@ def capture(source, contexts, root, stdin=None):
 
 
 def prepare(source, contexts, root, out, stdin=None):
+    capability()
     manifest, blobs = capture(source, contexts, root, stdin)
     with Directory(out, create=True) as work, work.lock():
         try:
