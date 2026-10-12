@@ -66,3 +66,16 @@ and failed both Windows cells. The new skill test used the Windows default text
 encoding rather than UTF-8, misreading the A→B→A instruction. Repair: explicitly
 read the UTF-8 skill in that test; its required instruction and source bytes are
 unchanged. The narrow actual Windows API probe passed in both failed jobs.
+
+0.4 integration packaging setup: the ambient 3.14 environment has no build CLI,
+and sandboxed PyPI DNS prevented installing it in the temporary build environment.
+Packaging tools are installed only in a task-specific temporary environment using
+host network permission; Intentline's runtime dependencies remain empty.
+
+Integration adversarial publication checks additionally exercise changes during
+the final plan/audit pointer write. Publication now rechecks after writing and
+restores the prior pointer (or removes only its newly published marker) on observed
+failure, preserving immutable orphan bytes for safe retry. Full contribution
+roles also retain every original source citation; multi-R contributions require
+actual quoted support for each attributed R. These are engineering controls, not
+empirical efficacy or independent review evidence.

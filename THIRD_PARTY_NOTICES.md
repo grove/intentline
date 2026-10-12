@@ -33,3 +33,18 @@ from grove/proofline 2285a434c1c33e73f8d89a6c3267abcaa37e9b95, checks/intentline
 Apache-2.0 (Copyright 2026 Proofline contributors). Its pinned identity records
 shared producer-validator ancestry; no independent review is claimed. The snapshot
 is not installed/imported by the Intentline runtime and performs no inference.
+
+0.4 selectively adapts NO SPLIT, outcome sizing, bidirectional allocation, credible
+merges, observable prerequisites and assembled-parent ownership from Promise to
+Proof `skills/productivity/slice-contract/SKILL.md`, Apache-2.0, copyright its
+contributors, at `17f3deb982a8224f71b12bda74be6b24d86571e4`. Adapted files:
+`skills/intentline-slice/SKILL.md`, the optional slicing audit section in
+`skills/intentline-audit/SKILL.md`, `docs/SLICING.md`, `docs/SLICING_INTEGRATIONS.md`
+and the advisory allocation design. No issue topology, delivery orchestration,
+tracker controller or runtime code is imported. The referenced public skill SHA-256
+is `de3c8238c0f19f462853876ec0d8577aeb9f0a8b79ef9df76420f94020014976`.
+
+Proofline main `5ab3ff193f3d5d665645d704d9d6d7e410865b91` was rechecked for 0.4. Its
+`checks/intentline_input.py` bytes match the retained 0.3 test snapshot exactly;
+that snapshot remains test-only. This byte comparison and offline negative
+consumer tests do not qualify child delivery or constitute independent review.

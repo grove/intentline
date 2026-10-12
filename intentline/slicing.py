@@ -1,4 +1,5 @@
 """Pure structural slicing validation; also usable by a standalone inspector."""
+import copy
 import re
 import unicodedata
 
@@ -92,6 +93,7 @@ def parent_identity(contract, manifest, continuity_sha256=None):
 
 def check(plan, contract, manifest, blobs, parent):
     validate(plan, SLICING)
+    require(plan == normalize(plan), 'Noncanonical slicing collection order')
     require(plan['parent'] == parent, 'Slicing parent identity mismatch')
     references(plan['rationale'], manifest, blobs)
     if plan['decision'] == 'no_split':
@@ -132,7 +134,8 @@ def check(plan, contract, manifest, blobs, parent):
             if ref['role'] == 'full':
                 parent_row = requirements[rid]
                 require(children[key[0]]['kind'] == 'outcome' and row['parent_requirement_ids'] == [rid]
-                        and row['contribution'] == parent_row['statement'] and row['oracle'] == parent_row['oracle'],
+                        and row['contribution'] == parent_row['statement'] and row['oracle'] == parent_row['oracle']
+                        and {canonical(r) for r in row['source_refs']} == {canonical(r) for r in parent_row['source_refs']},
                         'Full mapping requires the complete original outcome and oracle; use partial/preservation for fragments')
             if children[key[0]]['kind'] == 'enabling':
                 require(ref['role'] == 'preservation', 'Enabling steps cannot count as fulfilled product outcomes')
@@ -176,4 +179,31 @@ def supported(row, requirements, manifest, blobs):
     require(set(ids) <= requirements.keys(), 'Invented parent obligation')
     references(row, manifest, blobs)
     allowed = {canonical(ref) for rid in ids for ref in requirements[rid]['source_refs']}
-    require(all(canonical(ref) in allowed for ref in row['source_refs']), 'Unrelated source support for child/parent check')
+    quoted = {canonical(ref) for ref in row['source_refs']}
+    require(quoted <= allowed, 'Unrelated source support for child/parent check')
+    require(all(quoted & {canonical(ref) for ref in requirements[rid]['source_refs']} for rid in ids),
+            'Every attributed parent obligation needs actual source support')
+
+
+def normalize(plan):
+    """Canonicalize unordered proposal collections; never alter binding prose."""
+    validate(plan,SLICING)
+    result=copy.deepcopy(plan)
+    result['children'].sort(key=lambda r:r['id'])
+    result['allocations'].sort(key=lambda r:r['parent_requirement_id'])
+    result['prerequisites'].sort(key=lambda r:(r['child_id'],r['requires_child_id']))
+    result['parent_final_checks'].sort(key=lambda r:r['id'])
+    cited=[result['rationale']]+result['prerequisites']+result['parent_final_checks']
+    for child in result['children']:
+        child['requirements'].sort(key=lambda r:r['id'])
+        cited.extend(child['requirements'])
+        for row in child['requirements']:row['boundaries'].sort()
+    for row in cited:
+        refs=row['source_refs']
+        require(len({canonical(r) for r in refs})==len(refs),'Duplicate source citation')
+        refs.sort(key=canonical)
+        if 'parent_requirement_ids' in row:row['parent_requirement_ids'].sort()
+    for row in result['allocations']:
+        row['parent_check_ids'].sort()
+        row['contributors'].sort(key=lambda r:(r['child_id'],r['criterion_id']))
+    return result

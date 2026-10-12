@@ -77,3 +77,24 @@ Windows 0.3 secure storage remains NO-GO: every record operation returns exit 3
 before filesystem activity; help/install do not qualify storage. The actual Win32
 handle probe in CI is a narrow feasibility observation only. See
 [feasibility and missing security gates](WINDOWS_STORAGE_FEASIBILITY.md).
+
+## Optional slice commands (0.4)
+
+| Command | Required options | Effect |
+|---|---|---|
+| slice preview | --work WORK --proposal FILE | Read-only structural allocation check |
+| slice record | --work WORK --proposal FILE --expected-parent-sha256 HASH | Explicit immutable advisory recommendation |
+| slice status / render | --work WORK | Read-only applicability/history/disputes |
+| slice audit-record | --work WORK --report FILE | Optional unverified report capture |
+| slice impact | --work OLD --successor-work NEW | Read-only verified lineage comparison |
+| slice export | --work WORK --child S1 --out PRIVATE_DIR | Explicit data-only child snapshot |
+| slice inspect | --bundle DIR | Offline data inspection; no bundle script execution |
+
+`--json` works before slice, between slice/action or after the action. The existing
+result schema 1 and exits are unchanged. States are NO_PLAN, NO_SPLIT, SPLIT_PROPOSED,
+STALE_PARENT or BLOCKED, never approval/proof/consumer readiness. Preview includes
+the advisory candidate. Status exposes exact current and recorded parent identity,
+plan digest, history_count, freshness and retained unverified disputes. Render
+escapes source data in an indented JSON view. See [schema and bounds](SLICING.md).
+An old work directory cannot discover future successors automatically; select the
+current parent explicitly and use impact to compare archived lineage.

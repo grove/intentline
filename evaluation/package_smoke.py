@@ -39,20 +39,23 @@ def main(argv=None):
             python=prefix/('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
             run(python,'-m','pip','install','--no-deps',artifact,cwd=root,env=env)
             data=Path(run(python,'-B','-c','import sysconfig; print(sysconfig.get_path("data"))',cwd=root,env=env).strip())/'share/intentline'
-            for name in ('intentline-plan','intentline-audit'):
+            for name in ('intentline-plan','intentline-audit','intentline-slice'):
                 skill=data/'skills'/name/'SKILL.md'
                 text=skill.read_text(encoding='utf-8')
                 for link in re.findall(r'\]\(([^)]+)\)',text):
                     assert (skill.parent/link).is_file(),f'Broken installed skill link: {link}'
             assert (data/'docs/SCORECARD_0.2.md').is_file()
             assert (data/'docs/SCORECARD_0.3.md').is_file()
-            for schema in ('acceptance-v1','source-bundle-v2','continuity-v1','native-handoff-v1'):
+            assert (data/'docs/SCORECARD_0.4.md').is_file()
+            for operation in ('preview','record','status','render','impact','audit-record','export','inspect'):
+                run(python,'-B','-m','intentline','slice',operation,'--help',cwd=root,env=env)
+            for schema in ('acceptance-v1','source-bundle-v2','continuity-v1','native-handoff-v1','slicing-v1','slice-audit-v1','slice-handoff-v1'):
                 assert (data/('schema/'+schema+'.schema.json')).is_file()
             for command in ('prepare','propose','check','render','status','review','approval-request','amend-source','reconcile','inspect-native','audit-record','adopt','export'):
                 run(python,'-B','-m','intentline',command,'--help',cwd=root,env=env)
             executable=prefix/('Scripts/intentline.exe' if os.name == 'nt' else 'bin/intentline')
             run(executable,'--help',cwd=root,env=env)
-            assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.3.0'
+            assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.4.0'
             # Installed manual workflow uses the shipped public example, not a live agent.
             source=data/'examples/username-validation/request.md';work=root/(kind+'-work')
             command=[str(python),'-B','-m','intentline','prepare','--source',str(source),'--root',str(data),'--out',str(work),'--json']
@@ -84,6 +87,26 @@ def main(argv=None):
                 inspection=json.loads(run(python,'-B','-m','intentline','inspect-native','--bundle',native,'--json',cwd=root,env=env))['data']
                 assert inspection['authorization']=='not_established'
                 run(python,'-I','-B',native/'inspect_bundle.py',native,cwd=root,env=env)
+                # Both installed slicing routes use only public authored sources.
+                example=data/'examples/slicing';slice_work=root/(kind+'-slicing')
+                captured=json.loads(run(python,'-B','-m','intentline','prepare','--source',example/'request.md','--root',data,'--out',slice_work,'--json',cwd=root,env=env))['data']
+                contract=json.loads((example/'good.template.json').read_bytes());contract['source_bundle_sha256']=captured['source_bundle_sha256']
+                contract_path=root/(kind+'-slice-parent.json');contract_path.write_bytes(canonical(contract))
+                run(python,'-B','-m','intentline','propose','--work',slice_work,'--draft',contract_path,'--json',cwd=root,env=env)
+                for route in ('no-split','split'):
+                    plan=json.loads((example/(route+'.template.json')).read_bytes())
+                    state=json.loads(run(python,'-B','-m','intentline','slice','status','--work',slice_work,'--json',cwd=root,env=env))['data']
+                    plan['parent']=state['current_parent']
+                    plan['supersedes_sha256']=state['plan_sha256']
+                    candidate=root/(kind+'-'+route+'.json');candidate.write_bytes(canonical(plan))
+                    run(python,'-B','-m','intentline','slice','preview','--work',slice_work,'--proposal',candidate,'--json',cwd=root,env=env)
+                    run(python,'-B','-m','intentline','slice','record','--work',slice_work,'--proposal',candidate,'--expected-parent-sha256',plan['parent']['contract_sha256'],'--json',cwd=root,env=env)
+                    run(python,'-B','-m','intentline','slice','render','--work',slice_work,'--json',cwd=root,env=env)
+                child=root/(kind+'-child');run(python,'-B','-m','intentline','slice','export','--work',slice_work,'--child','S1','--out',child,'--json',cwd=root,env=env)
+                receipt=json.loads(run(python,'-B','-m','intentline','slice','inspect','--bundle',child,'--json',cwd=root,env=env))['data']
+                assert receipt['child_acceptance']=='not_established'
+                run(python,'-I','-B',child/'inspect_child.py',child,cwd=root,env=env)
+
             print(kind+': installed CLI, skill links, version, dependency and workflow controls pass')
         with tarfile.open(archives[0]) as archive:
             names=archive.getnames()
@@ -93,6 +116,10 @@ def main(argv=None):
             assert any(n.endswith('/INTENTLINE_0.3_IMPLEMENTATION_PLAN.md') for n in names)
             assert any(n.endswith('/evaluation/baseline_02/pyproject.toml') for n in names)
             assert any(n.endswith('/tests/compatibility/proofline_native_input.py') for n in names)
+            assert any(n.endswith('/evaluation/baseline_04/identity.json') for n in names)
+            assert any(n.endswith('/evaluation/baseline_04/.github/workflows/ci.yml') for n in names)
+            assert any(n.endswith('/evaluation/slicing_04.py') for n in names)
+            assert any(n.endswith('/INTENTLINE_0.4_IMPLEMENTATION_PLAN.md') for n in names)
             for name in names:
                 path=PurePosixPath(name)
                 assert not path.is_absolute() and '..' not in path.parts

@@ -29,6 +29,9 @@ def proposal(path):
     plan = parse(raw)
     if canonical(plan) != raw:
         raise IntentlineError('Slicing proposal must be canonical JSON')
+    if isinstance(plan,dict) and plan.get('record') == 'intentline.slicing':
+        try: return slicing.normalize(plan)
+        except (ValueError,KeyError,TypeError) as exc: raise IntentlineError('Invalid slicing proposal: '+str(exc)) from exc
     return plan
 
 
@@ -133,9 +136,24 @@ def record(work_path, proposal_path, expected):
                 raise IntentlineError('Concurrent slicing pointer change',3)
             if directory.read(digest+'.json')[0] != canonical(plan):
                 raise IntentlineError('Slicing bytes changed before publication',3)
-            pointer = {'record':'intentline.slice-pointer','schema_version':1,'plan_sha256':digest,
+            slice_pointer = {'record':'intentline.slice-pointer','schema_version':1,'plan_sha256':digest,
                        'history':[sha(canonical(p)) for p in plans]+[digest]}
-            directory.write('current.json',canonical(pointer),replace=True)
+            try: before_marker=directory.read('current.json')[0]
+            except FileNotFoundError: before_marker=None
+            published=canonical(slice_pointer)
+            try:
+                directory.write('current.json',published,replace=True)
+                unchanged(work,pointer,manifest)
+                if directory.read('current.json')[0]!=published:
+                    raise IntentlineError('Slicing pointer changed during publication',3)
+            except BaseException:
+                try: marker=directory.read('current.json')[0]
+                except FileNotFoundError: marker=None
+                if marker==published:
+                    if before_marker is None:
+                        os.unlink('current.json',dir_fd=directory.fd);os.fsync(directory.fd)
+                    else: directory.write('current.json',before_marker,replace=True)
+                raise
         return result(plan,len(plans)+1)
 
 

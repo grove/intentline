@@ -80,7 +80,22 @@ def audit_record(work_path, report_path):
                 if saved(work,manifest,blobs,history)[0]!=plan or reports(work,plans,history,manifest,blobs)!=prior:
                     raise IntentlineError('Slice/audit changed before publication',3)
                 if directory.read(value+'.json')[0]!=canonical(report):raise IntentlineError('Audit bytes changed',3)
-                directory.write('index.json',canonical({'record':'intentline.slice-audit-index','schema_version':1,
-                                                       'reports':[sha(canonical(r)) for r in prior]+[value]}),replace=True)
+                published=canonical({'record':'intentline.slice-audit-index','schema_version':1,
+                                     'reports':[sha(canonical(r)) for r in prior]+[value]})
+                try: before_index=directory.read('index.json')[0]
+                except FileNotFoundError: before_index=None
+                try:
+                    directory.write('index.json',published,replace=True)
+                    unchanged(work,pointer,manifest)
+                    if saved(work,manifest,blobs,history)[0]!=plan or directory.read('index.json')[0]!=published:
+                        raise IntentlineError('Slice/audit changed during publication',3)
+                except BaseException:
+                    try: current_index=directory.read('index.json')[0]
+                    except FileNotFoundError: current_index=None
+                    if current_index==published:
+                        if before_index is None:
+                            os.unlink('index.json',dir_fd=directory.fd);os.fsync(directory.fd)
+                        else: directory.write('index.json',before_index,replace=True)
+                    raise
     return {'audit_sha256':sha(canonical(report)),'authentication':'unverified',
             'reported_independence':report['reported_independence'], 'summary':'Optional slice audit retained; no approval or authenticated independence'}
