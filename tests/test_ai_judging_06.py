@@ -18,8 +18,8 @@ class AIJudging(WorkCase):
     check = base.AIDevelopment.check
 
     def agent(self, role, session, environment, inputs, output=None, time='2026-10-12T17:50:00Z'):
-        value = {'agent_role': role, 'model_id': 'authored-test-model', 'run_or_session_id': session,
-                 'environment_id': environment, 'context_access': inputs, 'timestamp': time, 'output': output}
+        value = {'agent_role': role, 'model_id': 'authored-test-model', 'version': 'fixture-v1', 'reasoning': 'fixture-only', 'run_or_session_id': session,
+                 'environment_id': environment, 'context_access': inputs, 'started_at': time, 'timestamp': time, 'output': output}
         return {**value, 'record': self.ref('receipts/'+session+'.json', value, 'agent_receipt')}
 
     def calibration(self):
@@ -31,7 +31,7 @@ class AIJudging(WorkCase):
         controls = parse((public/'authored-controls.json').read_bytes())['controls']
         rules = self.ref('instructions/judge.txt', 'Authored seven-dimension judge fixture', 'instructions')
         config = {'model_id': 'authored-test-model', 'version': 'fixture-v1', 'reasoning': 'fixture-only'}
-        for arm in study['arms'].values(): arm.update(config)
+        for arm in study['arms'].values(): arm.update(config, seconds=600)
         protocol = {'record': 'intentline.ai-judge-protocol', 'schema_version': 1, 'control_version': 'authored-v1',
                     'registered_at': '2026-10-12T17:40:00Z', 'rubric_sha256': ai.RUBRIC_SHA256,
                     'rules': rules, 'judge_config': config, 'controls': []}

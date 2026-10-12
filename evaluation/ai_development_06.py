@@ -112,14 +112,15 @@ def anchor(value, sources):
 
 
 def actor(value, root, role=None):
-    fields(value, ('agent_role', 'model_id', 'run_or_session_id', 'environment_id',
-                   'context_access', 'timestamp', 'output', 'record'))
+    fields(value, ('agent_role', 'model_id', 'version', 'reasoning', 'run_or_session_id', 'environment_id',
+                   'context_access', 'started_at', 'timestamp', 'output', 'record'))
     require(value['agent_role'] in ROLES and (role is None or value['agent_role'] == role), 'Invalid AI role')
-    for key in ('model_id', 'run_or_session_id'):
-        string(value[key])
+    string(value['run_or_session_id'])
+    for key in ('model_id', 'version', 'reasoning'):
+        if value[key] is not None: string(value[key])
     if value['environment_id'] is not None:
         token(value['environment_id'])
-    date(value['timestamp'])
+    require(date(value['started_at']) <= date(value['timestamp']), 'Invalid AI role chronology')
     for ref in items(value['context_access'], 64):
         artifact(root, ref)
     if value['output'] is not None:
@@ -297,6 +298,8 @@ def validate(study, root, registration_sha256):
                     'Unattempted assignment has results/usage')
         else:
             require(grant is not None, 'Attempt requires bounded operator grant')
+            require(study['arms'][run['arm']]['seconds'] is not None and study['arms'][run['arm']]['seconds'] > 0,
+                    'Attempt requires a positive arm time horizon')
             require(all(run[k] is not None for k in ('prompt', 'transcript', 'execution')), 'Attempt requires execution receipts')
             execution = document(root, run['execution'], 'execution')
             fields(execution, ('task', 'arm', 'blind_id', 'state', 'input_sha256s', 'output_sha256', 'prompt_sha256',
@@ -314,6 +317,8 @@ def validate(study, root, registration_sha256):
             require(execution['session_id'] not in sessions, 'Planning arms need fresh sessions')
             sessions.add(execution['session_id'])
             require(date(study['registered_at']) <= date(execution['started_at']) <= date(execution['finished_at']), 'Invalid execution chronology')
+            require((date(execution['finished_at']) - date(execution['started_at'])).total_seconds()
+                    <= study['arms'][run['arm']]['seconds'], 'Execution exceeds frozen arm horizon')
             require(execution['transport'] in ('native_host', 'operator_import'), 'Invalid execution transport')
             attempts.append(execution)
         require(run['state'] != 'completed' or run['output'] is not None, 'Completed output missing')
@@ -334,6 +339,15 @@ def validate(study, root, registration_sha256):
         measures += [r['metrics'] for r in study['assignments']]
         for metric, cap in (('model_calls', 'max_calls'), ('elapsed_seconds', 'max_seconds'), ('cost', 'max_cost_usd')):
             require(grant[cap] is None or sum(v[metric] for v in measures if v[metric] is not None) <= grant[cap], 'Known usage exceeds grant')
+        spans = [(date(a['started_at']), date(a['finished_at'])) for a in attempts]
+        spans += [(date(a['started_at']), date(a['timestamp'])) for t in tasks.values() for a in t['agents']]
+        spans += [(date(j['started_at']), date(document(root, r, 'calibration')['timestamp']))
+                  for j in study['judge_calibration']['judges'] for r in study['judge_calibration']['receipts']
+                  if document(root, r, 'calibration')['judge_session_id'] == j['run_or_session_id']]
+        spans += [(date(document(root, s['context'], 'agent_receipt')['started_at']), date(s['timestamp']))
+                  for scores in judged.values() for s in scores]
+        require(not spans or (max(end for _, end in spans) - min(start for start, _ in spans)).total_seconds()
+                <= grant['max_seconds'], 'Recorded study exceeds granted time horizon')
     if not tasks:
         require(study['blockers'], 'Empty study requires blockers')
     return {'tasks': tasks, 'sources': sources, 'obligations': obligations, 'attempts': attempts,
@@ -433,7 +447,7 @@ def calibration_check(study, root):
         actor(judge, root, 'judge')
         sid = judge['run_or_session_id']
         require(sid not in sessions and judge['environment_id'] not in environments and judge['environment_id'] is not None, 'Judges need distinct sessions/environments')
-        require(judge['model_id'] == protocol['judge_config']['model_id'], 'Judge configuration mismatch')
+        require({k: judge[k] for k in ('model_id', 'version', 'reasoning')} == protocol['judge_config'], 'Judge configuration mismatch')
         require(date(protocol['registered_at']) <= date(judge['timestamp']) <= date(study['registered_at']), 'Judge calibration chronology mismatch')
         require(all(ref in allowed for ref in judge['context_access']), 'Judge can access hidden answers/labels')
         require(protocol['rules'] in judge['context_access'], 'Judge rules absent from context')
@@ -490,7 +504,7 @@ def scores_check(study, root, sources, obligations, calibration):
         rows = plan(neutral, source, run['blind_id'])
         raw = document(root, run['output'], 'output')
         fields(raw, ('branding', 'content', 'rows', 'exclusions', 'uncertainty'))
-        require(raw['branding'] in ARMS and {k: v for k, v in neutral.items() if k != 'blind_id'} == {k: v for k, v in raw.items() if k != 'branding'}, 'Normalization changed material content')
+        require(raw['branding'] == run['arm'] and {k: v for k, v in neutral.items() if k != 'blind_id'} == {k: v for k, v in raw.items() if k != 'branding'}, 'Normalization changed material content/arm identity')
         mapping = document(root, run['mapping'], 'mapping')
         fields(mapping, ('blind_id', 'task', 'arm', 'raw_sha256', 'neutral_sha256', 'removed_fields'))
         require(all(mapping[k] == run[k] for k in ('blind_id', 'task', 'arm')) and mapping['raw_sha256'] == run['output']['sha256']
@@ -513,6 +527,8 @@ def scores_check(study, root, sources, obligations, calibration):
             require(context['judge_session_id'] == sid and context['model_config'] == protocol['judge_config']
                     and context['inputs'] == run['inputs'] + [run['neutral'], protocol['rules']]
                     and context['fresh_context'] is True, 'Judge scoring context exposes hidden labels/history')
+            grant = document(root, study['authorization'], 'grant')
+            require(context['environment_id'] in grant['host_ids'] and context['model_config'] in grant['models'], 'Scoring context outside grant')
             token(context['session_id']); token(context['environment_id'])
             require(context['session_id'] not in scoring_sessions and context['session_id'] not in judges
                     and context['session_id'] not in {document(root, r['execution'], 'execution')['session_id']
@@ -538,6 +554,9 @@ def scores_check(study, root, sources, obligations, calibration):
                 if entry['status'] == 'omitted':
                     require(any(c['severity'] != 'coverage' and not c['output_ids'] and c['source'] == entry['source']
                                 and c['dimension'] in ('material_omissions', 'constraint_losses') for c in score['citations']), 'Omission scored clean')
+                    if expected[oid]['severity'] == 'critical':
+                        require(any(c['severity'] == 'critical' and not c['output_ids'] and c['source'] == entry['source']
+                                    for c in score['citations']), 'Critical omission downgraded')
                 coverage[oid] = entry
             require(set(coverage) == set(expected), 'Missing source-to-plan coverage')
             support = {}
@@ -565,7 +584,8 @@ def assess(study, root, registration_sha256):
     tasks, attempts = checked['tasks'], checked['attempts']
     source_ready = len(tasks) >= 3 and len({t['repository'] for t in tasks.values()}) >= 3 and all(
         t['kind'] == 'historical' and t['source_decision'] == 'checked' and t['reference'] and t['critique']
-        and checked['obligations'][t['id']] and {'oracle', 'critic'} <= {a['agent_role'] for a in t['agents']}
+        and checked['obligations'][t['id']] and not document(absolute(root), t['critique'], 'critique')['findings']
+        and {'oracle', 'critic'} <= {a['agent_role'] for a in t['agents']}
         and len({a['run_or_session_id'] for a in t['agents']}) == len(t['agents'])
         and not t['contamination']
         for t in tasks.values())
@@ -583,16 +603,29 @@ def assess(study, root, registration_sha256):
         protocol = document(absolute(root), study['judge_calibration']['protocol'], 'protocol')
         host_ready &= all(permitted(j['environment_id'], [r['sha256'] for r in j['context_access']], [], j['timestamp'])
                           for j in study['judge_calibration']['judges'])
+    preparation_agents = [a for t in tasks.values() for a in t['agents'] if a['agent_role'] in ('oracle', 'critic')]
+    grant = document(absolute(root), study['authorization'], 'grant') if study['authorization'] else None
+    for agent in preparation_agents:
+        source_ready &= bool(grant and all(agent[k] is not None for k in ('model_id', 'version', 'reasoning'))
+                             and {k: agent[k] for k in ('model_id', 'version', 'reasoning')} in grant['models']
+                             and agent['environment_id'] in grant['host_ids'])
+        host_ready &= permitted(agent['environment_id'], [r['sha256'] for r in agent['context_access']], [], agent['started_at'])
+    all_sessions = [a['session_id'] for a in attempts] + [j['run_or_session_id'] for j in study['judge_calibration']['judges']]
+    all_sessions += [a['run_or_session_id'] for a in preparation_agents]
+    source_ready &= len(all_sessions) == len(set(all_sessions))
     judge_environments = [j['environment_id'] for j in study['judge_calibration']['judges']]
     score_environments = []
     for scores in checked['judged'].values():
         for score in scores:
             context = document(absolute(root), score['context'], 'agent_receipt')
             score_environments.append(context['environment_id'])
+            all_sessions.append(context['session_id'])
             host_ready &= permitted(context['environment_id'], [r['sha256'] for r in context['inputs']], [], context['started_at'])
-    envs = [a['environment_id'] for a in attempts] + judge_environments + score_environments
+    envs = [a['environment_id'] for a in attempts] + judge_environments + score_environments + [a['environment_id'] for a in preparation_agents]
     host_ready &= len(envs) == len(set(envs))
-    qualified = source_ready and host_ready and checked['calibration']['qualified']
+    source_ready &= len(all_sessions) == len(set(all_sessions))
+    qualified = source_ready and host_ready and checked['calibration']['qualified'] and any(
+        len(s) == 2 for s in checked['judged'].values())
     status = ('ai_development_observed' if qualified else 'ai_development_unqualified') if attempts else (
         'offline_prepared' if tasks else 'not_run')
     arms = {}

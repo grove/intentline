@@ -58,8 +58,8 @@ corpus for every arm. Reference/critique may be null before preparation finishes
 Source decision is checked/unreviewed. Contamination is retained as bounded private
 text. Agents are AI role receipts, never formal author/checker/reviewer identities.
 
-An agent receipt has `agent_role, model_id, run_or_session_id, environment_id,
-context_access, timestamp, output, record`. Output is a nullable ref. Environment
+An agent receipt has `agent_role, model_id, version, reasoning, run_or_session_id, environment_id,
+context_access, started_at, timestamp, output, record`. Output is a nullable ref. Environment
 may be null if unobserved; record
 is a byte-bound receipt. Roles are researcher, drafter, oracle, critic, judge.
 Context_access lists exact refs. It is declared provenance, not authentication.

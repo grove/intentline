@@ -90,7 +90,9 @@ clear only with no critical citation; otherwise source_certain or contested.
 
 Coverage entries: `obligation_id, output_ids, status, source`. Every ledger
 obligation appears once with its exact anchor. Covered needs existing rows;
-omitted needs empty rows and an omission/constraint-loss citation. Contested gold
+omitted needs empty rows and an omission/constraint-loss citation. A critical
+ledger omission requires a critical finding; it cannot be downgraded to material.
+Contested gold
 must remain contested. Binding row support entries: `output_id, status, source`.
 Every binding row appears once. Supported needs an anchor from that row; unsupported
 needs null source and an invention finding; contested remains unresolved.
@@ -111,12 +113,22 @@ max_seconds, host_ids, source_sha256s, issued_at, authority`. Models contain exa
 bound. Calls/seconds are positive integers; all sources/environments/models must
 be covered. Every known usage subtotal must fit the cap even when other usage is
 unknown. This imports a declared grant; it neither authenticates operator consent
-nor authorizes any dispatch. The trusted host must enforce real caps during runs.
+nor authorizes any dispatch. The trusted host must enforce real caps during runs. Attempted arms need a
+positive frozen seconds horizon. Known execution timestamp durations and the
+recorded first-role-start to last-role-finish span must fit the respective time
+bounds even when reported elapsed usage is null.
 
 AI role receipts add `output` (nullable artifact ref). Oracle context equals
 originals only and output equals its ledger. Critic context equals originals plus
 that ledger and output equals its critique. Role sessions must be distinct for
 source qualification; no actor-declared independence/authenticated human field.
+AI role records have nullable `version` and `reasoning` alongside `model_id`;
+unknown or unapproved preparation configurations cannot qualify. Outstanding
+critique findings prevent source qualification; retain prior challenges and actual
+source-grounded resolution as distinct artifacts, never erase a dissent.
+Each role also has `started_at`, preceding its `timestamp`; host checks precede
+that start. Preparation/planner/calibration/scoring sessions and environments stay
+distinct, with preparation roles included in access gates.
 
 Host receipt keys: `environment_id, tested_at, canaries, permissions, witness`.
 Canaries has exactly gold, other_arm, operator_answers, network, connected_apps;
