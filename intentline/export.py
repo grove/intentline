@@ -9,6 +9,18 @@ from .render import markdown, safe
 from .sources import bundle, freshness
 
 
+def check_product_sources(manifest, binding_ids, root):
+    for source in manifest['sources'][1:]:
+        if source['source_id'] not in binding_ids:
+            continue
+        try:
+            data, _ = read_file(root / source['relative_path'])
+            if sha(data) != source['sha256']:
+                raise IntentlineError('hash mismatch')
+        except (OSError, IntentlineError) as exc:
+            raise IntentlineError('Unsupported handoff shape: binding project reference unavailable in exact product checkout') from exc
+
+
 def export(work_path, format_name, out, product_root=None):
     if format_name not in ('proofline-direct','markdown','json'):
         raise IntentlineError('Unsupported export format')
@@ -31,15 +43,7 @@ def export(work_path, format_name, out, product_root=None):
                            for row in c[category] for ref in row['source_refs']} - {'S1'}
             if binding_ids and product_root is None:
                 raise IntentlineError('Unsupported handoff shape: binding context needs explicit --product-root for the downstream checkout')
-            for source in manifest['sources'][1:]:
-                if source['source_id'] not in binding_ids:
-                    continue
-                try:
-                    data, _ = read_file(root / source['relative_path'])
-                    if sha(data) != source['sha256']:
-                        raise IntentlineError('hash mismatch')
-                except (OSError, IntentlineError) as exc:
-                    raise IntentlineError('Unsupported handoff shape: binding project reference unavailable in exact product checkout') from exc
+            check_product_sources(manifest, binding_ids, root)
         view = markdown(c, status, manifest)
         files = {'contract.json':canonical(c), 'source-manifest.json':canonical(manifest)}
         for sid, data in blobs.items():
@@ -74,6 +78,8 @@ def export(work_path, format_name, out, product_root=None):
             now, _ = inspect(work_path)
             if now['exit_code'] or now['contract_sha256'] != pointer['contract_sha256'] or freshness(manifest):
                 raise IntentlineError('Export identity changed before completion; no new completion marker written')
+            if format_name == 'proofline-direct':
+                check_product_sources(manifest, binding_ids, root)
             immutable(destination, 'export-manifest.json', export_manifest)
     return {'summary':'Advisory preview exported; no downstream execution or approval granted',
             'out':str(target), **export_manifest}
