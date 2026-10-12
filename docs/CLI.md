@@ -72,3 +72,8 @@ inspectable without adoption; its authorization is always not_established.
 `inspect-native --bundle DIR` is read-only, offline and requires no peer. A ready
 native plan cannot retain evidence gaps; advisory direct export for supported
 original work keeps its existing gap semantics. Successor direct handoff refuses.
+
+Windows 0.3 secure storage remains NO-GO: every record operation returns exit 3
+before filesystem activity; help/install do not qualify storage. The actual Win32
+handle probe in CI is a narrow feasibility observation only. See
+[feasibility and missing security gates](WINDOWS_STORAGE_FEASIBILITY.md).
