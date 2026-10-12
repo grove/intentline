@@ -38,7 +38,8 @@ unmeasured usefulness. The starting merged code is version 0.4.0 at
 No GitHub Release was observed on 12 October 2026; PyPI publication is unverified.
 The 0.5 changes are published for review in [PRs #26–#30](https://github.com/grove/intentline/pull/30).
 Each original review head passed the six-cell CI matrix. Source package metadata
-is now experimental `0.5.0rc1`, undergoing its own qualification in PR #30.
+is now experimental `0.5.0rc1`; the RC also passed all six CI cells. PR #30
+tracks the current report head and checks.
 No tag/package release or main merge has occurred; usefulness remains unmeasured.
 See [the implementation report](docs/IMPLEMENTATION_0.5.md) and
 [retained 0.4 evidence](docs/SCORECARD_0.4.md).

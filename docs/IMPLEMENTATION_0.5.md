@@ -2,7 +2,8 @@
 
 12 October 2026. This report separates feasible engineering from unavailable
 independent empirical work. The user authorized commit, push and five focused PRs. Those effects are complete;
-RC source preparation follows the initial exact-head engineering CI gate.
+Experimental 0.5.0rc1 source preparation and qualification followed the initial
+exact-head engineering CI gate.
 No paid inference, new scoring framework, coding-agent controller, participant
 impersonation, fabricated approval, merge or tag/package release was performed.
 
@@ -33,6 +34,10 @@ PR #30 also contains subsequent RC/report qualification commits. Its current
 head and checks are available on the PR; a report cannot embed its own commit
 identity. The original preparation receipt remains dated and byte-preserved;
 engineering-05-publication.json records actual observed initial CI metadata.
+Experimental RC commit `756e9560ca5afd3373fcf881b4838d1880a89b21` passed [all six cells](https://github.com/grove/intentline/actions/runs/38275126589).
+engineering-05-rc-qualification.json records that observed qualification; later
+report-only heads are checked separately on PR #30. No review was submitted or
+approval invented.
 
 ## Work-package delivery and review boundaries
 
@@ -78,15 +83,17 @@ interpret that as authenticated proof or replace the consumer's final status.
 
 Final full suite: **136 tests on each of Python 3.11.17 and 3.14.8; 135 pass,
 one actual-Windows probe skipped on macOS**. Both fresh wheel and fresh sdist
-install/manual workflow controls passed on both interpreters. After those original committed heads passed all six remote CI cells, source
-package metadata was set to experimental 0.5.0rc1. RC qualification is recorded
-separately from the dated preparation checks; no distribution was published. Installed
+install/manual workflow controls passed on both interpreters. After the original
+committed heads passed all six remote CI cells, source
+package metadata was set to experimental 0.5.0rc1. The RC passed the same local
+suites and fresh wheel/sdist workflow controls on both interpreters, then all six
+exact-head CI cells. No distribution was published. Installed
 controls cover whole skill links, no context, permitted docs, missing harness as a
 gap, material open decision, original source bytes, stale changed source, unchanged
 revision/hash reuse, read-only file inventory, successor review, NO SPLIT/SPLIT,
 portable native/child inspection and child refusal at the standalone native boundary.
 No runtime dependencies were introduced. Final artifact SHA-256 and build/privacy
-receipts are in the operator's ignored `.intentline/05/qualification.json`, outside
+receipts are in the operator's ignored `.intentline/05/final-qualification.json`, outside
 the distribution to avoid self-referential artifact hashes; the final response
 reports them. The retained local logs under ignored `.intentline/05` include
 baseline, failing guard controls, repaired focused suites and interpreter failures.
@@ -105,8 +112,12 @@ python -B evaluation/package_smoke.py /private/fresh-dist
 
 The ambient Python 3.9 is unsupported; its relocated Python 3.11 shim also fails
 before importing encodings. A working standalone 3.11.17 was located, without
-system edits. Final local qualification uses that and Homebrew 3.14.8. Initial exact-head Linux and actual Windows CI passed; Windows passed the
-existing secure refusal controls, without qualifying record storage. Windows continues exit 3 before
+system edits. Final local qualification uses that and Homebrew 3.14.8. Exact-head
+Linux and actual Windows CI passed; Windows passed the
+existing secure refusal controls, without qualifying record storage. Initial
+integration CI logged 136 unittest methods per cell: POSIX 135 pass/one skip,
+Windows 136 pass with POSIX record operations refusing or returning before I/O.
+Green Windows jobs do not demonstrate the unsupported POSIX workflow on Windows. Windows continues exit 3 before
 record I/O; no insecure storage fallback or rushed backend was added.
 
 ## Available task and user evidence
@@ -172,9 +183,9 @@ independence, caller authority or behavioral proof from approval prose/PASS.
 
 ## Separate release decisions and next step
 
-Engineering: original committed heads passed all six CI cells and offline/package
-checks; experimental source RC 0.5.0rc1 is prepared for its own exact-head
-qualification. No main merge, tag or package publication is authorized. Review
+Engineering: **experimental source RC 0.5.0rc1 qualified for review**. Original
+review heads and the RC passed all six CI cells and offline/package checks.
+No main merge, tag or package publication is authorized. Review
 readiness and empirical usefulness remain separate decisions.
 
 Empirical: unmeasured / blocked_external; observed-usefulness objective unmet.
@@ -184,7 +195,7 @@ and bounded inference grant are required for a genuine diagnostic pilot. Native
 consumer trust qualification is an additional independent stop. No superiority,
 savings or safely verified live native result is claimed.
 
-The remaining engineering steps are RC/final-head qualification and review. Merge
+The remaining engineering steps are final report-head CI and independent review. Merge
 and tag/package publication require separate authorization. The next empirical
 action is independent private intake review; no model spending is required merely
 to identify missing artifacts. Inference and participant outreach remain separate

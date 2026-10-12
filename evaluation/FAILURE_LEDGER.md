@@ -129,3 +129,24 @@ Final local suite: 136 tests on both macOS/Python 3.11.17 and 3.14.8, 135 pass a
 one actual-Windows probe skip. Fresh wheel/sdist first qualification passed on both
 interpreters; final artifact hashes and privacy/build receipts are retained locally.
 No 0.5 remote CI, PR/merge, release or empirical benefit is claimed.
+
+## 0.5 publication and RC qualification, 12 October 2026
+
+After the dated preparation above, the user authorized commits, ordinary pushes
+and five focused stacked PRs (#26–#30). Every original head passed push and PR
+CI across all six Linux/macOS/Windows × Python 3.11/3.14 cells. There were no
+0.5 failed CI runs in those observed attempts. Experimental metadata 0.5.0rc1
+followed that engineering gate; RC commit `756e9560ca5afd3373fcf881b4838d1880a89b21`
+passed the two local 136-test suites, both fresh wheel/sdist workflow smokes and
+[six-cell exact-head CI](https://github.com/grove/intentline/actions/runs/38275126589).
+The old preparation, adverse controls and empirical not_run receipts remain
+unchanged. Publication did not authorize main merge, tag/package release, model
+spending or outreach. Reviewers/independence and usefulness remain unverified.
+
+The publication whitespace check initially flagged deliberate CRLF in frozen
+source captures and Markdown hard breaks in the original attached plan. These
+exact bytes were preserved; the adjusted check treats CR as a line ending and
+excludes only that unchanged attachment's intentional hard breaks. No production
+validation, test or privacy gate was suppressed. Local Git metadata required
+escalated execution after the default sandbox refused index.lock; this did not
+use a GitHub checkout to bypass filesystem controls.
