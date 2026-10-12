@@ -190,3 +190,11 @@ Task-specific offline calibration preparation could ground 19 provisional contro
 source rules: authority/gap/blocker for all three cases and exclusion/exception
 for one. Mechanical anchors pass on prepared candidates; no source qualification,
 calibration prediction or planning assignment follows from these authored fixtures.
+
+After authorized draft PR publication (#31–#35), original Windows 3.11/3.14 CI
+exposed O_NONBLOCK access in the operator helper on a platform that lacks it.
+Original failed run/job logs are retained. Unsupported flags now return unresolved
+before I/O; a new regression removes the flag and asserts no open call. The mock
+permission-error branch supplies its synthetic flag explicitly. Updated dependency
+branches use ordinary merges, preserving every original published head. Windows
+secure study storage remains refused; no model or efficacy claim follows from CI.

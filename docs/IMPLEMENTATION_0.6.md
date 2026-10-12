@@ -171,3 +171,30 @@ All start at the verified main and remain local, with no PR URLs or merges.
 
 The original attached implementation plan is preserved byte-for-byte in the
 source distribution. Frozen earlier evidence is not rewritten to include it.
+
+## Authorized draft publication and Windows repair, 12 October 2026
+
+After the dated local preparation above, the user authorized ordinary pushes and
+five draft stacked PRs: [31](https://github.com/grove/intentline/pull/31),
+[32](https://github.com/grove/intentline/pull/32),
+[33](https://github.com/grove/intentline/pull/33),
+[34](https://github.com/grove/intentline/pull/34),
+[35](https://github.com/grove/intentline/pull/35). Original exact unit heads are
+listed above; no merge/release/inference authority was granted. Main stayed at
+`8c17d093ae77e2b1588f9671fc586aa733a0a801` at publication.
+
+The original lane-only head passed both push and PR six-cell CI. Subsequent heads
+failed Windows canary tests because Windows has no O_NONBLOCK; Linux/macOS cells
+passed in the inspected [failure run](https://github.com/grove/intentline/actions/runs/38286864382).
+This was a real engineering defect, not an experiment result. The repair refuses
+unsupported flags before I/O, and its new regression test removes that capability
+without invoking os.open. The permission-error test explicitly mocks an available
+flag for its synthetic error branch. Nothing qualifies Windows secure study storage.
+
+The repair is propagated through ordinary merges of updated dependency branches,
+so every existing published head remains an ancestor; no history rewrite or force
+push is required. Updated local qualification uses 161 tests (160 passing, one
+Windows-only skip) per supported macOS interpreter plus fresh wheel/sdist checks.
+Updated remote CI requires authorization of those exact repair heads and is not
+asserted green here; the private final operator handoff retains their actual heads,
+all original failed runs/logs, subsequent PR/check states and artifact digests.

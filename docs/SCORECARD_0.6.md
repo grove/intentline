@@ -48,3 +48,11 @@ See [implementation handoff](IMPLEMENTATION_0.6.md), the installed/source
 [control types](../evaluation/JUDGE_CONTROLS_06.md) and
 [runbook](../evaluation/RUNBOOK_06.md). No Intentline skill repair was justified
 by observed model output; conditional package 05 is omitted.
+
+A subsequent authorized publication created draft PRs #31–#35. Original lane-only
+six-cell CI passed; other original heads failed Windows canary tests on missing
+O_NONBLOCK. A fail-closed repair and new missing-capability regression are prepared,
+with dependency merges preserving published history. Updated local suite: 161 tests
+per supported interpreter, 160 pass/one Windows-only skip. Repair-head remote CI is
+tracked in the final operator handoff; original failures remain retained. These
+engineering observations do not alter not_run planning or formal evidence decisions.
