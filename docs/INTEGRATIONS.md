@@ -70,8 +70,11 @@ contract/source-chain adoption, current clean product documents, permissions and
 candidate receipts. Export/inspection never invokes Proofline or paid inference.
 
 The separate [Proofline native consumer PR #6](https://github.com/grove/proofline/pull/6)
-is offline-qualified at `2285a434c1c33e73f8d89a6c3267abcaa37e9b95`, pending
-merge and live qualification. Its `inspect-intentline BUNDLE` command reads native
+is merged. Current remote consumer main is
+`023a3d5a380f4659b4459e585f1910604374d2a7` (12 October 2026); its native validator
+is byte-identical to the retained test snapshot at
+`2285a434c1c33e73f8d89a6c3267abcaa37e9b95`. Offline compatibility does not qualify
+live delivery. Its `inspect-intentline BUNDLE` command reads native
 inputs; `deliver --intentline-bundle BUNDLE --adopt-contract-sha256 CONTRACT_HASH
 --adopt-source-chain-sha256 CHAIN_HASH --adopt-bundle-sha256 BUNDLE_HASH
 --approval-reference ACTUAL_REFERENCE` requires the independently authorized
@@ -87,6 +90,14 @@ combined source displays non-verbatim. No predecessor adoption raw bytes or
 private approval-reference text enter native bundles or worker metadata. Its
 optional product-root check runs only when explicitly selected. Lore and P2P
 remain advisory optional peers; none is a required install or runtime import.
+
+Proofline's current S6 report records a trust gate failure, including one false
+acceptance by Proofline. Green consumer CI and the earlier P2P S2 gate do not
+resolve that finding or qualify native Intentline delivery. A real native run
+requires separately established trust remediation or scoped requalification,
+exact trusted-caller adoption, isolation/egress evidence and bounded model/cost
+authorization. See the source distribution's evaluation/PROOFLINE_HANDOFF.md.
+Intentline does not run or repair the separately owned consumer here.
 
 ## Optional 0.4 advisory children
 

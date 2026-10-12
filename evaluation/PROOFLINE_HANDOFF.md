@@ -1,7 +1,96 @@
-# Direct handoff qualification
+# 0.5 native trust gate and operator handoff
+
+Current remote Proofline main, rechecked 12 October 2026:
+`023a3d5a380f4659b4459e585f1910604374d2a7`. Native consumer PR #6 is merged.
+Its `checks/intentline_input.py` is byte-identical to the retained test snapshot:
+SHA-256 `977a4f24cd1724c780c1a09155d467ae2b34a91ed76f02e14d4d0345cc7838cd`.
+No snapshot refresh was needed; runner/status/trust qualification is separate.
+The local peer checkout's uncommitted follow-up work was not used as qualification
+or changed. The sanitized consumer pin is in results/proofline-consumer-05.json.
+
+**Live gate: blocked_trust_gate.** The current
+[S6 report](https://github.com/grove/proofline/blob/023a3d5a380f4659b4459e585f1910604374d2a7/docs/S6-RESULTS.md)
+reports 69/120 assigned runs executed, 51 unexecuted and one false acceptance by
+Proofline. These are consumer findings, not an observed Intentline defect. The
+consumer's green CI and earlier P2P S2 result do not remediate S6 or qualify an
+Intentline native run. No merged trust remediation or separately scoped native
+verification qualification was observed; no live run was attempted.
+
+## Required independent gates before any native run
+
+1. Establish consumer trust remediation or scoped verification qualification that
+   addresses the S6 false acceptance; preserve its independent source/behavioral
+   evidence and exact consumer revision. A commit/tag/unit pass alone is insufficient.
+2. Inspect the entire standalone original/amended request, canonical contract,
+   constraints/exclusions and lineage. Obtain actual trusted-caller adoption of
+   **exact contract, source-chain and bundle hashes**. Intentline ADOPTED_ASSERTED,
+   an approval label, template, source prose or agent-authored assertion cannot
+   supply it. Raw adoption/approval records remain private.
+3. Qualify the actual native host, Codex CLI/model/reasoning, credentials and
+   isolation/egress boundary under Proofline S0. Earlier docs name macOS,
+   Python 3.11+, Git and Codex CLI 0.162.1; other versions require fresh qualification.
+4. Obtain a bounded task-specific model/time/dispatch/cost grant. Keep a clean
+   tracked local test product containing exact current binding documents. No
+   publication, PR, merge, deployment or remote target is authorized by this recipe.
+
+## Read-only preparation and separately authorized command
+
+Export only when requested and inspect without following private historical
+origins or executing the exported inspector at consumer admission:
+
+```sh
+python -B -m intentline export --work /private/work --format proofline-native \
+  --out /private/native --product-root /absolute/clean/product --json
+python -B -m intentline inspect-native --bundle /private/native --json
+python -B /absolute/pinned-proofline/proofline.py inspect-intentline /private/native
+```
+
+Omit product-root only when no binding current project documents require it.
+Inspection reports authorization not_established and execution not_observed.
+After **all** gates and grants exist, the operator may run one bounded local-only
+diagnostic, substituting the actually authorized values (these are not grants):
+
+```sh
+python -B /absolute/pinned-proofline/proofline.py deliver \
+  --repo /absolute/clean/product --intentline-bundle /private/native \
+  --adopt-contract-sha256 EXACT_AUTHORIZED_CONTRACT_HASH \
+  --adopt-source-chain-sha256 EXACT_AUTHORIZED_CHAIN_HASH \
+  --adopt-bundle-sha256 EXACT_AUTHORIZED_BUNDLE_HASH \
+  --approval-reference 'Actual privately inspected caller adoption reference' \
+  --map 'Task-specific public seams and permitted verification commands' \
+  --seconds 900 --stage-seconds 240 --verification-reserve 120 \
+  --dispatches 3 --output /private/new-native-attempt
+python -B /absolute/pinned-proofline/proofline.py status /private/new-native-attempt/report.json
+```
+
+Do not execute this before trust qualification or infer a budget from these example
+limits. Do not combine native input with --source/--brief/--contract or fall back
+when it refuses. Advisory child S# bundles remain unsupported; child success never
+proves the parent. Optional approval-file/hash must be actual externally inspected
+bytes. Keep approval references out of public command logs.
+
+Retain every attempt, source/contract/bundle/permission/candidate binding, native
+run and final status, actual reviewer/prover receipts, independent behavioral
+observations and all adverse findings. Re-inspect input and candidate at final
+status. Record missing usage null; a fake role's PASS is not proof. The existing
+`handoff_02 record` retains opaque externally supplied assertions **unverified**;
+it does not authenticate native receipts or replace consumer status/independent
+behavioral verification. It now records blocked_trust_gate, rejects execution
+coverage for unattempted states, and requires null unattempted usage. The distinct
+results/proofline-native-05-not-run.json records the actual stop without deleting
+older results.
+
+Offline controls retain no-adoption, source/contract tampering, swapped brief,
+stale successor/adoption, exact-hash missing-exclusion refusal, forged assertion,
+child rejection, native/no-fallback and dirty tracked checkout cases. Candidate
+and counterfeit-role controls remain consumer-owned; our opaque fake-PASS retention
+test explicitly proves that a retained assertion stays unauthenticated. These
+tests do not substitute for a positive native host/candidate/review/proof receipt.
+
+## Historical direct qualification (0.2; retained context)
 
 Pinned consumer: grove/proofline c4d28e4e743adbb261552323e694946f1360a129,
-remote main rechecked 2026-10-12. Consumer docs qualify macOS, Python 3.11+,
+the 0.2 observation; it is not today's remote main. Consumer docs qualified macOS, Python 3.11+,
 Git and Codex CLI 0.162.1 with real authentication and native isolation. Other
 host/CLI versions need Proofline S0 qualification before inference. Local peer
 checkouts may be newer; never substitute their head without revalidation.
@@ -28,7 +117,7 @@ execution not_observed and requires the consumer's own clean tracked/native gate
 Review original promise/context completeness semantically before dispatch. Parent
 and runtime prerequisite imports are unsupported; do not flatten them into direct
 input. Intentline DRAFT or ADOPTED_ASSERTED is not a supported approved `--contract`.
-Native Intentline approval interoperability needs a separate consumer RFC, actual
+At that historical observation native Intentline interoperability needed a consumer RFC, actual
 authority/identity support and live positive/negative qualification, not P2P-shaped
 Markdown disguising unverified assertions.
 

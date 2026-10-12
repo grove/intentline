@@ -58,7 +58,7 @@ def record_evidence(evidence, private_root, out):
                       'candidate_commit', 'coverage', 'usage'])
     require(evidence['record'] == 'intentline.handoff-evidence' and type(evidence['schema_version']) is int and evidence['schema_version'] == 1,
             'Unsupported evidence record')
-    require(evidence['state'] in ('not_run', 'blocked_external', 'completed', 'failed', 'interrupted'), 'Unknown outcome')
+    require(evidence['state'] in ('not_run', 'blocked_external', 'blocked_trust_gate', 'completed', 'failed', 'interrupted'), 'Unknown outcome')
     root = absolute(private_root)
     require(isinstance(evidence['blockers'], list) and isinstance(evidence['external_records'], list)
             and isinstance(evidence['coverage'], list), 'Evidence disclosures required')
@@ -69,8 +69,8 @@ def record_evidence(evidence, private_root, out):
     if evidence['state'] == 'completed':
         require(evidence['inspection'] is not None and evidence['external_records'] and evidence['candidate_commit'] and evidence['coverage'],
                 'Completed execution requires bound actual native/status records and candidate')
-    if evidence['state'] in ('not_run', 'blocked_external'):
-        require(evidence['blockers'] and not evidence['external_records'] and evidence['candidate_commit'] is None,
+    if evidence['state'] in ('not_run', 'blocked_external', 'blocked_trust_gate'):
+        require(evidence['blockers'] and not evidence['external_records'] and not evidence['coverage'] and evidence['candidate_commit'] is None,
                 'Unattempted run cannot claim native delivery evidence')
     if evidence['candidate_commit'] is not None:
         require(isinstance(evidence['candidate_commit'], str) and len(evidence['candidate_commit']) == 40
@@ -78,7 +78,7 @@ def record_evidence(evidence, private_root, out):
     fields(evidence['usage'], ['cost', 'tokens', 'elapsed_seconds'])
     for value in evidence['usage'].values():
         number(value, nullable=True)
-    if evidence['state'] in ('not_run', 'blocked_external'):
+    if evidence['state'] in ('not_run', 'blocked_external', 'blocked_trust_gate'):
         require(all(v is None for v in evidence['usage'].values()), 'Unattempted usage must be null')
     retained = {**evidence, 'authentication': 'unverified',
                 'qualification': 'externally supplied evidence; Intentline does not authenticate proof or approval'}
