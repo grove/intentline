@@ -31,14 +31,15 @@ not participant names, arm labels or paths. Arrays are bounded by the adapter.
 The study keys are `record` (`intentline.ai-development-study`), `schema_version`
 (integer 1), `mode` (`ai_only_development`), `phase` (`development`), `registered_at`
 (offset-aware ISO timestamp), `registration` (ref), `arms`, `tasks`, `population`,
-`assignments`, `judge_calibration`, `isolation`, `preparation`, `blockers`, `decision`.
+`assignments`, `judge_calibration`, `isolation`, `preparation`, `blockers`, `decision`,
+`authorization` (null or externally supplied bounded grant ref).
 `blockers` contains fixed codes only: budget, host, isolation, sources, calibration.
 `decision` is insufficient_or_unqualified_evidence, fix_specific_defect,
 simplify_overhead or expand_new_tasks; it is a declared development choice.
 
 Registration bytes contain exactly `registered_at, arms, tasks, population,
-judge_protocol, isolation_policy`. The latter two equal the calibration protocol
-ref and isolation mode. Registration SHA must equal the independent operator pin;
+judge_protocol, isolation_policy, authorization`. These equal the calibration
+protocol ref, isolation mode and grant ref. Registration SHA equals the operator pin;
 changing reference bytes and rehashing the study cannot bypass that pin. Changing
 the pin is a new registration, never an amendment to observed results.
 
@@ -58,7 +59,8 @@ Source decision is checked/unreviewed. Contamination is retained as bounded priv
 text. Agents are AI role receipts, never formal author/checker/reviewer identities.
 
 An agent receipt has `agent_role, model_id, run_or_session_id, environment_id,
-context_access, timestamp, record`. Environment may be null if unobserved; record
+context_access, timestamp, output, record`. Output is a nullable ref. Environment
+may be null if unobserved; record
 is a byte-bound receipt. Roles are researcher, drafter, oracle, critic, judge.
 Context_access lists exact refs. It is declared provenance, not authentication.
 

@@ -1,0 +1,6 @@
+Accepted: Reject empty and whitespace-only usernames.
+Accepted: Keep valid usernames and existing retries unchanged.
+Proposed, not accepted: Require at least ten characters.
+Exception: Offline clients skip the availability network call.
+Excluded: Authentication changes.
+Gap: The availability-server harness is unavailable.

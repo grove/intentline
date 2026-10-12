@@ -42,7 +42,7 @@ class AIDevelopment(WorkCase):
                  **dict.fromkeys(('output', 'neutral', 'mapping', 'prompt', 'transcript', 'execution')),
                  'scores': [], 'metrics': dict.fromkeys(ai.USAGE)} for entry in population]
         study = {'record': 'intentline.ai-development-study', 'schema_version': 1, 'mode': 'ai_only_development',
-                 'phase': 'development', 'registered_at': '2026-10-12T18:00:00Z', 'registration': None,
+                 'phase': 'development', 'registered_at': '2026-10-12T18:00:00Z', 'registration': None, 'authorization': None,
                  'arms': arms, 'tasks': [] if empty else [task], 'population': [] if empty else population,
                  'assignments': [] if empty else runs,
                  'judge_calibration': {'status': 'not_run', 'protocol': None, 'judges': [], 'receipts': [],
