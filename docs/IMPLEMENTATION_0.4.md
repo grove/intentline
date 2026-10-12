@@ -1,5 +1,6 @@
 # Intentline 0.4 implementation report — 12 October 2026
 
+All five packages have passing six-cell CI at their engineering heads.
 The five dependency-ordered packages implement optional source-bound NO SPLIT or
 flat parent-preserving SPLIT. The source tree is a 0.4.0 engineering candidate;
 main merge and external release publication are separate unauthorized effects.
@@ -85,3 +86,5 @@ filesystems and power-loss durability remain unqualified. Parent selection is
 explicit: an old directory cannot discover future successors automatically. Offline
 portable data cannot establish freshness after export. Merge/release publication
 are pending explicit operator authorization; PR creation does not grant either.
+
+Final engineering validation and local artifact hashes are bound to `0bac73a0d182992ce2a8b914e851ff899681832b` in the retained self-check/scorecard. CI failure repairs remain in the ledger; the subsequent report-only head is identified in PR #25 and the final operator report. No merged-head CI is claimed.

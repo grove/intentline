@@ -11,7 +11,7 @@ publication or paid inference is performed. Five stacked PRs preserve review sco
 | 02 SPLIT coverage / DAG | [22](https://github.com/grove/intentline/pull/22), `a6b58d28d1bc11c7f96276cf65d111d2a3db17d6` | [38252429269](https://github.com/grove/intentline/actions/runs/38252429269), success |
 | 03 Skill / disputes / impact | [23](https://github.com/grove/intentline/pull/23), `e2f0c480ef0d29b654b0ab89ab9cad0394d9690a` | [38253737289](https://github.com/grove/intentline/actions/runs/38253737289), success |
 | 04 Portable child data | [24](https://github.com/grove/intentline/pull/24), `12af895689b7c0fc6ea903e88094408af026b02e` | [38253866513](https://github.com/grove/intentline/actions/runs/38253866513), success |
-| 05 Integration / 0.4.0 packaging | Exact self-referential commit supplied in its PR description | Final matrix receipt recorded after publication |
+| 05 Integration / 0.4.0 packaging | [25](https://github.com/grove/intentline/pull/25), engineering head `0bac73a0d182992ce2a8b914e851ff899681832b` | [38256691558](https://github.com/grove/intentline/actions/runs/38256691558), success |
 
 Each matrix runs Linux/macOS/Windows × Python 3.11/3.14, build, fresh wheel/sdist
 install, CLI/skill links and full offline tests. Windows qualifies installation,
@@ -78,3 +78,24 @@ Public artifacts contain only code, documentation, authored public-source fixtur
 and sanitized zero-assignment receipts. Private sources/gold/reviews/outputs must
 stay in owner-only external study/work storage; exports omit raw approval/audit
 payloads. No unknown billing value is reported as zero.
+
+## Recorded final engineering gate
+
+The repaired integration head `0bac73a0d182992ce2a8b914e851ff899681832b` passes
+both push [38256685087](https://github.com/grove/intentline/actions/runs/38256685087)
+and PR [38256691558](https://github.com/grove/intentline/actions/runs/38256691558)
+matrices: all six cells green. Linux/macOS run 120 tests with the single actual
+Windows API probe skipped; Windows runs 120 with that probe actually passing.
+The POSIX evaluator receipt workflow step is intentionally skipped on Windows,
+where secure record operations refuse. Package build and fresh wheel/sdist install
+checks pass in all six cells. No skip is reported as a functional storage pass.
+
+The [recorded engineering self-check](../evaluation/results/engineering-04-self-check.json)
+and digest retain exact code head, job URLs and actual local artifact hashes:
+wheel `0a82a699c95dae9620dd4a2e27b4915fa36beaaf8279083670774efda8ec810e`,
+sdist `432f7c2ac2d875e5b5608bb59f4929a38876664704b18b2425ce5d132795b241`.
+These local build bytes include the final code/tests/skill but precede the appended
+CI failure ledger/report. CI separately builds the exact committed head. The final
+report-only commit is checked in the same matrix and bound in PR #25's description;
+this document does not assert its own future CI result. All five PRs remain OPEN,
+with no actual independent approvals or merge/publication authorization.
