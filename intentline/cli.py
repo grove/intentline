@@ -17,11 +17,13 @@ def parser():
     p = Parser(description="Plan acceptance without implementing or proving it.")
     p.add_argument("--json", action="store_true", help="emit intentline.result schema 1")
     sub = p.add_subparsers(dest="command", required=True)
-    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "amend-source", "reconcile", "audit-record", "adopt", "export"):
+    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "amend-source", "reconcile", "inspect-native", "audit-record", "adopt", "export"):
         command = sub.add_parser(name)
         command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
-        if name != "prepare":
+        if name not in ("prepare", "inspect-native"):
             command.add_argument("--work", required=True)
+        if name == "inspect-native":
+            command.add_argument("--bundle", required=True)
         if name == "prepare":
             command.add_argument("--source", required=True)
             command.add_argument("--context", action="append", default=[])
@@ -50,13 +52,16 @@ def parser():
             command.add_argument("--expected-contract-sha256", required=True)
             command.add_argument("--approval-file", required=True)
         if name == "export":
-            command.add_argument("--format", choices=["proofline-direct", "markdown", "json"], required=True)
+            command.add_argument("--format", choices=["proofline-direct", "proofline-native", "markdown", "json"], required=True)
             command.add_argument("--out", required=True)
             command.add_argument("--product-root", help="exact downstream checkout for binding project references")
     return p
 
 
 def execute(args):
+    if args.command == "inspect-native":
+        from .native_handoff import inspect_native
+        return inspect_native(args.bundle)
     if args.command == "amend-source":
         from .amendments import amend_source
         return amend_source(args.work, args.amendment, args.context, args.root, args.out,

@@ -88,13 +88,13 @@ def validate_new_identity(draft, old, histories):
 
 def completed(work, manifest, blobs, initial):
     from .amendments import archives
-    marker = parse(work.read('successor-complete.json')[0])
+    marker_raw = work.read('successor-complete.json')[0]
     continuity_raw = work.read('continuity.json')[0]
     record = parse(continuity_raw)
-    if canonical(record) != continuity_raw or marker != {
+    if canonical(record) != continuity_raw or marker_raw != canonical({
             'record': 'intentline.successor-complete', 'schema_version': 1,
             'contract_sha256': sha(canonical(initial)), 'source_bundle_sha256': initial['source_bundle_sha256'],
-            'continuity_sha256': sha(continuity_raw)}:
+            'continuity_sha256': sha(continuity_raw)}):
         raise IntentlineError('Incomplete or tampered successor publication', 3)
     predecessor, archived = archives(work, manifest)
     validate_new_identity(initial, predecessor['history'][-1], [parse(data)['history'] for name, data in archived.items() if name.endswith('.json')])

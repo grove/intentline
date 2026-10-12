@@ -22,6 +22,9 @@ def check_product_sources(manifest, binding_ids, root):
 
 
 def export(work_path, format_name, out, product_root=None):
+    if format_name == 'proofline-native':
+        from .native_handoff import export_native
+        return export_native(work_path, out, product_root)
     if format_name not in ('proofline-direct','markdown','json'):
         raise IntentlineError('Unsupported export format')
     target = absolute(out)
@@ -38,6 +41,8 @@ def export(work_path, format_name, out, product_root=None):
             if row['original_location'] and target == absolute(row['original_location']).parent:
                 raise IntentlineError('Export cannot target a source directory')
         if format_name == 'proofline-direct':
+            if manifest['schema_version'] == 2:
+                raise IntentlineError('Successor direct handoff is unsupported; inspect a native bundle without automatic fallback')
             root = absolute(product_root) if product_root else Path(manifest['root'])
             binding_ids = {ref['source_id'] for category in ('requirements','constraints','out_of_scope')
                            for row in c[category] for ref in row['source_refs']} - {'S1'}
@@ -46,6 +51,13 @@ def export(work_path, format_name, out, product_root=None):
             check_product_sources(manifest, binding_ids, root)
         view = markdown(c, status, manifest)
         files = {'contract.json':canonical(c), 'source-manifest.json':canonical(manifest)}
+        if manifest['schema_version'] == 2:
+            from .amendments import archives
+            _, archived = archives(work, manifest)
+            files.update({'archive-' + name: data for name, data in archived.items()})
+            files['continuity.json'] = work.read('continuity.json')[0]
+            files['initial-contract.json'] = canonical(current(work)[2][0])
+            files['successor-complete.json'] = work.read('successor-complete.json')[0]
         for sid, data in blobs.items():
             files['source-' + sid + '.txt'] = data
         if format_name == 'proofline-direct':
