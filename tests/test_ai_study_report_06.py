@@ -300,3 +300,58 @@ class AIStudyReport(WorkCase):
         run['scores'][0] = self.rewrite(run['scores'][0], score)
         with self.assertRaisesRegex(IntentlineError, 'Critical omission downgraded'):
             self.check(study)
+
+    def test_judge_rules_cannot_alias_private_gold(self):
+        study = qualified_fixture(self)
+        protocol = read(self, study['judge_calibration']['protocol'])
+        protocol['rules'] = self.ref('instructions/opaque-rules.txt',
+                                    read(self, study['tasks'][0]['reference']), 'instructions')
+        study['judge_calibration']['protocol'] = self.rewrite(study['judge_calibration']['protocol'], protocol)
+        self.register(study)
+        with self.assertRaisesRegex(IntentlineError, 'Private reference'):
+            self.check(study)
+
+    def test_calibration_host_probe_must_precede_judge_start(self):
+        study = qualified_fixture(self)
+        judge = study['judge_calibration']['judges'][0]
+        judge['timestamp'] = '2026-10-12T17:52:00Z'
+        judge['record'] = self.rewrite(judge['record'], {k: v for k, v in judge.items() if k != 'record'})
+        for i, ref in enumerate(study['isolation']['receipts']):
+            receipt = read(self, ref)
+            if receipt['environment_id'] == judge['environment_id']:
+                receipt['tested_at'] = '2026-10-12T17:51:00Z'
+                study['isolation']['receipts'][i] = self.rewrite(ref, receipt)
+        report = self.check(study)
+        self.assertFalse(report['gates']['isolation'])
+        self.assertEqual(report['status'], 'ai_development_unqualified')
+
+    def test_all_preparation_roles_need_source_only_context_and_granted_host(self):
+        study = qualified_fixture(self)
+        task = study['tasks'][0]
+        researcher = self.agent('researcher', 'extra-researcher', 'unverified-shared-host',
+                                [task['request'], task['reference']])
+        task['agents'].append(researcher)
+        self.register(study)
+        with self.assertRaisesRegex(IntentlineError, 'Source preparation input boundary'):
+            self.check(study)
+        researcher['context_access'] = [task['request']]
+        researcher['record'] = self.rewrite(researcher['record'], {k: v for k, v in researcher.items() if k != 'record'})
+        self.register(study)
+        report = self.check(study)
+        self.assertFalse(report['gates']['sources'])
+        self.assertFalse(report['gates']['isolation'])
+        self.assertEqual(report['status'], 'ai_development_unqualified')
+
+    def test_arm_without_any_scores_keeps_measurements_unknown(self):
+        study = qualified_fixture(self)
+        for run in study['assignments']:
+            if run['arm'] == 'ordinary':
+                run['scores'] = []
+        report = self.check(study)
+        self.assertEqual(report['status'], 'ai_development_observed')
+        arm = report['arms']['ordinary']
+        self.assertEqual(arm['assignments'], 3)
+        self.assertEqual(arm['qualified_scored'], 0)
+        self.assertIsNone(arm['adverse_counts'])
+        self.assertIsNone(arm['clean_fraction'])
+        self.assertEqual(report['arms']['intentline']['qualified_scored'], 3)

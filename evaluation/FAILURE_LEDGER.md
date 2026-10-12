@@ -150,3 +150,76 @@ excludes only that unchanged attachment's intentional hard breaks. No production
 validation, test or privacy gate was suppressed. Local Git metadata required
 escalated execution after the default sandbox refused index.lock; this did not
 use a GitHub checkout to bypass filesystem controls.
+
+## 0.6 engineering critique, 12 October 2026
+
+Independent AI engineering critique reproduced adapter-only failures using
+authored fixtures: null totals hiding known cap overruns, oracle contexts receiving
+gold, role/grant/host identity mismatches, unresolved critic dissent escaping
+qualification, critical omissions downgraded, unknown/overrun horizons, and
+unscored runs exposing comparative zeroes. Focused regression controls now refuse
+these or retain unqualified status. All original failed notes and prepared
+outputs remain private; no product skill or formal evaluator was tuned.
+
+These are deterministic engineering corrections. Three provisional ledgers and
+source challenges are AI preparation, not observed Intentline planning failures.
+Package 05 semantic product repair is omitted. No model-quality benefit, human
+review, native Proofline qualification or comparative result is inferred.
+
+The ambient Python 3.11 shim printed a version but failed imports due to missing
+encodings; the existing standalone 3.11.17 was used instead. Ambient Python 3.14
+lacked a runnable build module; the existing build-tool environment was reused.
+Neither failure was counted as a passing qualification or repaired by system edits.
+
+The first new installed receipt smoke failed because copytree restored the public
+packet directory mode after private directory creation. The operator copy now
+reapplies 0700; the read-only validator's refusal was correct. A subsequent source
+install failed on unavailable PyPI DNS. Fresh wheel/sdist installed controls then
+passed on both supported local interpreters using PIP_NO_INDEX=1 and an existing
+bundled setuptools 79.0.1 wheel. Original failed logs/artifacts are retained.
+
+A real coordinator-only nonsecret canary probe opened gold/other-arm/answer sibling
+sentinels despite 0700/0600 storage. No model or private answer was read in this
+probe, and no separate role host was qualified. Network/app checks stay untested.
+The first probe helper import failed outside the repository import path; its
+original stdout and observed failure receipt remain retained with the successful
+local-helper attempt. Shared host isolation is still a failing experiment gate.
+
+Task-specific offline calibration preparation could ground 19 provisional controls
+(6 positive, 13 negative) but retained 11 blocked categories rather than inventing
+source rules: authority/gap/blocker for all three cases and exclusion/exception
+for one. Mechanical anchors pass on prepared candidates; no source qualification,
+calibration prediction or planning assignment follows from these authored fixtures.
+
+After authorized draft PR publication (#31–#35), original Windows 3.11/3.14 CI
+exposed O_NONBLOCK access in the operator helper on a platform that lacks it.
+Original failed run/job logs are retained. Unsupported flags now return unresolved
+before I/O; a new regression removes the flag and asserts no open call. The mock
+permission-error branch supplies its synthetic flag explicitly. Updated dependency
+branches use ordinary merges, preserving every original published head. Windows
+secure study storage remains refused; no model or efficacy claim follows from CI.
+
+A subsequent offline runbook check found that default macOS temporary paths can
+use a /var symlink alias. The documented mktemp example then correctly refused
+with exit 3 even though the final directory was 0700. The operator example now
+resolves only its freshly created directory and reapplies 0700 after copying;
+the corrected read-only receipt matches the frozen JSON. No adapter or source
+path validation was relaxed. Original/refused and corrected attempt evidence is
+retained in a separate follow-up packet; original dated inventories are unchanged.
+
+A subsequent independent AI engineering review reproduced four defects using
+authored qualification fixtures: private ledger bytes aliased as judge rules,
+calibration canaries dated after judge start, extra researcher/drafter preparation
+actors omitted from grant/host/session checks, and zero adverse counts for an
+entirely unscored arm. The byte guard now includes judge-visible rules/neutral
+inputs; all preparation actors and calibration start times are checked; unscored
+arm measurements stay null. Four regression tests and independent after-fix
+reproductions pass. These are evaluator defects, not observed planning defects.
+
+An offline cached-image Docker shell preflight retained a real unexpected success:
+the unprivileged Linux process opened an existing nonsecret macOS 0600 bind-mounted
+sentinel. Read-only root, dropped capabilities and network-none were observed,
+but neither that file boundary nor any model/app/session boundary was qualified.
+The image also created an anonymous volume, captured in the mount inventory and
+removed with the stopped task container. No corpus, private answer or credentials
+were supplied; originals and failed observations remain retained.

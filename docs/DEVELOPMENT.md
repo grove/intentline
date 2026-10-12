@@ -87,3 +87,19 @@ an authorized commit/push/PR; local tests do not replace it. The original five
 0.5 heads passed all six cells. Experimental 0.5.0rc1 metadata follows that gate;
 subsequent heads require their own checks. Tag/package publication and merge
 remain separately authorized, and empirical readiness is independently reported.
+
+## 0.6 qualification
+
+The separate evaluation adapter reuses planning_02 helpers and rubric_02 without
+changing formal-study semantics. Historical 0.1–0.5 identities are frozen in
+baseline_06; all new fixtures are authored engineering controls. Private source,
+gold, model outputs, settings and native receipts remain outside Git. Installed
+wheel/sdist qualification includes the optional read-only evaluator, versioned
+spec, public controls and sanitized empty receipt. No runtime model dependency.
+The package version remains 0.5.0rc1 pending a separate release decision.
+
+Run the ordinary offline suite and fresh build/package smoke above. CI also
+reproduces the empty 0.6 report in owner-only temporary storage. It never runs
+research/calibration/planning/scoring inference. Actual Windows storage still
+refuses with exit 3. See [0.6 implementation](IMPLEMENTATION_0.6.md) for exact
+local commands, observed checks and unexecuted remote-CI cells.

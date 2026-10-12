@@ -17,7 +17,10 @@ subagents, owner-only directories and fresh contexts do not hide shared files.
 Freeze the candidate population and selection rule before any arm outputs. Review
 the existing nine private 0.5 candidates when genuinely available. Otherwise record
 that the packet was unavailable and retain new source research as a new population.
-Do not invent access to earlier captures. Select one request with accepted versus
+Do not invent access to earlier captures. A frozen earliest-created-request per
+repository rule is also valid; retain its full population and assess category
+suitability as a gate, without replacing cases after outcomes. For a category rule,
+select one request with accepted versus
 proposed authority, one with a scoped exception, and one with a negative/regression
 promise, each from a different pinned licensed repository. Break ties by original
 request timestamp then repository/request ID; record all exclusions and ties. If a

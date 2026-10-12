@@ -20,7 +20,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python -m pip install build
       - run: python -m build
-      - run: python -B evaluation/package_smoke.py dist
+      - name: Fresh installs and read-only AI receipt (zero inference)
+        run: python -B evaluation/package_smoke.py dist
       - run: python -m pip install .
       - run: python -B -m unittest discover -v
       - name: Read-only slicing evaluation receipt (POSIX)

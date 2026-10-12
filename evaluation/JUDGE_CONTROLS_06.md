@@ -38,6 +38,8 @@ Calibration keys: `status` (not_run/observed/failed), `protocol` (nullable ref),
 `judging_metrics`. Each judge's context contains only original sources, neutral
 control plans and rules. Protocol/expected answers, mapping, gold and other judge
 responses are forbidden. Judges need distinct observed session/environment IDs.
+The corpus-wide byte identity guard also covers judge rules and neutral control
+and scoring inputs; renaming private reference bytes cannot make them visible.
 Receipts parse to `judge_session_id, protocol_sha256, timestamp, predictions`.
 Each prediction is `control_id, dimensions, critical, citations`. Missing/failed
 predictions remain recorded and prevent qualification; unknown usage stays null.
@@ -102,6 +104,8 @@ different dimensions/coverage/support or critical states remain disagreement.
 Contested gold, critic dissent and unresolved critical findings never count clean.
 Only source-, host- and calibration-qualified records expose comparative adverse
 counts/clean fractions; full assignment denominators include stopped/not_run runs.
+An arm with no complete two-judge scores retains null adverse counts and clean
+fraction, even when another arm qualifies; its full assignment count stays visible.
 No ranking, significance test or broad effectiveness percentage is produced.
 
 ## External grants, role and host records
@@ -129,6 +133,10 @@ source-grounded resolution as distinct artifacts, never erase a dissent.
 Each role also has `started_at`, preceding its `timestamp`; host checks precede
 that start. Preparation/planner/calibration/scoring sessions and environments stay
 distinct, with preparation roles included in access gates.
+All declared preparation actors, including researcher and drafter, need granted
+configurations and host checks. Their contexts contain only named task sources;
+only the critic receives that task's ledger. Calibration host checks precede the
+judge's started_at, and frozen controls precede that start too.
 
 Host receipt keys: `environment_id, tested_at, canaries, permissions, witness`.
 Canaries has exactly gold, other_arm, operator_answers, network, connected_apps;
