@@ -1,2 +1,3 @@
 # Bound evidence is byte-preserved even on CRLF checkouts.
 evaluation/** -text
+evaluation/baseline_02/** -text

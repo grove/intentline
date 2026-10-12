@@ -54,3 +54,8 @@ checked/rendered it and reused revision 1. The missing UI stayed an evidence gap
 no audit/adoption occurred. Source-distribution evaluation/results/host-smoke.json
 binds the installed skill/artifact and draft hashes. This self-context unblinded
 smoke does not qualify automatic discovery, first-time onboarding or efficacy.
+
+Use `review --work WORK --json` to display the exact contract, traceable sources,
+material changes and qualifications. `approval-request` prepares an external
+adopter's unapproved display/template; never fill actor/reference fields on the
+user's behalf or infer approval from viewing it.
