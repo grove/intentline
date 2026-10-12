@@ -1,4 +1,2 @@
-# Bound evidence is byte-preserved even on CRLF checkouts.
-evaluation/** -text
-evaluation/baseline_02/** -text
-tests/compatibility/proofline_native_input.py -text
+# Source and compatibility hashes bind repository bytes on every platform.
+* -text

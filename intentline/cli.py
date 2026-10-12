@@ -55,12 +55,28 @@ def parser():
             command.add_argument("--format", choices=["proofline-direct", "proofline-native", "markdown", "json"], required=True)
             command.add_argument("--out", required=True)
             command.add_argument("--product-root", help="exact downstream checkout for binding project references")
+    command = sub.add_parser("slice")
+    command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+    actions = command.add_subparsers(dest="slice_command", required=True)
+    for name in ("preview", "record", "status", "render"):
+        action = actions.add_parser(name)
+        action.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+        action.add_argument("--work", required=True)
+        if name in ("preview", "record"):
+            action.add_argument("--proposal", required=True)
+        if name == "record":
+            action.add_argument("--expected-parent-sha256", required=True)
     return p
 
 
 def execute(args):
     from .paths import capability
     capability()
+    if args.command == "slice":
+        from . import slice_records
+        if args.slice_command == "preview": return slice_records.preview(args.work,args.proposal)
+        if args.slice_command == "record": return slice_records.record(args.work,args.proposal,args.expected_parent_sha256)
+        return slice_records.status(args.work,args.slice_command == "render")
     if args.command == "inspect-native":
         from .native_handoff import inspect_native
         return inspect_native(args.bundle)

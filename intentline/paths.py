@@ -73,7 +73,7 @@ class Directory:
             raise IntentlineError(f'Unsafe file: {name}', 3) from exc
         try:
             before = os.fstat(fd)
-            if not stat.S_ISREG(before.st_mode) or before.st_size > limit:
+            if not stat.S_ISREG(before.st_mode) or before.st_nlink != 1 or before.st_size > limit:
                 raise IntentlineError(f'Not a bounded regular file: {name}')
             chunks = []
             remaining = limit + 1
