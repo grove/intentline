@@ -46,3 +46,11 @@ No product code was weakened; Python 3.14.8 passes those tests. The ambient
 `python3.11` shim also has a broken relocated stdlib and cannot import encodings;
 use the previously installed standalone 3.11.17 interpreter or repository CI.
 These are local invocation/environment failures, not claimed passing checks.
+
+0.4 PR-01 initial head `3de71ccff2e27c2adb69520009b4db9eada7304d`:
+CI runs 38251953106 and 38251960615 each passed Linux/macOS (four cells)
+and failed both Windows cells. Windows checkout converted frozen test LF bytes
+to CRLF; the exact-byte baseline check correctly rejected `test_adoption.py`.
+The Win32 API probe itself ran and passed. Repair: `.gitattributes` disables
+checkout text conversion, preserving original bytes rather than normalizing the
+snapshot or weakening its hash check. No original 0.3 test was changed.
