@@ -108,7 +108,8 @@ class Directory:
                 os.link(temp, name, src_dir_fd=self.fd, dst_dir_fd=self.fd, follow_symlinks=False)
             os.fsync(self.fd)
         finally:
-            os.unlink(temp, dir_fd=self.fd)
+            with contextlib.suppress(FileNotFoundError):
+                os.unlink(temp, dir_fd=self.fd)
 
     @contextlib.contextmanager
     def lock(self):

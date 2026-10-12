@@ -46,6 +46,22 @@ def execute(args):
     if args.command == "prepare":
         from .sources import prepare
         return prepare(args.source, args.context, args.root, args.out)
+    if args.command == "propose":
+        from .contracts import propose
+        return propose(args.work, args.draft)
+    if args.command in ("check", "status", "render"):
+        from .contracts import inspect
+        status, contract = inspect(args.work)
+        if args.command == "render":
+            if contract is None:
+                raise IntentlineError("No current contract to render")
+            from .render import markdown
+            from .paths import Directory
+            from .sources import bundle
+            with Directory(args.work) as work:
+                manifest, _, _ = bundle(work)
+            status["markdown"] = markdown(contract, status, manifest)
+        return status
     raise IntentlineError("No work item recorded yet")
 
 
