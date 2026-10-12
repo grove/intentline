@@ -52,7 +52,8 @@ def open_directory(path):
         os.close(fd); raise
 
 
-def read_files(path):
+def read_files(path, marker_name='native-manifest.json'):
+    require(marker_name in ('native-manifest.json','slice-manifest.json'), 'Unsupported inventory marker')
     """Descriptor-relative bounded reads, detecting replacement and symlinks."""
     require(os.name == 'posix' and hasattr(os, 'O_NOFOLLOW') and os.open in os.supports_dir_fd, 'Secure native inspection unavailable on this host')
     raw = os.fspath(path)
@@ -66,7 +67,7 @@ def read_files(path):
             file_fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=fd)
             try:
                 before = os.fstat(file_fd)
-                require(stat.S_ISREG(before.st_mode) and before.st_size <= MAX_FILE, 'Unbounded or nonregular native file')
+                require(stat.S_ISREG(before.st_mode) and before.st_nlink == 1 and before.st_size <= MAX_FILE, 'Unbounded or nonregular native file')
                 chunks, remaining = [], MAX_FILE + 1
                 while remaining:
                     part = os.read(file_fd, min(remaining, 65536))
@@ -77,17 +78,24 @@ def read_files(path):
                 require(len(data) <= MAX_FILE and signature(before) == signature(os.fstat(file_fd)) == signature(os.stat(name, dir_fd=fd, follow_symlinks=False)), 'Native file changed during inspection')
                 return data
             finally: os.close(file_fd)
-        raw_manifest = read('native-manifest.json'); envelope = parse(raw_manifest)
-        fields(envelope, ['record','schema_version','authorization','consumer_execution','contract_id','revision','contract_sha256','source_bundle_sha256','source_chain_sha256','continuity_sha256','requirement_ids','provenance','files'])
-        require(envelope['record'] == 'intentline.native-handoff' and type(envelope['schema_version']) is int and envelope['schema_version'] == 1 and envelope['authorization'] == 'not_established' and envelope['consumer_execution'] == 'not_observed', 'Unsupported native envelope or false authorization')
-        require(isinstance(envelope['files'], dict) and 4 <= len(envelope['files']) <= 1100, 'Invalid native file inventory')
+        raw_manifest = read(marker_name); envelope = parse(raw_manifest)
+        if marker_name == 'native-manifest.json':
+            fields(envelope, ['record','schema_version','authorization','consumer_execution','contract_id','revision','contract_sha256','source_bundle_sha256','source_chain_sha256','continuity_sha256','requirement_ids','provenance','files'])
+            require(envelope['record'] == 'intentline.native-handoff' and type(envelope['schema_version']) is int and envelope['schema_version'] == 1 and envelope['authorization'] == 'not_established' and envelope['consumer_execution'] == 'not_observed', 'Unsupported native envelope or false authorization')
+        require(isinstance(envelope,dict) and isinstance(envelope.get('files'), dict) and 4 <= len(envelope['files']) <= 1100, 'Invalid native file inventory')
         files = {}
+        total = 0
         for name, expected in envelope['files'].items():
             digest(expected)
-            require(name != 'native-manifest.json', 'Recursive marker inventory')
-            data = read(name); require(sha(data) == expected, 'Native file hash mismatch: ' + name); files[name] = data
-        require(sum(map(len, files.values())) <= 44 * 1024 * 1024, 'Native bundle exceeds bounded archive/active limits')
-        require(read('native-manifest.json') == raw_manifest, 'Native marker changed during inspection')
+            require(name != marker_name, 'Recursive marker inventory')
+            data = read(name); require(sha(data) == expected, 'Native file hash mismatch: ' + name)
+            total += len(data)
+            require(total <= (44 if marker_name == 'native-manifest.json' else 48) * 1024 * 1024, 'Bundle total byte limit')
+            files[name] = data
+        require(sum(map(len, files.values())) <= (44 if marker_name == 'native-manifest.json' else 48) * 1024 * 1024, 'Native bundle exceeds bounded archive/active limits')
+        if marker_name == 'slice-manifest.json':
+            require(set(os.listdir(fd)) == set(envelope['files']) | {marker_name}, 'Unexpected/missing child bundle files')
+        require(read(marker_name) == raw_manifest, 'Native marker changed during inspection')
         check_fd = open_directory(path)
         try:
             current = os.fstat(check_fd)
@@ -245,14 +253,14 @@ def inspect_bundle(path):
     return inspect_payload(*read_files(path))
 
 
-def inspect_payload(envelope,files,bundle_digest):
+def inspect_payload(envelope,files,bundle_digest, advisory=False):
     require({'contract.json','history.json','source-manifest.json','brief.md','inspect_bundle.py'} <= files.keys(), 'Missing critical native files')
     manifest=parse(files['source-manifest.json']);blobs=sources(manifest,files)
     c=parse(files['contract.json']);ids=contract(c,manifest,blobs)
     require(files['brief.md'] == b'# Native acceptance input (authorization not established)\n\n' + canonical(c), 'Rendered native brief changed')
     history = parse(files['history.json']); revision_history(history,manifest,blobs)
     require(history[-1] == c, 'Current contract/history mismatch')
-    require(not c['open_decisions'] and not c['evidence_gaps'] and all(r['plan_state']=='planned' for r in c['requirements']), 'Native accepted-input plan is not ready')
+    if not advisory: require(not c['open_decisions'] and not c['evidence_gaps'] and all(r['plan_state']=='planned' for r in c['requirements']), 'Native accepted-input plan is not ready')
     require(all(envelope[k] == c[k] for k in ('contract_id','revision','source_bundle_sha256')) and envelope['contract_sha256'] == sha(files['contract.json']) and envelope['requirement_ids'] == ids, 'Native contract identity/inventory mismatch')
     chain = sha(canonical({'source_manifest':manifest,'ancestors':manifest.get('ancestors',[])}))
     require(envelope['source_chain_sha256'] == chain, 'Native source-chain identity mismatch')
