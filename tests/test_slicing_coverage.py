@@ -67,7 +67,7 @@ class Coverage(CoverageCase):
                  lambda p:p['children'][0]['requirements'][0].update(boundaries=[]),
                  lambda p:p['children'][0]['requirements'][0].update(source_refs=p['children'][1]['requirements'][0]['source_refs']),
                  lambda p:p['children'][0]['requirements'][0].update(plan_state='gap'),
-                 lambda p:p['children'].reverse(),lambda p:p['children'][0].update(children=[])]
+                 lambda p:p['children'][0].update(children=[])]
         for index,change in enumerate(changes):
             self.plan=copy.deepcopy(good);change(self.plan)
             with self.subTest(mutant=index),self.assertRaises(IntentlineError):preview(self.work,self.save_plan())
@@ -123,3 +123,11 @@ class Coverage(CoverageCase):
             self.assertEqual(preview(work,path)['semantics'],'unverified')
             record(work,path,parent['contract_sha256'])
         self.assertEqual(status(work)['history_count'],2)
+
+    def test_equivalent_collection_reordering_reuses_same_identity(self):
+        if not self.setup_split():return
+        first=self.save_record()
+        self.plan['children'].reverse();self.plan['allocations'].reverse();self.plan['parent_final_checks'].reverse()
+        for child in self.plan['children']:child['requirements'][0]['boundaries'].reverse()
+        self.assertEqual(preview(self.work,self.save_plan())['plan_sha256'],first['plan_sha256'])
+        self.assertEqual(self.save_record(),first)
