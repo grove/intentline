@@ -115,6 +115,8 @@ def current(work, manifest=None, blobs=None, source_digest=None):
                 'contract_sha256': sha(canonical(last)), 'source_bundle_sha256': source_digest}
     if pointer != expected or canonical(pointer) != pointer_raw:
         raise IntentlineError('Current pointer hash/identity mismatch', 3)
+    if work.read('current.json')[0] != pointer_raw:
+        raise IntentlineError('Current revision changed during inspection', 3)
     return last, pointer, history
 
 
@@ -161,6 +163,12 @@ def inspect(work_path):
         try:
             c, pointer, _ = current(work, manifest, blobs, digest)
         except FileNotFoundError:
+            try:
+                work.read('current.json')
+            except FileNotFoundError:
+                pass
+            else:
+                raise IntentlineError('Missing immutable historical revision', 3)
             return {'flags': ['STALE' if stale else 'BLOCKED'], 'status': 'STALE' if stale else 'BLOCKED',
                     'stale_sources': stale, 'exit_code': 2, 'summary': 'No complete current contract'}, None
         flags = ['DRAFT', 'STRUCTURALLY_VALID']
@@ -170,6 +178,9 @@ def inspect(work_path):
             flags.append('STALE')
         from .audits import readiness
         extra, counts = readiness(work, c, pointer, manifest, blobs)
+        stale = list(dict.fromkeys(stale + freshness(manifest)))
+        if stale and 'STALE' not in flags:
+            flags.append('STALE')
         flags.extend(extra)
         if stale or 'STALE' in flags:
             flags = [f for f in flags if f not in ('READY_FOR_ADOPTION', 'ADOPTED_ASSERTED')]

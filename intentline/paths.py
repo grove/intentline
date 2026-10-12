@@ -12,7 +12,8 @@ MAX_FILE = 2 * 1024 * 1024
 
 def absolute(path):
     raw = os.fspath(path)
-    if not raw or '\x00' in raw or '\\' in raw or any(p in ('.', '..') for p in raw.split('/')):
+    if (not raw or any(ord(c) < 32 for c in raw) or '\\' in raw
+            or '//' in raw or any(p in ('.', '..') for p in raw.split('/'))):
         raise IntentlineError('Ambiguous, Windows-style, or traversing path')
     return Path(os.path.abspath(raw))
 
@@ -39,6 +40,9 @@ class Directory:
                 fd = new
             self.fd = fd
             self.identity = os.fstat(fd)
+            if create and (self.identity.st_uid != os.getuid() or self.identity.st_mode & 0o077):
+                os.close(fd)
+                raise IntentlineError('Output directory must be owner-only; select a new private directory')
         except OSError as exc:
             os.close(fd)
             raise IntentlineError(f'Unsafe or unavailable directory: {self.path}: {exc}', 3) from exc
