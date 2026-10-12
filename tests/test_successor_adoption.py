@@ -45,8 +45,8 @@ class SuccessorAdoption(SuccessorCase):
 
     def test_installed_skill_contract_and_malicious_host_limits(self):
         root = Path(__file__).resolve().parents[1]
-        plan = (root/'skills/intentline-plan/SKILL.md').read_text()
-        audit = (root/'skills/intentline-audit/SKILL.md').read_text()
+        plan = ' '.join((root/'skills/intentline-plan/SKILL.md').read_text().split())
+        audit = ' '.join((root/'skills/intentline-audit/SKILL.md').read_text().split())
         for phrase in ('amend-source', 'reconcile', 'exact chat bytes', 'No automatic adopt', 'retired ID'):
             self.assertIn(phrase, plan)
         for phrase in ('both directions', 'full source', 'self_check', 'Never manufacture approval'):
