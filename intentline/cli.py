@@ -62,6 +62,12 @@ def execute(args):
                 manifest, _, _ = bundle(work)
             status["markdown"] = markdown(contract, status, manifest)
         return status
+    if args.command == "audit-record":
+        from .audits import audit_record
+        return audit_record(args.work, args.report)
+    if args.command == "adopt":
+        from .adoption import adopt
+        return adopt(args.work, args.expected_contract_sha256, args.approval_file)
     raise IntentlineError("No work item recorded yet")
 
 

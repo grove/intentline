@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "record": {
+      "const": "intentline.audit"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_bundle_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reported_independence": {
+      "type": "string",
+      "enum": [
+        "self_check",
+        "unverified_independence",
+        "independent"
+      ]
+    },
+    "authentication": {
+      "const": "unverified"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "READY_FOR_ADOPTION",
+        "CHANGES_NEEDED",
+        "BLOCKED"
+      ]
+    },
+    "coverage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^A[1-9][0-9]*$"
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R[1-9][0-9]*$"
+            },
+            "minItems": 0
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "line_start": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999999
+                },
+                "line_end": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999999
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "source_id",
+                "line_start",
+                "line_end",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "consequence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "correction": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "requirement_ids",
+          "source_refs",
+          "evidence",
+          "consequence",
+          "correction"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "record",
+    "schema_version",
+    "contract_sha256",
+    "source_bundle_sha256",
+    "actor",
+    "timestamp",
+    "reported_independence",
+    "authentication",
+    "outcome",
+    "coverage",
+    "findings"
+  ],
+  "additionalProperties": false
+}
