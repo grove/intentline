@@ -27,3 +27,9 @@ scaffolding. Full upstream file and function digests are retained in
 `capture_base` and `validate_links` from the same pinned Apache-2.0 Proofline file.
 Function/file digests are in `tests/compatibility/checkout-identity.json`; its
 OfflineGit shim is test scaffolding, never a runtime peer or host/model emulator.
+
+The test-only tests/compatibility/proofline_native_input.py byte snapshot comes
+from grove/proofline 2285a434c1c33e73f8d89a6c3267abcaa37e9b95, checks/intentline_input.py,
+Apache-2.0 (Copyright 2026 Proofline contributors). Its pinned identity records
+shared producer-validator ancestry; no independent review is claimed. The snapshot
+is not installed/imported by the Intentline runtime and performs no inference.

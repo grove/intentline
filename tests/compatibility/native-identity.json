@@ -1,0 +1,1 @@
+{"commit":"2285a434c1c33e73f8d89a6c3267abcaa37e9b95","file_sha256":"977a4f24cd1724c780c1a09155d467ae2b34a91ed76f02e14d4d0345cc7838cd","qualification":"Test-only consumer snapshot; offline admission, no real review/approval/live proof","repository":"https://github.com/grove/proofline","source_path":"checks/intentline_input.py"}

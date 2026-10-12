@@ -39,3 +39,24 @@ creating a new model process. Label it self-context/unblinded and separate it fr
 eligible real pilots. No automatic host discovery/slash-command qualification.
 Live Proofline qualification requires its independently authorized native host,
 model budget and actual receipts; the operator recipe never runs in CI.
+
+## 0.3 integration
+
+Dependency order: review/baseline → successor lineage → agent flow → native
+export → separate Proofline adapter → Windows feasibility → integration.
+The Intentline PR stack is open; the consumer PR targets Proofline main.
+Exact heads and CI links are in SCORECARD_0.3.md and the final PR report.
+No main integration or merged-head CI is claimed before authorized merges.
+
+The final package smoke also exercises installed original review, explicit
+amendment, continuity reconciliation, native export and isolated standalone
+inspection using authored public fixtures. All previous source/schema/hash
+snapshots remain unchanged in evaluation/baseline_02 and the original tests.
+Windows tests actually run the limited native handle/API feasibility probe; all
+record commands still refuse storage before I/O. See WINDOWS_STORAGE_FEASIBILITY.
+
+The test-only pinned Proofline validator is excluded from the runtime wheel and
+retains provenance in tests/compatibility/native-identity.json. It proves offline
+admission compatibility; it is neither runtime coupling nor independent review.
+The 0.3 host smoke is self-context/unblinded, using installed files and the
+current agent only. No paid inference, external pilot or live delivery is implied.

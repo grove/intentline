@@ -47,6 +47,10 @@ def review(work_path, against_revision=None):
             raise IntentlineError('Current revision changed during review', 3)
         active_audits = [a for a in audits if all(a[k] == pointer[k] for k in ('contract_sha256', 'source_bundle_sha256'))]
         disputes = [a for a in active_audits if a['outcome'] != 'READY_FOR_ADOPTION']
+        source_states = [{'source_id': s['source_id'], 'role': s['role'],
+                          'provenance': s.get('provenance', 'explicit_frozen_stdin' if s['original_location'] is None else 'current'),
+                          'support': 'stale' if s['source_id'] in status['stale_sources'] else 'frozen_historical' if s.get('provenance') == 'frozen_historical' else 'captured_current_or_explicit_stdin'}
+                         for s in manifest['sources']]
         diff = difference(old, c)
         old_identity = None if old is None else {
             'contract_id': old['contract_id'], 'revision': old['revision'],
@@ -59,18 +63,32 @@ def review(work_path, against_revision=None):
                    'Mechanically unchanged: ' + ', '.join(safe(i) for i in diff['unchanged_ids']), '',
                    'Semantic equivalence requires audit; matching IDs are insufficient.', '',
                    f"Current audits: {status['current_audits']}; recorded assertions are unverified.", '']
+        if old_identity:
+            summary.extend(['Previous contract: ' + safe(old_identity['contract_id']) + '; SHA-256 `' + old_identity['contract_sha256'] + '`',
+                            'Previous source bundle SHA-256: `' + old_identity['source_bundle_sha256'] + '`', ''])
+        for kind in ('added', 'removed'):
+            for row in diff[kind]:
+                summary.append(kind.capitalize() + ': ' + safe(row['id'] + ' — ' + row['statement']))
+        for change in diff['changed']:
+            for field, value in change['after'].items():
+                if value != change['before'].get(field):
+                    summary.append('Changed ' + safe(change['after']['id'] + ' ' + field) + ': ' + safe(canonical(change['before'].get(field)).decode().strip()) + ' → ' + safe(canonical(value).decode().strip()))
+        for field, change in diff['other_changes'].items():
+            summary.append('Changed ' + safe(field) + ': ' + safe(canonical(change['before']).decode().strip()) + ' → ' + safe(canonical(change['after']).decode().strip()))
+        for state in source_states:
+            summary.append('Source: ' + safe(state['source_id'] + ' ' + state['role'] + '; ' + state['support']))
         for report in active_audits:
             summary.append('Audit: ' + safe(report['outcome']) + '; reported independence ' + safe(report['reported_independence']) + '; authentication unverified')
             for finding in report['findings']:
                 summary.append('- ' + safe(finding['id'] + ': ' + finding['consequence'] + '; evidence: ' + finding['evidence'] + '; correction: ' + finding['correction']))
         return {**status, 'contract': c, 'source_manifest': manifest,
-                'sources': {sid: text(data) for sid, data in blobs.items()},
+                'sources': {sid: text(data) for sid, data in blobs.items()}, 'source_states': source_states,
                 'predecessor': old_identity, 'diff': diff,
                 'continuity': continuity, 'predecessor_evidence': predecessor_evidence,
                 'archived_evidence': {name: text(data) for name, data in archived_files.items()} if predecessor_evidence else {},
                 'advisory_mappings': c['change_notes'][-1].get('mappings', []),
                 'audits': audits, 'audit_disputes': disputes, 'adoption_boundary': 'operator_asserted; authentication unverified',
-                'markdown': '\n'.join(summary) + markdown(c, status, manifest)}
+                'markdown': '\n'.join(summary) + '\n\n' + markdown(c, status, manifest)}
 
 
 def approval_request(work_path):

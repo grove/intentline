@@ -52,8 +52,10 @@ def continuity_check(record, old, new, manifest, blobs, old_manifest):
         support(mapping, [before[i] for i in source], manifest, blobs)
         if kind == 'preserved':
             origin, destination = mapping['from'][0], mapping['to'][0]
-            if origin != destination or remapped(before[origin], manifest, old_manifest) != after[destination]:
-                raise IntentlineError('Preserved mapping requires unchanged mechanical row and stable ID; semantic audit still required')
+            old_binding = {k: v for k, v in remapped(before[origin], manifest, old_manifest).items() if k not in ('seam', 'planned_evidence', 'plan_state')}
+            new_binding = {k: v for k, v in after[destination].items() if k not in ('seam', 'planned_evidence', 'plan_state')}
+            if origin != destination or old_binding != new_binding:
+                raise IntentlineError('Preserved mapping requires unchanged binding fields and stable ID; semantic audit still required')
         elif any(i in before and i not in source for i in target):
             raise IntentlineError('Requirement ID aliases an unrelated historical obligation')
         origins.update(source); targets.update(target)

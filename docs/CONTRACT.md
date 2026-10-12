@@ -64,8 +64,10 @@ metadata snapshot must fit 2 MiB; excess refuses without truncation.
 A continuity record outside acceptance JSON binds old/new contract/source digests.
 Mappings cover every old R ID exactly once and every new ID through a target or
 added_requirement_ids. Dispositions are preserved/changed/retired/split/merged.
-Preserved means mechanical row equality after exact source remapping, with the
-same ID; semantic equivalence still needs audit. Changed request/invariant rows
+Preserved means binding field equality after exact source remapping, with the
+same ID; semantic equivalence still needs audit. Advisory seam, planned evidence
+and plan state may change to disclose evidence availability, without inventing
+a changed user obligation. These changes remain visible in the mechanical diff. Changed request/invariant rows
 need a reference to the new amendment. Documentary constraint changes need current
 context evidence. Ancillary constraint/exclusion changes use category, from_index,
 to_indices, reason and source_refs in other_changes. Unchanged ancillary rows must
