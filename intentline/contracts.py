@@ -168,8 +168,14 @@ def inspect(work_path):
             flags.append('BLOCKED')
         if stale:
             flags.append('STALE')
-        status = 'STALE' if stale else ('BLOCKED' if c['open_decisions'] else 'STRUCTURALLY_VALID')
-        return {**pointer, 'flags': flags, 'status': status, 'stale_sources': stale,
+        from .audits import readiness
+        extra, counts = readiness(work, c, pointer, manifest, blobs)
+        flags.extend(extra)
+        if stale or 'STALE' in flags:
+            flags = [f for f in flags if f not in ('READY_FOR_ADOPTION', 'ADOPTED_ASSERTED')]
+        flags = list(dict.fromkeys(flags))
+        status = next((f for f in ('STALE','BLOCKED','ADOPTED_ASSERTED','READY_FOR_ADOPTION') if f in flags), 'STRUCTURALLY_VALID')
+        return {**pointer, **counts, 'flags': flags, 'status': status, 'stale_sources': stale,
                 'exit_code': 2 if status in ('STALE', 'BLOCKED') else 0,
                 'summary': status + ': structural checks do not establish semantic completeness',
                 'evidence_gaps': c['evidence_gaps']}, c

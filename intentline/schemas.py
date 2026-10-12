@@ -72,3 +72,29 @@ def validate(value, schema, path='$'):
     elif kind == 'integer':
         if not schema.get('minimum', value) <= value <= schema.get('maximum', value):
             raise IntentlineError(f'{path}: integer out of bounds')
+
+FINDING = obj({'id': {'type':'string', 'pattern':'^A[1-9][0-9]*$'},
+               'requirement_ids': array(RID), 'source_refs': REFS,
+               'evidence': TEXT, 'consequence': TEXT, 'correction': TEXT})
+AUDIT = obj({'record': {'const':'intentline.audit'}, 'schema_version': {'const':1},
+             'contract_sha256': DIGEST, 'source_bundle_sha256': DIGEST,
+             'actor': TEXT, 'timestamp': TEXT,
+             'reported_independence': {'type':'string', 'enum':['self_check','unverified_independence','independent']},
+             'authentication': {'const':'unverified'},
+             'outcome': {'type':'string', 'enum':['READY_FOR_ADOPTION','CHANGES_NEEDED','BLOCKED']},
+             'coverage': TEXT, 'findings': array(FINDING)})
+APPROVAL = obj({'record': {'const':'intentline.approval'}, 'schema_version': {'const':1},
+                'contract_sha256': DIGEST, 'source_bundle_sha256': DIGEST,
+                'actor': TEXT, 'timestamp': TEXT, 'reference': TEXT,
+                'record_bytes_utf8': TEXT},
+               ['record','schema_version','contract_sha256','source_bundle_sha256','actor','timestamp','reference'])
+ADOPTION = obj({'record': {'const':'intentline.adoption'}, 'schema_version': {'const':1},
+                'contract_sha256': DIGEST, 'source_bundle_sha256': DIGEST,
+                'actor': TEXT, 'timestamp': TEXT, 'reference': TEXT,
+                'record_bytes_utf8': TEXT, 'assertion': {'const':'operator_asserted'},
+                'authentication': {'const':'unverified'}, 'approval_file_sha256': DIGEST,
+                'approval_file_bytes_utf8': TEXT, 'approval_file_path': TEXT,
+                'approval_file_identity': obj({'device': {'type':'integer','minimum':0}, 'inode': {'type':'integer','minimum':0}})},
+               ['record','schema_version','contract_sha256','source_bundle_sha256','actor','timestamp','reference',
+                'assertion','authentication','approval_file_sha256','approval_file_bytes_utf8',
+                'approval_file_path','approval_file_identity'])
