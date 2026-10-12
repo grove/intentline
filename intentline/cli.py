@@ -58,10 +58,16 @@ def parser():
     command = sub.add_parser("slice")
     command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     actions = command.add_subparsers(dest="slice_command", required=True)
-    for name in ("preview", "record", "status", "render", "audit-record", "impact"):
+    for name in ("preview", "record", "status", "render", "audit-record", "impact", "export", "inspect"):
         action = actions.add_parser(name)
         action.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
-        action.add_argument("--work", required=True)
+        if name == "inspect":
+            action.add_argument("--bundle", required=True)
+        else:
+            action.add_argument("--work", required=True)
+        if name == "export":
+            action.add_argument("--child", required=True)
+            action.add_argument("--out", required=True)
         if name in ("preview", "record"):
             action.add_argument("--proposal", required=True)
         if name == "audit-record":
@@ -78,6 +84,10 @@ def execute(args):
     capability()
     if args.command == "slice":
         from . import slice_records
+        if args.slice_command in ("export", "inspect"):
+            from . import slice_export
+            if args.slice_command == "inspect": return slice_export.inspect(args.bundle)
+            return slice_export.export(args.work,args.child,args.out)
         if args.slice_command == "audit-record":
             from .slice_audits import audit_record
             return audit_record(args.work,args.report)
