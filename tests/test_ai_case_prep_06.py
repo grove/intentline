@@ -15,19 +15,27 @@ class AccessCanaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             sentinel = Path(directory) / "sentinel"
             sentinel.write_bytes(b"nonsecret\n")
-            self.assertEqual(canary.visible_canary(sentinel, b"nonsecret\n"), hasattr(os, "O_NOFOLLOW"))
+            self.assertEqual(canary.visible_canary(sentinel, b"nonsecret\n"), hasattr(os, "O_NOFOLLOW") and hasattr(os, "O_NONBLOCK"))
             self.assertFalse(canary.visible_canary(sentinel, b"wrong\n"))
             self.assertFalse(canary.forbidden_canary(sentinel))
             self.assertFalse(canary.forbidden_canary(Path(directory) / "absent"))
 
     def test_permission_denial_is_only_a_sample(self):
-        with patch.object(canary.os, "open", side_effect=PermissionError(errno.EACCES, "denied")):
+        with patch.object(canary.os, "O_NONBLOCK", 0, create=True), \
+                patch.object(canary.os, "open", side_effect=PermissionError(errno.EACCES, "denied")):
             self.assertTrue(canary.forbidden_canary("synthetic-private-sentinel"))
         result = canary.summary(True, [True, True, True, True], True, True)
         self.assertTrue(result["sample_probes_passed"])
         self.assertFalse(result["host_qualified"])
         self.assertFalse(canary.summary(True, [], True, True)["sample_probes_passed"])
         self.assertFalse(canary.summary(True, [True, False], True, True)["sample_probes_passed"])
+
+    def test_missing_nonblocking_flag_refuses_before_io(self):
+        with patch.dict(canary.os.__dict__), patch.object(canary.os, "open") as opened:
+            canary.os.__dict__.pop("O_NONBLOCK", None)
+            self.assertFalse(canary.visible_canary("nonsecret", b"visible"))
+            self.assertFalse(canary.forbidden_canary("nonsecret"))
+            opened.assert_not_called()
 
     def test_network_refusal_timeout_missing_endpoint_do_not_prove_policy(self):
         for error in (ConnectionRefusedError(errno.ECONNREFUSED, "refused"), TimeoutError(),
