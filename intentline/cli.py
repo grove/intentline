@@ -17,7 +17,7 @@ def parser():
     p = Parser(description="Plan acceptance without implementing or proving it.")
     p.add_argument("--json", action="store_true", help="emit intentline.result schema 1")
     sub = p.add_subparsers(dest="command", required=True)
-    for name in ("prepare", "propose", "check", "render", "status", "audit-record", "adopt", "export"):
+    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "audit-record", "adopt", "export"):
         command = sub.add_parser(name)
         command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
         if name != "prepare":
@@ -31,6 +31,8 @@ def parser():
             command.add_argument("--draft", required=True)
         if name == "render":
             command.add_argument("--format", choices=["markdown"], default="markdown")
+        if name == "review":
+            command.add_argument("--against-revision", type=int)
         if name == "audit-record":
             command.add_argument("--report", required=True)
         if name == "adopt":
@@ -44,6 +46,12 @@ def parser():
 
 
 def execute(args):
+    if args.command == "review":
+        from .review import review
+        return review(args.work, args.against_revision)
+    if args.command == "approval-request":
+        from .review import approval_request
+        return approval_request(args.work)
     if args.command == "prepare":
         from .sources import prepare
         return prepare(args.source, args.context, args.root, args.out)

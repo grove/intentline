@@ -46,3 +46,8 @@ identity, not authority. Structural validation never proves completeness.
 Status reports applicable flags: DRAFT, STRUCTURALLY_VALID, READY_FOR_ADOPTION,
 ADOPTED_ASSERTED, BLOCKED, STALE. STALE/BLOCKED override advanced statuses.
 Historical snapshots do not make changed live sources fresh.
+
+Review compares complete requirement objects by ID, ignoring ordering alone.
+Its JSON separates mechanical differences from author-supplied revision mappings;
+semantic equivalence remains an audit obligation. Source bytes and all constraints
+remain available even when stale. Approval requests are unapproved templates.

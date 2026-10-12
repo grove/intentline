@@ -1,0 +1,8 @@
+{
+  "upstream": "grove/proofline",
+  "revision": "c4d28e4e743adbb261552323e694946f1360a129",
+  "path": "proofline.py",
+  "file_sha256": "5c2a2b5550c31c37c9d2d831029a6288a90d57bd0bf7fc0063362c8a7f1b32ae",
+  "function": "criterion_ids",
+  "function_sha256": "a5b915a614a463297836742267e102204bd7167f0bf2ada6db3e58277773f81a"
+}

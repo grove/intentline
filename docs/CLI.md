@@ -45,3 +45,12 @@ and record files 0600, subject to the owner's stricter process umask.
 Guarantees cover cooperative Intentline writers on ordinary local POSIX
 filesystems. Owner-level hostile edits, network filesystem semantics, power-loss
 durability and unsupported Windows primitives are not authenticated/qualified.
+
+`review --work WORK [--against-revision N]` reads the full agreement, source
+bytes, audit reports and a mechanical diff (IDs, full changed rows, constraints,
+exclusions, decisions and evidence gaps). A first revision has no predecessor.
+Matching rows/IDs do not establish semantic equivalence. Reads write nothing.
+
+`approval-request --work WORK --json` returns that exact display and a deterministic
+unapproved template with blank actor/timestamp/reference fields. An external
+actor supplies actual authority through existing `adopt`; viewing never adopts.
