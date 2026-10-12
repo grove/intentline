@@ -98,3 +98,15 @@ ADOPTION = obj({'record': {'const':'intentline.adoption'}, 'schema_version': {'c
                ['record','schema_version','contract_sha256','source_bundle_sha256','actor','timestamp','reference',
                 'assertion','authentication','approval_file_sha256','approval_file_bytes_utf8',
                 'approval_file_path','approval_file_identity'])
+
+CONTINUITY_MAPPING = obj({'from': array(RID, 1), 'to': array(RID),
+                          'disposition': {'type': 'string', 'enum': ['preserved', 'changed', 'retired', 'split', 'merged']},
+                          'reason': TEXT, 'source_refs': REFS})
+ANCILLARY_MAPPING = obj({'category': {'type': 'string', 'enum': ['constraints', 'out_of_scope']},
+                         'from_index': POSITIVE, 'to_indices': array(POSITIVE),
+                         'reason': TEXT, 'source_refs': REFS})
+CONTINUITY = obj({'record': {'const': 'intentline.continuity'}, 'schema_version': {'const': 1},
+                  'predecessor_contract_sha256': DIGEST, 'predecessor_source_bundle_sha256': DIGEST,
+                  'contract_sha256': DIGEST, 'source_bundle_sha256': DIGEST,
+                  'mappings': array(CONTINUITY_MAPPING, 1), 'added_requirement_ids': array(RID),
+                  'other_changes': array(ANCILLARY_MAPPING)})

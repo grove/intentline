@@ -28,12 +28,19 @@ def review(work_path, against_revision=None):
     with Directory(work_path) as work:
         manifest, blobs, digest = bundle(work)
         c, pointer, history = current(work, manifest, blobs, digest)
+        predecessor_evidence = None
+        continuity = None
+        if manifest['schema_version'] == 2:
+            from .amendments import archives
+            predecessor_evidence, archived_files = archives(work, manifest)
+            from .records import parse
+            continuity = parse(work.read('continuity.json')[0])
         if against_revision is not None:
             if type(against_revision) is not int or not 1 <= against_revision <= len(history):
                 raise IntentlineError('Comparison revision is unavailable')
             old = history[against_revision - 1]
         else:
-            old = history[-2] if len(history) > 1 else None
+            old = history[-2] if len(history) > 1 else (predecessor_evidence['history'][-1] if predecessor_evidence else None)
         audits = reports(work, 'audits', AUDIT)
         status, checked = inspect(work_path)
         if checked != c:
@@ -53,6 +60,8 @@ def review(work_path, against_revision=None):
         return {**status, 'contract': c, 'source_manifest': manifest,
                 'sources': {sid: text(data) for sid, data in blobs.items()},
                 'predecessor': old_identity, 'diff': diff,
+                'continuity': continuity, 'predecessor_evidence': predecessor_evidence,
+                'archived_evidence': {name: text(data) for name, data in archived_files.items()} if predecessor_evidence else {},
                 'advisory_mappings': c['change_notes'][-1].get('mappings', []),
                 'audits': audits, 'adoption_boundary': 'operator_asserted; authentication unverified',
                 'markdown': '\n'.join(summary) + markdown(c, status, manifest)}

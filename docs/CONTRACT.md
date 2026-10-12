@@ -51,3 +51,28 @@ Review compares complete requirement objects by ID, ignoring ordering alone.
 Its JSON separates mechanical differences from author-supplied revision mappings;
 semantic equivalence remains an audit obligation. Source bytes and all constraints
 remain available even when stale. Approval requests are unapproved templates.
+
+Successors alone opt into source-manifest schema 2. Active sources are ordered:
+frozen original request and older exact amendments, one optional current amendment,
+then explicitly recaptured current contexts. Historical origins are labels, not
+freshness claims. Current files retain the original no-follow identity checks.
+Archive files contain sealed predecessor manifests, full contract revision history,
+continuity links and exact captures. Limits: 64 active sources, 2 MiB/file, 8 MiB
+active bytes, eight ancestors and 32 MiB unique archive bytes. A predecessor
+metadata snapshot must fit 2 MiB; excess refuses without truncation.
+
+A continuity record outside acceptance JSON binds old/new contract/source digests.
+Mappings cover every old R ID exactly once and every new ID through a target or
+added_requirement_ids. Dispositions are preserved/changed/retired/split/merged.
+Preserved means mechanical row equality after exact source remapping, with the
+same ID; semantic equivalence still needs audit. Changed request/invariant rows
+need a reference to the new amendment. Documentary constraint changes need current
+context evidence. Ancillary constraint/exclusion changes use category, from_index,
+to_indices, reason and source_refs in other_changes. Unchanged ancillary rows must
+be retained. Neither cited context nor an amendment authenticates authorization.
+
+Example mapping: `{"from":["R1"],"to":["R1"],"disposition":"changed",
+"reason":"Caller proposes disabling retries","source_refs":[{"source_id":"S2",
+"line_start":1,"line_end":1,"quote":"Disable retries by default"}]}`.
+The full schema is [continuity-v1](../schema/continuity-v1.schema.json); original
+schema-1 records and canonical bytes are not migrated.

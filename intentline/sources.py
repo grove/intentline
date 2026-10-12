@@ -80,6 +80,13 @@ def prepare(source, contexts, root, out, stdin=None):
 def bundle(work):
     raw, _ = work.read('source-manifest.json')
     manifest = parse(raw)
+    if not isinstance(manifest, dict):
+        raise IntentlineError('Invalid source manifest', 3)
+    if type(manifest.get('schema_version')) is int and manifest['schema_version'] == 2:
+        if canonical(manifest) != raw:
+            raise IntentlineError('Noncanonical source manifest', 3)
+        from .amendments import successor_bundle
+        return successor_bundle(work, manifest, raw)
     fields(manifest, ['manifest', 'schema_version', 'root', 'sources'])
     if manifest['manifest'] != 'intentline.sources' or type(manifest['schema_version']) is not int or manifest['schema_version'] != 1:
         raise IntentlineError('Unsupported source manifest', 3)
@@ -124,7 +131,7 @@ def bundle(work):
 def freshness(manifest):
     stale = []
     for row in manifest['sources']:
-        if row['original_location'] is None:
+        if row.get('provenance') == 'frozen_historical' or row['original_location'] is None:
             continue  # Stdin is an explicit frozen input, with no live location to recheck.
         try:
             data, identity = read_file(row['original_location'])

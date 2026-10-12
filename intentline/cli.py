@@ -17,7 +17,7 @@ def parser():
     p = Parser(description="Plan acceptance without implementing or proving it.")
     p.add_argument("--json", action="store_true", help="emit intentline.result schema 1")
     sub = p.add_subparsers(dest="command", required=True)
-    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "audit-record", "adopt", "export"):
+    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "amend-source", "reconcile", "audit-record", "adopt", "export"):
         command = sub.add_parser(name)
         command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
         if name != "prepare":
@@ -27,6 +27,17 @@ def parser():
             command.add_argument("--context", action="append", default=[])
             command.add_argument("--root", default=os.getcwd())
             command.add_argument("--out", default=".intentline/work/request")
+        if name == "amend-source":
+            mode = command.add_mutually_exclusive_group(required=True)
+            mode.add_argument("--amendment")
+            mode.add_argument("--refresh-context", action="store_true")
+            command.add_argument("--root", required=True)
+            command.add_argument("--context", action="append", default=[])
+            command.add_argument("--out", required=True)
+            command.add_argument("--expected-contract-sha256", required=True)
+        if name == "reconcile":
+            command.add_argument("--draft", required=True)
+            command.add_argument("--continuity", required=True)
         if name == "propose":
             command.add_argument("--draft", required=True)
         if name == "render":
@@ -46,6 +57,13 @@ def parser():
 
 
 def execute(args):
+    if args.command == "amend-source":
+        from .amendments import amend_source
+        return amend_source(args.work, args.amendment, args.context, args.root, args.out,
+                            args.expected_contract_sha256, args.refresh_context)
+    if args.command == "reconcile":
+        from .continuity import reconcile
+        return reconcile(args.work, args.draft, args.continuity)
     if args.command == "review":
         from .review import review
         return review(args.work, args.against_revision)
