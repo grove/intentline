@@ -68,3 +68,9 @@ verification. Keep native receipts/source text private.
 Current live gate: not_run / blocked_external. No explicit external spending grant,
 qualified authenticated native run or independently observed candidate/status
 receipts supplied. No cost/latency/delivery benefit claimed.
+
+Integration also ran three focused offline tests from the actual pinned consumer
+checkout (unapproved-contract zero-dispatch admission, unique direct IDs, exact
+tracked byte/mode/export-ignore capture). Its native inspect_contract rejected
+the exported Intentline advisory brief: “Unsupported contract: expected the
+current P2P Markdown heading”. No consumer model path was invoked.

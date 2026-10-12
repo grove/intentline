@@ -1,4 +1,4 @@
-# Intentline 0.1
+# Intentline 0.2
 
 Turn an original request into a source-grounded acceptance agreement using an
 existing coding assistant or manual JSON authoring. The offline Python CLI
@@ -31,6 +31,12 @@ Private work belongs in an ignored `.intentline/work/<slug>/`. Intentline never
 edits project ignore files; explicitly ignore your work directory before use
 in another repository. Captured sources can contain sensitive information.
 
-[The scorecard](docs/SCORECARD_0.1.md) distinguishes measured offline engineering
-from unmeasured model planning quality. Version 0.1.0 is an initial implementation;
+[The 0.2 scorecard](docs/SCORECARD_0.2.md) distinguishes measured offline engineering
+from unmeasured model planning quality. Version 0.2.0 is an engineering release candidate; planning usefulness remains
+experimental/unmeasured.
 no independent efficacy, authenticated review, or superiority claim is made.
+
+Optional: [advisory Lore reports](docs/LORE_CONTEXT.md),
+[direct Proofline handoff](docs/INTEGRATIONS.md), and the source-distribution
+[evaluation protocol](evaluation/README.md). All peers remain optional. The
+acceptance/result schema 1 and existing CLI behavior remain compatible.

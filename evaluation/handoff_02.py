@@ -56,7 +56,7 @@ def inspect_handoff(out, work_path, product_root, shape='standalone'):
 def record_evidence(evidence, private_root, out):
     fields(evidence, ['record', 'schema_version', 'state', 'blockers', 'inspection', 'external_records',
                       'candidate_commit', 'coverage', 'usage'])
-    require(evidence['record'] == 'intentline.handoff-evidence' and evidence['schema_version'] == 1,
+    require(evidence['record'] == 'intentline.handoff-evidence' and type(evidence['schema_version']) is int and evidence['schema_version'] == 1,
             'Unsupported evidence record')
     require(evidence['state'] in ('not_run', 'blocked_external', 'completed', 'failed', 'interrupted'), 'Unknown outcome')
     root = absolute(private_root)
@@ -67,7 +67,7 @@ def record_evidence(evidence, private_root, out):
     for ref in evidence['external_records']:
         snapshot(root, ref)
     if evidence['state'] == 'completed':
-        require(evidence['inspection'] is not None and evidence['external_records'] and evidence['candidate_commit'],
+        require(evidence['inspection'] is not None and evidence['external_records'] and evidence['candidate_commit'] and evidence['coverage'],
                 'Completed execution requires bound actual native/status records and candidate')
     if evidence['state'] in ('not_run', 'blocked_external'):
         require(evidence['blockers'] and not evidence['external_records'] and evidence['candidate_commit'] is None,
@@ -78,6 +78,8 @@ def record_evidence(evidence, private_root, out):
     fields(evidence['usage'], ['cost', 'tokens', 'elapsed_seconds'])
     for value in evidence['usage'].values():
         number(value, nullable=True)
+    if evidence['state'] in ('not_run', 'blocked_external'):
+        require(all(v is None for v in evidence['usage'].values()), 'Unattempted usage must be null')
     retained = {**evidence, 'authentication': 'unverified',
                 'qualification': 'externally supplied evidence; Intentline does not authenticate proof or approval'}
     with Directory(out, create=True) as records, records.lock():

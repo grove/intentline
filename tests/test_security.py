@@ -189,3 +189,28 @@ class Security(WorkCase):
         with self.assertRaises(IntentlineError) as error:
             inspect(self.work)
         self.assertEqual(error.exception.code, 3)
+
+    def test_optional_inspections_zero_writes_exec_and_egress(self):
+        if not self.setup_work():
+            return
+        from evaluation.planning_02 import main as evaluation_main
+        from evaluation.handoff_02 import inspect_handoff
+        from intentline.lore_adapter import inspect_report
+        from intentline.export import export
+        propose(self.work,self.draft_path)
+        out=self.root/'handoff';export(self.work,'proofline-direct',out,self.root)
+        report=self.root/'lore.json';report.write_bytes(b'{"schema_version":99}')
+        repo=Path(__file__).resolve().parents[1]
+        before={str(p):p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
+        original=os.open
+        def only_read(path,flags,*args,**kwargs):
+            self.assertFalse(flags & (os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_TRUNC))
+            return original(path,flags,*args,**kwargs)
+        with patch('os.open',only_read),patch('os.supports_dir_fd',os.supports_dir_fd | {only_read}),patch('subprocess.Popen',side_effect=AssertionError('exec')),patch('socket.socket',side_effect=AssertionError('egress')):
+            inspect_report(report)
+            inspect_handoff(out,self.work,self.root)
+            for operation in ('validate','assess','report'):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(evaluation_main([operation,str(repo/'evaluation/results/initial-not-run.json'),
+                                                      '--private-root',str(repo/'evaluation')]),0)
+        self.assertEqual(before,{str(p):p.read_bytes() for p in self.root.rglob('*') if p.is_file()})

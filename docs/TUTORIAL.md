@@ -95,3 +95,15 @@ fails duplicate-ID validation. Semantic bad drafts can pass structural checks
 and need the separate audit. Changing/removing the original source makes status
 STALE and adopt/export exit 2, retaining historical records. Never patch saved
 snapshots or mutate an old revision to bypass freshness.
+
+For a wheel-only install, locate share/intentline with the command in the agent
+guide. Use its absolute examples/username-validation/request.md/template paths,
+set --root to that installed share/intentline tree, and choose a private --out
+outside it. Skills, all referenced docs/schema and this public example ship in
+both wheel and source distribution; a repository checkout is not needed.
+
+For example, “Reject empty usernames” yields a DRAFT rejection obligation. An
+optional audit may advise READY_FOR_ADOPTION, and explicit externally authorized
+operator evidence may yield ADOPTED_ASSERTED; neither executes the behavior.
+Only an independently authorized downstream delivery with actual frozen-candidate
+review/proof can establish its own observed delivery verdict.
