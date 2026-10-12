@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import sys
 
 from .errors import IntentlineError
@@ -24,7 +25,7 @@ def parser():
         if name == "prepare":
             command.add_argument("--source", required=True)
             command.add_argument("--context", action="append", default=[])
-            command.add_argument("--root", default=".")
+            command.add_argument("--root", default=os.getcwd())
             command.add_argument("--out", default=".intentline/work/request")
         if name == "propose":
             command.add_argument("--draft", required=True)
@@ -42,6 +43,9 @@ def parser():
 
 
 def execute(args):
+    if args.command == "prepare":
+        from .sources import prepare
+        return prepare(args.source, args.context, args.root, args.out)
     raise IntentlineError("No work item recorded yet")
 
 
