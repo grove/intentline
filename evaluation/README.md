@@ -1,0 +1,58 @@
+# Planning 0.2 diagnostic protocol
+
+This directory inspects already produced external records. It never launches
+models, repo tests, Git, or agents. Python 3.11+ standard library only. Use a
+private owner-only directory outside tracked files for original requests, answers,
+outputs, registration, provenance and scores. Never commit private pilot data.
+
+```
+python -B -m evaluation.planning_02 validate STUDY.json --private-root /private/study
+python -B -m evaluation.planning_02 assess STUDY.json --private-root /private/study
+python -B -m evaluation.planning_02 report STUDY.json --private-root /private/study
+```
+
+All operations read only; report prints sanitized aggregates. Secure file reads
+reuse Intentline's no-follow/regular-file/2-MiB limits and fail closed on Windows.
+Hashes bind bytes; this tool does not authenticate execution or reviewers.
+Study JSON itself must be preserved by the operator in immutable private records.
+Every referenced snapshot has a relative `path` and `sha256`; registration and
+review evidence are also bound snapshots. The checked development example and
+`tests/test_evaluation.py` describe the complete record format. Inputs and results
+are bounded by the existing file limit; at most 100 tasks/64 contexts per task.
+
+Register 9 real tasks from at least 3 distinct pinned repositories (minimum 6/3)
+BEFORE execution. Separate development/pilot/holdout registrations. Each task
+pins full commit, license, scope, exact original request and original documents.
+Every arm receives the same request/context and task presentation; private gold,
+reviewer notes and scores never enter model context. Give ordinary planning the
+same opportunity to inspect sources. Do not leak answers through names, caches,
+agent instructions or pre-solved patches. Task requests must depend on genuine
+project history, not merely checker preferences.
+
+Task author and checker are distinct; two additional reviewers inspect the task,
+source constraints and reference outcome. Retain timestamps, conflicts, citation
+corrections and externally established identity/isolation records. Missing people
+or records make a task ineligible. Declared eligibility remains unverified by this
+program. A source hash, named actor or fabricated host record is not independent
+review. Public regression examples are development material, never real trials.
+
+Three preregistered arms: ordinary agent planning; same agent with Intentline 0.2;
+P2P plan-acceptance skill alone. Match model/version/reasoning, tools, time budget,
+sources and presentation. Attribute all unavoidable differences, installation and
+preparation effort. No P2P delivery controller. Every task has all three assignment
+records, including failed/refused/timeout/interrupted/not_run; never delete adverse
+attempts. Reruns are separate registered studies with retained predecessors.
+
+Scores receive only opaque blind IDs, original sources and substantive outputs
+with source-to-output mappings. Remove system/arm clues before independent scoring
+while preserving substance; retain the original output hash. Two blinded scorers
+record all rubric dimensions and source citations. Subject/score digests are
+rechecked. Reviewer disagreement is retained; aggregate adverse counts use the
+larger reviewer count per assignment. Failure states remain in denominators.
+Unknown usage/billing is null. Sum only fully known metrics, including preparation.
+Wilson 95% descriptive intervals are diagnostic, not efficacy claims.
+
+Initial external study: not_run. Missing: independently eligible task/checker/two
+reviewer records, qualified isolated hosts and pinned execution models, explicit
+external inference budget/spending authorization. No ambient credentials used.
+The holdout remains unregistered and untouched; no holdout outcomes were read.
