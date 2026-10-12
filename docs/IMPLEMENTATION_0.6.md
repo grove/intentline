@@ -198,3 +198,36 @@ Windows-only skip) per supported macOS interpreter plus fresh wheel/sdist checks
 Updated remote CI requires authorization of those exact repair heads and is not
 asserted green here; the private final operator handoff retains their actual heads,
 all original failed runs/logs, subsequent PR/check states and artifact digests.
+
+## Further authorized preparation and independent critique, 12 October 2026
+
+The repaired five draft heads passed their six-cell remote CI. The subsequent
+runbook correction `5ac956fa79b0a7d3de8b28e5b51e34228e799ca6` was authorized and
+published to #35; both its [push CI](https://github.com/grove/intentline/actions/runs/38291216258)
+and [PR CI](https://github.com/grove/intentline/actions/runs/38291220975) passed.
+Earlier dated statuses and inventories above remain unchanged.
+
+Further bounded, shared-host AI source preparation documented all 17 existing
+challenge findings: 11 supported, three remove/narrow, two contested and one
+unresolved. Exact source quotes and hashes are retained privately. This proposes
+ledger corrections; it neither erases original dissent nor qualifies a source.
+The other six original candidates were inspected from source only. Some provide
+explicit exclusions/scoped exceptions or authority disagreements, but none supplies
+the required unavailable-harness blocker evidence or a complete ten-control set.
+The frozen original three remain unchanged, with zero source-qualified cases.
+
+Independent AI engineering critique found four mechanically reproduced evaluator
+defects, subsequently fixed and independently rechecked: private gold aliased as
+judge rules, calibration probes after judge start, unchecked extra preparation
+actors, and zero comparative aggregates for an entirely unscored arm. The integrated
+suite now has 165 tests per supported local interpreter (164 pass, one Windows-only
+skip); these authored tests do not measure planning usefulness. New exact-head CI
+and installed artifacts are retained separately in the operator handoff.
+
+Docker availability was verified without model inference. A bounded offline
+nonsecret shell preflight failed its forbidden-file boundary: macOS owner-only
+storage did not stop the unprivileged bind-mounted process opening that sentinel.
+All configuration, output and cleanup evidence is retained. No role model host was
+qualified; controlled network/app/session checks remain unresolved. Source,
+isolation, calibration and explicit bounded inference grants still block real
+comparison. Model usage and cost remain unknown, and no merge or release occurred.

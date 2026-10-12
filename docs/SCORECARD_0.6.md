@@ -56,3 +56,15 @@ with dependency merges preserving published history. Updated local suite: 161 te
 per supported interpreter, 160 pass/one Windows-only skip. Repair-head remote CI is
 tracked in the final operator handoff; original failures remain retained. These
 engineering observations do not alter not_run planning or formal evidence decisions.
+
+Further authorized preparation, same date: all five repaired draft heads and the
+published runbook correction passed six-cell CI. A further independent AI critique
+found four authored-fixture evaluator defects; repaired regression checks pass,
+with 165 tests (164 pass, one skip) on each supported local interpreter. Its next
+exact-head CI and package checks are separate evidence. Source-only review
+documented the 17 challenges (11 supported, three remove/narrow, two contested,
+one unresolved), and inspected the remaining six original candidates without
+finding a complete qualifying control set. Frozen source-qualified tasks remain
+zero. A real offline Docker shell preflight opened a forbidden nonsecret 0600
+bind-mounted sentinel; no model host qualified. Usage/cost remain null, all planning
+and formal results remain not_run, and no product feature or skill repair follows.

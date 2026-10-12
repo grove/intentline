@@ -206,3 +206,20 @@ resolves only its freshly created directory and reapplies 0700 after copying;
 the corrected read-only receipt matches the frozen JSON. No adapter or source
 path validation was relaxed. Original/refused and corrected attempt evidence is
 retained in a separate follow-up packet; original dated inventories are unchanged.
+
+A subsequent independent AI engineering review reproduced four defects using
+authored qualification fixtures: private ledger bytes aliased as judge rules,
+calibration canaries dated after judge start, extra researcher/drafter preparation
+actors omitted from grant/host/session checks, and zero adverse counts for an
+entirely unscored arm. The byte guard now includes judge-visible rules/neutral
+inputs; all preparation actors and calibration start times are checked; unscored
+arm measurements stay null. Four regression tests and independent after-fix
+reproductions pass. These are evaluator defects, not observed planning defects.
+
+An offline cached-image Docker shell preflight retained a real unexpected success:
+the unprivileged Linux process opened an existing nonsecret macOS 0600 bind-mounted
+sentinel. Read-only root, dropped capabilities and network-none were observed,
+but neither that file boundary nor any model/app/session boundary was qualified.
+The image also created an anonymous volume, captured in the mount inventory and
+removed with the stopped task container. No corpus, private answer or credentials
+were supplied; originals and failed observations remain retained.

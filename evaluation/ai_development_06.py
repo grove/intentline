@@ -257,6 +257,7 @@ def validate(study, root, registration_sha256):
         request_hashes.add(task['request']['sha256']); visible.extend(inputs)
         for agent in items(task['agents'], 10):
             actor(agent, root)
+            require(agent['agent_role'] != 'judge', 'Task preparation cannot contain a judge')
             require(date(agent['timestamp']) <= date(study['registered_at']), 'Preparation must precede registration')
             private.append(agent['record'])
             if agent['agent_role'] in ('oracle', 'critic'):
@@ -264,6 +265,8 @@ def validate(study, root, registration_sha256):
                 require(agent['context_access'] == expected, 'Preparation role input boundary mismatch')
                 require(agent['output'] == task['reference' if agent['agent_role'] == 'oracle' else 'critique']
                         and agent['output'] is not None, 'Preparation role output mismatch')
+            else:
+                require(all(ref in inputs for ref in agent['context_access']), 'Source preparation input boundary mismatch')
         require(task['source_decision'] in ('checked', 'unreviewed'), 'Invalid source decision')
         strings(task['contamination'], 64)
         obligations[task['id']] = ledger(task, root, source)
@@ -328,6 +331,10 @@ def validate(study, root, registration_sha256):
     visible.extend(r['prompt'] for r in study['assignments'] if r['prompt'] is not None)
     if study['judge_calibration']['protocol'] is not None:
         private.append(study['judge_calibration']['protocol'])
+        protocol = document(root, study['judge_calibration']['protocol'], 'protocol')
+        visible.append(protocol['rules'])
+        visible.extend(control['plan'] for control in items(protocol['controls'], 1000))
+    visible.extend(run['neutral'] for run in study['assignments'] if run['neutral'] is not None)
     # Reuse the formal evaluator's corpus-wide byte identity guard without its eligibility semantics.
     from evaluation.planning_02 import private_inputs
     private_inputs({'arms': study['arms'], 'tasks': [{'reference': None, 'reviews': [{'record': r} for r in private],
@@ -448,7 +455,7 @@ def calibration_check(study, root):
         sid = judge['run_or_session_id']
         require(sid not in sessions and judge['environment_id'] not in environments and judge['environment_id'] is not None, 'Judges need distinct sessions/environments')
         require({k: judge[k] for k in ('model_id', 'version', 'reasoning')} == protocol['judge_config'], 'Judge configuration mismatch')
-        require(date(protocol['registered_at']) <= date(judge['timestamp']) <= date(study['registered_at']), 'Judge calibration chronology mismatch')
+        require(date(protocol['registered_at']) <= date(judge['started_at']) <= date(judge['timestamp']) <= date(study['registered_at']), 'Judge calibration chronology mismatch')
         require(all(ref in allowed for ref in judge['context_access']), 'Judge can access hidden answers/labels')
         require(protocol['rules'] in judge['context_access'], 'Judge rules absent from context')
         require(grant and protocol['judge_config'] in grant['models'] and judge['environment_id'] in grant['host_ids'], 'Judge outside bounded grant')
@@ -460,7 +467,7 @@ def calibration_check(study, root):
         sid = receipt['judge_session_id']
         require(sid in sessions and sid not in seen and receipt['protocol_sha256'] == value['protocol']['sha256'], 'Calibration identity swap')
         seen.add(sid)
-        require(date(protocol['registered_at']) <= date(receipt['timestamp']) <= date(study['registered_at']), 'Calibration must precede planning')
+        require(date(sessions[sid]['started_at']) <= date(receipt['timestamp']) <= date(study['registered_at']), 'Calibration must follow judge start and precede planning')
         by_control = {}
         for prediction in items(receipt['predictions'], 1000):
             fields(prediction, ('control_id', 'dimensions', 'critical', 'citations'))
@@ -601,9 +608,9 @@ def assess(study, root, registration_sha256):
                   study['arms'][a['arm']]['tools'], a['started_at']) for a in attempts)
     if study['judge_calibration']['protocol']:
         protocol = document(absolute(root), study['judge_calibration']['protocol'], 'protocol')
-        host_ready &= all(permitted(j['environment_id'], [r['sha256'] for r in j['context_access']], [], j['timestamp'])
+        host_ready &= all(permitted(j['environment_id'], [r['sha256'] for r in j['context_access']], [], j['started_at'])
                           for j in study['judge_calibration']['judges'])
-    preparation_agents = [a for t in tasks.values() for a in t['agents'] if a['agent_role'] in ('oracle', 'critic')]
+    preparation_agents = [a for t in tasks.values() for a in t['agents']]
     grant = document(absolute(root), study['authorization'], 'grant') if study['authorization'] else None
     for agent in preparation_agents:
         source_ready &= bool(grant and all(agent[k] is not None for k in ('model_id', 'version', 'reasoning'))
@@ -639,7 +646,7 @@ def assess(study, root, registration_sha256):
                      'unqualified_scored': sum(bool(checked['judged'].get(r['blind_id'])) for r in runs) if not qualified else 0,
                      'adverse_counts': {d: sum(max(s['dimensions'][d] for s in checked['judged'][r['blind_id']])
                                               for r in runs if len(checked['judged'].get(r['blind_id'], [])) == 2)
-                                        for d in DIMENSIONS} if qualified else None}
+                                        for d in DIMENSIONS} if qualified and any(len(checked['judged'].get(r['blind_id'], [])) == 2 for r in runs) else None}
     report = {'record': 'intentline.ai-development-assessment', 'schema_version': 1,
               'mode': 'ai_only_development', 'status': status, 'human_independence': 'unverified',
               'formal_eligible_tasks': 0, 'tasks': len(tasks), 'repositories': len({t['repository'] for t in tasks.values()}),
@@ -681,7 +688,7 @@ def assess(study, root, registration_sha256):
     for arm in ARMS:
         clean = sum(p['arms'][arm]['clean'] is True for p in report['paired'])
         arms[arm]['clean_fraction'] = {'numerator': clean, 'denominator': arms[arm]['assignments'],
-                                       'wilson_95': interval(clean, arms[arm]['assignments'])} if qualified else None
+                                       'wilson_95': interval(clean, arms[arm]['assignments'])} if arms[arm]['qualified_scored'] else None
     if qualified and not any(a['qualified_scored'] for a in arms.values()):
         report['status'] = 'ai_development_unqualified'
     return report
