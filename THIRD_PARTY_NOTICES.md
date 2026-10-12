@@ -15,3 +15,9 @@ Compatibility inspection pins (not runtime dependencies):
 Proofline `c4d28e4e743adbb261552323e694946f1360a129`;
 Lore `55ee9830e38fe869669376a089c9fbd4dddca43c`.
 All three upstream main identities rechecked on 2026-10-12.
+
+`tests/compatibility/proofline_direct_parser.py` extracts Proofline's exact
+`criterion_ids` function from pinned `proofline.py` (Apache-2.0, copyright
+Proofline contributors). Its surrounding imports/exception are offline test
+scaffolding. Full upstream file and function digests are retained in
+`tests/compatibility/identity.json`. This file is test-only, never a runtime import.

@@ -39,6 +39,7 @@ def parser():
         if name == "export":
             command.add_argument("--format", choices=["proofline-direct", "markdown", "json"], required=True)
             command.add_argument("--out", required=True)
+            command.add_argument("--product-root", help="exact downstream checkout for binding project references")
     return p
 
 
@@ -68,6 +69,9 @@ def execute(args):
     if args.command == "adopt":
         from .adoption import adopt
         return adopt(args.work, args.expected_contract_sha256, args.approval_file)
+    if args.command == "export":
+        from .export import export
+        return export(args.work, args.format, args.out, args.product_root)
     raise IntentlineError("No work item recorded yet")
 
 
