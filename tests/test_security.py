@@ -20,6 +20,46 @@ from tests.support import WorkCase
 
 
 class Security(WorkCase):
+    def test_existing_public_output_is_refused_without_chmod(self):
+        if not self.setup_work():
+            return
+        output = self.root / 'public-output'
+        output.mkdir(mode=0o755)
+        output.chmod(0o755)
+        with self.assertRaisesRegex(IntentlineError, 'owner-only'):
+            prepare(str(self.source), [], str(self.root), str(output))
+        self.assertEqual(output.stat().st_mode & 0o777, 0o755)
+        self.assertEqual(list(output.iterdir()), [])
+
+    def test_prepare_source_race_never_publishes_manifest(self):
+        if not self.setup_work():
+            return
+        original = Directory.write
+        def race(directory, name, data, replace=False):
+            result = original(directory, name, data, replace)
+            if name == 'S1.txt':
+                self.source.write_text('changed while snapshots were written')
+            return result
+        out = self.root / 'raced-work'
+        with patch.object(Directory, 'write', race):
+            with self.assertRaisesRegex(IntentlineError, 'Source changed'):
+                prepare(str(self.source), [], str(self.root), str(out))
+        self.assertFalse((out / 'source-manifest.json').exists())
+
+    def test_readonly_pointer_race_is_detected(self):
+        if not self.setup_work():
+            return
+        propose(self.work, self.draft_path)
+        original = Directory.read
+        def race(directory, name, *args, **kwargs):
+            result = original(directory, name, *args, **kwargs)
+            if name == '000001.json':
+                (self.work / 'current.json').write_text('{}')
+            return result
+        with patch.object(Directory, 'read', race):
+            with self.assertRaisesRegex(IntentlineError, 'changed during inspection'):
+                inspect(self.work)
+
     def test_readonly_commands_zero_writes_exec_and_egress(self):
         if not self.setup_work():
             return

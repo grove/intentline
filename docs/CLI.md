@@ -39,6 +39,9 @@ Mutations use exclusive `.writer.lock`, sibling stages, fsync and atomic writes.
 A killed writer can leave a lock/stage/immutable orphan. Confirm termination
 before manually removing its lock; rerun identical inputs to complete publication.
 No automatic lock stealing. Existing completed outputs/records are not overwritten.
+Existing output directories must already be owner-only; public directories are
+refused without changing their permissions. Newly created directories use 0700
+and record files 0600, subject to the owner's stricter process umask.
 Guarantees cover cooperative Intentline writers on ordinary local POSIX
 filesystems. Owner-level hostile edits, network filesystem semantics, power-loss
 durability and unsupported Windows primitives are not authenticated/qualified.
