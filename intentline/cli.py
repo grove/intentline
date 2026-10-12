@@ -58,12 +58,16 @@ def parser():
     command = sub.add_parser("slice")
     command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     actions = command.add_subparsers(dest="slice_command", required=True)
-    for name in ("preview", "record", "status", "render"):
+    for name in ("preview", "record", "status", "render", "audit-record", "impact"):
         action = actions.add_parser(name)
         action.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
         action.add_argument("--work", required=True)
         if name in ("preview", "record"):
             action.add_argument("--proposal", required=True)
+        if name == "audit-record":
+            action.add_argument("--report", required=True)
+        if name == "impact":
+            action.add_argument("--successor-work", required=True)
         if name == "record":
             action.add_argument("--expected-parent-sha256", required=True)
     return p
@@ -74,6 +78,12 @@ def execute(args):
     capability()
     if args.command == "slice":
         from . import slice_records
+        if args.slice_command == "audit-record":
+            from .slice_audits import audit_record
+            return audit_record(args.work,args.report)
+        if args.slice_command == "impact":
+            from .slice_impact import impact
+            return impact(args.work,args.successor_work)
         if args.slice_command == "preview": return slice_records.preview(args.work,args.proposal)
         if args.slice_command == "record": return slice_records.record(args.work,args.proposal,args.expected_parent_sha256)
         return slice_records.status(args.work,args.slice_command == "render")

@@ -148,6 +148,18 @@ def status(work_path, render=False):
         if work.read('current.json')[0] != canonical(pointer): raise IntentlineError('Parent changed during status',3)
         data = result(plan,len(plans),stale,bool(contract['open_decisions']))
         data['current_parent'] = parent
+        from .slice_audits import reports
+        audits = reports(work,plans,history,manifest,blobs)
+        active = [r for r in audits if r['plan_sha256'] == data['plan_sha256']]
+        disputes = [r for r in active if r['outcome'] != 'NO_MATERIAL_FINDINGS']
+        data.update(audit_records=len(audits), current_audits=len(active),
+                    audit_disputes=disputes, historical_disputes=[r for r in audits if r not in active and r['outcome'] != 'NO_MATERIAL_FINDINGS'])
+        if disputes and data['status'] not in ('STALE_PARENT','BLOCKED'):
+            data.update(status='BLOCKED',exit_code=2,summary='BLOCKED: retained adverse slicing findings; no approval')
+        if freshness(manifest):
+            data.update(status='STALE_PARENT',stale_sources=freshness(manifest),exit_code=2,summary='STALE_PARENT: source changed during inspection')
+        if work.read('current.json')[0] != canonical(pointer) or saved(work,manifest,blobs,history)[0] != plan:
+            raise IntentlineError('Parent/plan changed during status',3)
         if render:
             data['markdown'] = '# '+data['status']+'\n\nAdvisory allocation; semantics and authorization unverified.\n\n'
             if plan:

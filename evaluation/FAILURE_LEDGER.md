@@ -54,3 +54,8 @@ to CRLF; the exact-byte baseline check correctly rejected `test_adoption.py`.
 The Win32 API probe itself ran and passed. Repair: `.gitattributes` disables
 checkout text conversion, preserving original bytes rather than normalizing the
 snapshot or weakening its hash check. No original 0.3 test was changed.
+
+0.4 PR-03 local focused tests initially failed the skill boundary assertion:
+`self_check` was implicit via the linked audit skill. The slicing skill now states
+it explicitly. The six audit/impact tests passed in that failing seven-test run;
+no independent review or model execution is inferred from these authored probes.
