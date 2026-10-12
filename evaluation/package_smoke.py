@@ -47,6 +47,8 @@ def main(argv=None):
             assert (data/'docs/SCORECARD_0.2.md').is_file()
             assert (data/'docs/SCORECARD_0.3.md').is_file()
             assert (data/'docs/SCORECARD_0.4.md').is_file()
+            assert (data/'docs/SCORECARD_0.5.md').is_file()
+            assert (data/'docs/IMPLEMENTATION_0.5.md').is_file()
             for operation in ('preview','record','status','render','impact','audit-record','export','inspect'):
                 run(python,'-B','-m','intentline','slice',operation,'--help',cwd=root,env=env)
             for schema in ('acceptance-v1','source-bundle-v2','continuity-v1','native-handoff-v1','slicing-v1','slice-audit-v1','slice-handoff-v1'):
@@ -72,6 +74,43 @@ def main(argv=None):
                 for command in ('check','render','status','review','approval-request'):
                     run(python,'-B','-m','intentline',command,'--work',work,'--json',cwd=root,env=env)
                 pointer=json.loads(run(python,'-B','-m','intentline','status','--work',work,'--json',cwd=root,env=env))['data']
+                assert (work/'source/S1.txt').read_bytes() == source.read_bytes(), 'Original bytes changed'
+                reused=json.loads(run(python,'-B','-m','intentline','propose','--work',work,'--draft',path,'--json',cwd=root,env=env))['data']
+                assert reused['contract_sha256'] == pointer['contract_sha256'] and reused['revision'] == 1
+                assert len(list((work/'revisions').iterdir())) == 1, 'Unchanged rerun appended a revision'
+                before={str(p.relative_to(work)):p.read_bytes() for p in work.rglob('*') if p.is_file()}
+                for command in ('check','render','status','review','approval-request'):
+                    run(python,'-B','-m','intentline',command,'--work',work,'--json',cwd=root,env=env)
+                assert before == {str(p.relative_to(work)):p.read_bytes() for p in work.rglob('*') if p.is_file()}, 'Read-only command wrote files'
+                # Authored installed-fixture controls, not human or real-agent observations.
+                for scenario in ('docs','gap','decision'):
+                    case=root/(kind+'-'+scenario);case.mkdir(mode=0o700)
+                    original=case/'request.md';original.write_bytes(source.read_bytes())
+                    context=case/'policy.md';context.write_bytes(b'Keep valid usernames unchanged\n')
+                    if scenario=='decision':original.write_bytes(original.read_bytes()+b'Error text is undecided\n')
+                    scenario_work=case/'work'
+                    args=[python,'-B','-m','intentline','prepare','--source',original,'--root',case,'--out',scenario_work,'--json']
+                    if scenario=='docs':args+=['--context',context]
+                    identity=json.loads(run(*args,cwd=root,env=env))['data']
+                    proposed=copy.deepcopy(draft);proposed['source_bundle_sha256']=identity['source_bundle_sha256']
+                    if scenario=='docs':proposed['constraints']=[{'statement':'Keep valid usernames unchanged','basis':'project_constraint','scope':'All validation','source_refs':[{'source_id':'S2','line_start':1,'line_end':1,'quote':'Keep valid usernames unchanged'}]}]
+                    if scenario=='gap':
+                        proposed['requirements'][0].update(plan_state='gap',planned_evidence='Await an available public validation observation seam')
+                        proposed['evidence_gaps']=[{'requirement_ids':['R1'],'reason':'Authored missing-harness control'}]
+                    if scenario=='decision':
+                        line=len(original.read_text(encoding='utf-8').splitlines())
+                        proposed['open_decisions']=[{'id':'D1','statement':'Which error text should be shown?','kind':'outcome','source_refs':[{'source_id':'S1','line_start':line,'line_end':line,'quote':'Error text is undecided'}]}]
+                    candidate=case/'draft.json';candidate.write_text(json.dumps(proposed),encoding='utf-8')
+                    run(python,'-B','-m','intentline','propose','--work',scenario_work,'--draft',candidate,'--json',cwd=root,env=env)
+                    checked=subprocess.run([str(python),'-B','-m','intentline','check','--work',str(scenario_work),'--json'],cwd=root,env=env,capture_output=True,text=True)
+                    assert checked.returncode == (2 if scenario=='decision' else 0),checked.stderr
+                    observed=json.loads(checked.stdout)['data']
+                    assert observed['status'] == ('BLOCKED' if scenario=='decision' else 'STRUCTURALLY_VALID')
+                    assert observed['current_adoptions'] == observed['audit_records'] == 0
+                    assert (scenario_work/'source/S1.txt').read_bytes() == original.read_bytes()
+                    original.write_bytes(original.read_bytes()+b'Changed original\n')
+                    stale=subprocess.run([str(python),'-B','-m','intentline','check','--work',str(scenario_work),'--json'],cwd=root,env=env,capture_output=True,text=True)
+                    assert stale.returncode == 2 and json.loads(stale.stdout)['data']['stale_sources'] == ['S1']
                 amendment=root/(kind+'-amendment.md');amendment.write_text('Reject usernames longer than 32 characters\n',encoding='utf-8')
                 successor=root/(kind+'-successor')
                 captured=json.loads(run(python,'-B','-m','intentline','amend-source','--work',work,'--amendment',amendment,'--root',root,'--out',successor,'--expected-contract-sha256',pointer['contract_sha256'],'--json',cwd=root,env=env))['data']
@@ -106,6 +145,8 @@ def main(argv=None):
                 receipt=json.loads(run(python,'-B','-m','intentline','slice','inspect','--bundle',child,'--json',cwd=root,env=env))['data']
                 assert receipt['child_acceptance']=='not_established'
                 run(python,'-I','-B',child/'inspect_child.py',child,cwd=root,env=env)
+                refused=subprocess.run([str(python),'-B','-m','intentline','inspect-native','--bundle',str(child),'--json'],cwd=root,env=env,capture_output=True,text=True)
+                assert refused.returncode != 0, 'Advisory child entered standalone native inspection'
 
             print(kind+': installed CLI, skill links, version, dependency and workflow controls pass')
         with tarfile.open(archives[0]) as archive:
@@ -120,9 +161,12 @@ def main(argv=None):
             assert any(n.endswith('/evaluation/baseline_04/.github/workflows/ci.yml') for n in names)
             assert any(n.endswith('/evaluation/slicing_04.py') for n in names)
             assert any(n.endswith('/INTENTLINE_0.4_IMPLEMENTATION_PLAN.md') for n in names)
+            for required in ('INTENTLINE_0.5_IMPLEMENTATION_PLAN.md','evaluation/intake_05.py','evaluation/INTAKE_05.md','evaluation/USABILITY_05.md','evaluation/SLICING_05.md','evaluation/baseline_05/identity.json','evaluation/results/planning-05-not-run.json','evaluation/results/slicing-05-not-run.json'):
+                assert any(n.endswith('/'+required) for n in names),required
             for name in names:
                 path=PurePosixPath(name)
                 assert not path.is_absolute() and '..' not in path.parts
+                assert not any(part in ('private-studies','restricted-gold','restricted-reviews','restricted-outcomes','.intentline') for part in path.parts), 'Private materials in sdist'
     return 0
 
 

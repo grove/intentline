@@ -26,5 +26,10 @@ jobs:
       - name: Read-only slicing evaluation receipt (POSIX)
         if: runner.os != 'Windows'
         run: python -B -m evaluation.slicing_04 report evaluation/results/slicing-04-not-run.json --private-root evaluation
+      - name: Read-only 0.5 development receipts (POSIX)
+        if: runner.os != 'Windows'
+        run: |
+          python -B -m evaluation.planning_02 report evaluation/results/planning-05-not-run.json --private-root evaluation
+          python -B -m evaluation.slicing_04 report evaluation/results/slicing-05-not-run.json --private-root evaluation
       - run: intentline --help
       - run: python -B -m intentline --help

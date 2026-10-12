@@ -44,9 +44,11 @@ model budget and actual receipts; the operator recipe never runs in CI.
 
 Dependency order: review/baseline → successor lineage → agent flow → native
 export → separate Proofline adapter → Windows feasibility → integration.
-The Intentline PR stack is open; the consumer PR targets Proofline main.
-Exact heads and CI links are in SCORECARD_0.3.md and the final PR report.
-No main integration or merged-head CI is claimed before authorized merges.
+The historical 0.3 and 0.4 stacks are merged. Their dated handoff reports retain
+the state observed when written. Current starting main is
+`587ef061287f02d4d7328f7c291bf57b85892603`; its six offline CI cells passed in
+run 38258294929. Proofline's native consumer PR #6 is also merged; live native
+qualification remains separate and blocked by its subsequent S6 trust findings.
 
 The final package smoke also exercises installed original review, explicit
 amendment, continuity reconciliation, native export and isolated standalone
@@ -60,3 +62,26 @@ retains provenance in tests/compatibility/native-identity.json. It proves offlin
 admission compatibility; it is neither runtime coupling nor independent review.
 The 0.3 host smoke is self-context/unblinded, using installed files and the
 current agent only. No paid inference, external pilot or live delivery is implied.
+
+## 0.5 qualification
+
+Reuse the existing planning/slicing evaluators. `evaluation/intake_05.py` is only
+a read-only incomplete-candidate diagnostic; it neither executes nor scores work.
+Private intake/source/gold/reviewer/outcome material belongs outside this checkout,
+not merely in an ignored public-project directory. See the source distribution's
+INTAKE_05.md, USABILITY_05.md and SLICING_05.md. Frozen 0.4 code, skills, docs,
+schemas, authored source/CLI/native/child bytes and prior evidence hashes are in
+`evaluation/baseline_05`; original records are not normalized or rewritten.
+
+Source/authority/CLI behavior remains compatible. Evaluator repairs now refuse
+renamed or cross-task private answer/review leaks and invalid registration order;
+handoff retention recognizes a trust stop without inventing execution coverage.
+These are offline engineering corrections, not measured semantic improvements.
+
+Use a supported interpreter from a working installation: the ambient macOS
+Python 3.9 and relocated 3.11 shim are unsuitable. The standalone 3.11.17 and
+Homebrew 3.14.8 were used for local qualification. Store complete failing and
+passing logs privately. Before publication, inspect staged filenames/diffs and
+distribution inventories for private data. Exact final-head six-cell CI requires
+an authorized commit/push/PR; local tests do not replace it. Package version and
+release claims remain gated, and empirical readiness is independently reported.

@@ -109,3 +109,32 @@ claiming a genuine pilot exists. New real tasks/settings require a separate froz
 pilot registration before any run. The dated not_run receipt names missing humans,
 qualified hosts, pinned models, budgets and blind scoring. No measured benefit,
 actual acceptance, cost savings or independent review is claimed.
+
+## 0.5 readiness
+
+Reuse these evaluators and rubrics; no model runner or new scoring framework.
+[Independent intake](INTAKE_05.md) prepares incomplete private packets and a
+read-only diagnostic. [First-use observation](USABILITY_05.md) requires actual
+consenting participants; [slicing preparation](SLICING_05.md) preserves the matched
+full-parent comparison and useful NO SPLIT. [Native handoff](PROOFLINE_HANDOFF.md)
+now records the current consumer's S6 trust stop separately from ordinary missing
+host/budget prerequisites. The live consumer gate cannot be lifted by producer CI.
+
+Distinct 0.5 public development registrations/receipts have zero eligible tasks,
+assignments and executions. Private preparation has nine selected candidates across
+three projects and four provisional source-bound parents; two explicitly AI-authored
+upstream requests were excluded and retained privately. No authenticated task/gold
+author, reviewer, output scorer, isolated host or model/cost grant exists. Source
+history/license suitability needs review. All unknown measurements remain null.
+
+```sh
+python -B -m evaluation.planning_02 report evaluation/results/planning-05-not-run.json --private-root evaluation
+python -B -m evaluation.slicing_04 report evaluation/results/slicing-05-not-run.json --private-root evaluation
+```
+
+Content-hash guards now reject renamed and cross-task private answer/review leaks,
+including arm instructions and complete parent-file copies. Task reviews must
+precede registration; scoring must follow it. These mechanical controls do not
+authenticate independence or detect semantic/partial/encoded answer exposure.
+Existing schemas, rubric dimensions and historical bytes remain unchanged, with
+exact 0.4 source/output and earlier evidence inventories under baseline_05.
