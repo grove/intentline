@@ -107,3 +107,11 @@ optional audit may advise READY_FOR_ADOPTION, and explicit externally authorized
 operator evidence may yield ADOPTED_ASSERTED; neither executes the behavior.
 Only an independently authorized downstream delivery with actual frozen-candidate
 review/proof can establish its own observed delivery verdict.
+
+To amend an existing work item, write the exact new request in amendment.md and
+ask the planning skill to preserve the existing agreement and propose a successor.
+It uses amend-source, authors schema-1 JSON plus continuity-v1, and runs reconcile
+and review. Your old work is immutable. Inspect the original and amendment chain,
+changed/retired/new obligations and exact hash through review. approval-request
+returns an unapproved display/template; supply a real external adoption reference
+only after the exact successor has actually been adopted. No flag grants approval.

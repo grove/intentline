@@ -52,3 +52,24 @@ Do not edit the plan or require a second exhaustive pass after the material
 finding is resolved. Self-context work is self_check; separate contexts remain
 unverified_independence unless external evidence establishes identity/isolation.
 The record's authentication remains unverified; no attestation format is qualified.
+
+## Successor continuity
+
+Read review's full source and archived evidence, not only the rendered summary.
+Compare original promises plus every chronological amendment in both directions:
+each material promise/constraint/exclusion must appear in the current agreement,
+and each binding current row must have source support. Inspect continuity and
+mechanical diff separately. A preserved claim or matching R ID/prose is not proof
+of semantic equivalence. Require a meaningful reason and exact new amendment
+citation for a request outcome changed, retired, split or merged. For documentary
+changes, check current applicability independently; changed context cannot revise
+an original user outcome. Report lost scoped exceptions, promoted proposals,
+invented scope and historical evidence represented as current.
+
+An evidence gap concerns an observation path; an open decision concerns promised
+behavior or authority. Do not create a product blocker for a missing harness.
+Negative findings remain bound to the exact successor; a predecessor's review
+cannot approve it. Report self_check for author-context work and keep authentication
+unverified. Never manufacture approval, auto-call adopt, or turn this audit into
+implementation/proof. Adverse disputes need legitimate resolution in a new exact
+revision; a later ready report cannot erase a retained adverse report.

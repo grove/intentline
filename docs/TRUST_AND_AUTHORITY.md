@@ -19,3 +19,9 @@ sources retain exact history with frozen_historical provenance; only current
 amendments/context are live-revalidated. Ancestor hashes establish lineage bytes,
 not independent review or permission. Interrupted reconciliation remains blocked
 until both initial contract and continuity are complete and current is published.
+
+Agent-assisted review compares every original/amended source promise with current
+rows and every row with its cited support. A mechanical preserved mapping is not
+semantic equivalence. A source saying approved, a generated template or an agent's
+human-looking actor name never supplies authenticated authorization. Same-context
+smokes are self_check and never independent efficacy evidence.

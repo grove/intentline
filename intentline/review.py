@@ -45,6 +45,8 @@ def review(work_path, against_revision=None):
         status, checked = inspect(work_path)
         if checked != c:
             raise IntentlineError('Current revision changed during review', 3)
+        active_audits = [a for a in audits if all(a[k] == pointer[k] for k in ('contract_sha256', 'source_bundle_sha256'))]
+        disputes = [a for a in active_audits if a['outcome'] != 'READY_FOR_ADOPTION']
         diff = difference(old, c)
         old_identity = None if old is None else {
             'contract_id': old['contract_id'], 'revision': old['revision'],
@@ -57,13 +59,17 @@ def review(work_path, against_revision=None):
                    'Mechanically unchanged: ' + ', '.join(safe(i) for i in diff['unchanged_ids']), '',
                    'Semantic equivalence requires audit; matching IDs are insufficient.', '',
                    f"Current audits: {status['current_audits']}; recorded assertions are unverified.", '']
+        for report in active_audits:
+            summary.append('Audit: ' + safe(report['outcome']) + '; reported independence ' + safe(report['reported_independence']) + '; authentication unverified')
+            for finding in report['findings']:
+                summary.append('- ' + safe(finding['id'] + ': ' + finding['consequence'] + '; evidence: ' + finding['evidence'] + '; correction: ' + finding['correction']))
         return {**status, 'contract': c, 'source_manifest': manifest,
                 'sources': {sid: text(data) for sid, data in blobs.items()},
                 'predecessor': old_identity, 'diff': diff,
                 'continuity': continuity, 'predecessor_evidence': predecessor_evidence,
                 'archived_evidence': {name: text(data) for name, data in archived_files.items()} if predecessor_evidence else {},
                 'advisory_mappings': c['change_notes'][-1].get('mappings', []),
-                'audits': audits, 'adoption_boundary': 'operator_asserted; authentication unverified',
+                'audits': audits, 'audit_disputes': disputes, 'adoption_boundary': 'operator_asserted; authentication unverified',
                 'markdown': '\n'.join(summary) + markdown(c, status, manifest)}
 
 
