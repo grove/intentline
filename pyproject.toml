@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intentline"
+version = "0.1.0"
+description = "Source-grounded acceptance agreements, without implementation or proof"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+dependencies = []
+
+[project.scripts]
+intentline = "intentline.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["intentline*"]
+
+[tool.setuptools.data-files]
+"share/intentline/schema" = ["schema/*.json"]
+"share/intentline/skills/intentline-plan" = ["skills/intentline-plan/SKILL.md"]
+"share/intentline/skills/intentline-audit" = ["skills/intentline-audit/SKILL.md"]
+"share/intentline/docs" = ["docs/*.md"]
