@@ -59,3 +59,12 @@ Use `review --work WORK --json` to display the exact contract, traceable sources
 material changes and qualifications. `approval-request` prepares an external
 adopter's unapproved display/template; never fill actor/reference fields on the
 user's behalf or infer approval from viewing it.
+
+Conversational changes to a saved agreement use amend-source and reconcile inside
+the existing planning turn. The agent preserves exact available amendment text,
+reads all prior sources, proposes complete continuity and returns a behavioral
+summary plus old/new identities. Context-only refresh invents no amendment.
+When exact chat bytes are unavailable, provide an exact amendment file; the agent
+must disclose non-verbatim provenance and incomplete persistence. Planning/review
+never grants adoption or delivery authority. Only explicitly requested recording
+of an actual external adoption uses adopt. Independent audits remain optional.

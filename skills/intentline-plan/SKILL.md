@@ -122,3 +122,37 @@ For an explicitly supplied Lore report, follow the optional
 bind actual constraints to separately captured originals; never invoke Lore or
 let a report grant effects. Absent/stale/unsupported context does not stop the
 no-Lore path.
+
+## Amend a saved agreement
+
+For a conversational amendment, read `review --work OLD --json`, the full current
+contract, source manifest, exact original/amendment captures and archived lineage.
+Keep every earlier material obligation, exclusion, accepted scoped exception and
+applicable constraint. A reported success, proposal, issue closure or Lore report
+cannot change the user's original outcome or authorize adoption.
+
+Preserve the exact retrievable new user text in a private amendment file. If exact
+chat bytes are unavailable, request an exact amendment file or disclose non-verbatim
+capture and leave persistence incomplete; never reconstruct authority from a chat
+summary. Run `amend-source --work OLD --amendment FILE --root ROOT --context FILE
+--out NEW --expected-contract-sha256 HASH --json`, selecting every current context
+explicitly. Use `--refresh-context` without an amendment only for actual changed or
+replacement documentary context. Historical context is evidence, not current policy.
+
+Author a complete initial schema-1 successor with a distinct contract_id and a
+[continuity record](../../schema/continuity-v1.schema.json). Account for every prior
+R ID as preserved/changed/retired/split/merged and list genuinely added IDs. Keep
+unchanged IDs; never reuse a retired ID or alias an unrelated obligation. Explain
+why every change follows the exact new amendment, or current documentary evidence
+for documentary constraints; a changed document cannot authorize changing a
+request-derived outcome. Preserve or explicitly reconcile constraints/exclusions
+through other_changes. Quote the new S IDs precisely from frozen captures.
+
+Run `reconcile --work NEW --draft FILE --continuity FILE --json`, then `review`
+and `approval-request`. Use the same one semantic planning pass; no mandatory
+second model stage. Return a concise behavioral explanation of what changes, what
+stays, exclusions, evidence gaps versus outcome decisions, exact old/new hashes
+and the saved successor path. A preserved mapping asserts mechanical continuity,
+not semantic equivalence. No automatic adopt. Only a separately supplied actual
+external adoption reference may be recorded through existing adopt, when the user
+has expressly requested that recording. Never write that approval on their behalf.
