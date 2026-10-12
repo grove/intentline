@@ -37,3 +37,12 @@ These are offline development failures, not model planning or pilot observations
 No real development pilot outputs, blinded scores, holdout outcomes or measured skill-quality improvements were available. Original 0.1/0.2 evidence above remains unchanged.
 
 The final fresh-sdist smoke first hit sandbox DNS refusal while fetching isolated setuptools build tooling. The authorized host-network retry passed; no runtime dependency or model call was introduced.
+
+## 0.4 preparation, 2026-10-12
+
+The ambient `python3` is unsupported Python 3.9.6: the baseline and first
+NO SPLIT full-suite attempt failed three evaluator timestamp tests on ISO `Z`.
+No product code was weakened; Python 3.14.8 passes those tests. The ambient
+`python3.11` shim also has a broken relocated stdlib and cannot import encodings;
+use the previously installed standalone 3.11.17 interpreter or repository CI.
+These are local invocation/environment failures, not claimed passing checks.
