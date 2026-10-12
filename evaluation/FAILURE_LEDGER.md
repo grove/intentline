@@ -198,3 +198,11 @@ before I/O; a new regression removes the flag and asserts no open call. The mock
 permission-error branch supplies its synthetic flag explicitly. Updated dependency
 branches use ordinary merges, preserving every original published head. Windows
 secure study storage remains refused; no model or efficacy claim follows from CI.
+
+A subsequent offline runbook check found that default macOS temporary paths can
+use a /var symlink alias. The documented mktemp example then correctly refused
+with exit 3 even though the final directory was 0700. The operator example now
+resolves only its freshly created directory and reapplies 0700 after copying;
+the corrected read-only receipt matches the frozen JSON. No adapter or source
+path validation was relaxed. Original/refused and corrected attempt evidence is
+retained in a separate follow-up packet; original dated inventories are unchanged.

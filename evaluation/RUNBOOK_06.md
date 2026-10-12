@@ -86,11 +86,17 @@ model/instruction placeholders. It is not the prospective nine-attempt study.
 Copy it to owner-only storage before the CLI read (the copying is operator work):
 
 ```sh
-packet=$(mktemp -d)
+packet=$(python -c 'import tempfile; from pathlib import Path; print(Path(tempfile.mkdtemp()).resolve())')
 cp -R evaluation/cases/ai_06/not-run-packet/. "$packet/"
+chmod 700 "$packet"
 python -B -m evaluation.ai_development_06 report "$packet/study.json" \
   --private-root "$packet" --registration-sha256 "$(cat "$packet/registration.sha256")"
 ```
+
+The operator resolves only its freshly created temporary directory: some macOS
+temporary paths use symlink aliases, which the evaluator correctly refuses.
+The adapter still rejects symlinks in all supplied record paths. Reapplying 0700
+after copying preserves the required private root permissions.
 
 For private data, get the registration pin from the trusted separately sealed
 operator record, not the mutable study itself. The example uses the published
