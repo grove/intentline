@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "record": {
+      "const": "intentline.approval"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_bundle_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "record_bytes_utf8": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "record",
+    "schema_version",
+    "contract_sha256",
+    "source_bundle_sha256",
+    "actor",
+    "timestamp",
+    "reference"
+  ],
+  "additionalProperties": false
+}

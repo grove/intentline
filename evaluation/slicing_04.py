@@ -1,13 +1,13 @@
 """Separately registered slicing extension; read-only, never executes an arm.
 
-Adapted from planning_02; the original registered evaluator is unchanged.
+Shares planning_02 safety helpers; registered schemas and scoring rubric are preserved.
 """
 import argparse
 from collections import Counter
 import json
 import sys
 
-from .planning_02 import require, number, snapshot, interval, STATES, METRICS
+from .planning_02 import require, number, snapshot, interval, private_inputs, chronology, STATES, METRICS
 from intentline.audits import timestamp
 from intentline.errors import IntentlineError
 from intentline.paths import absolute
@@ -96,7 +96,7 @@ def validate(study, root):
         for review in task['reviews']:
             fields(review, ['actor', 'timestamp', 'conflicts', 'corrections', 'record'])
             string(review['actor'])
-            timestamp(review['timestamp'])
+            chronology(review['timestamp'], study['registered_at'], review=True)
             require(isinstance(review['conflicts'], list) and isinstance(review['corrections'], list), 'Review disclosures required')
             snapshot(root, review['record'])
             actors.append(review['actor'])
@@ -111,6 +111,11 @@ def validate(study, root):
                     and not any(r['conflicts'] for r in task['reviews']) and task['reference'] is not None,
                     'Eligible task needs distinct author/checker/two reviewers and reference')
         tasks[task['id']] = task
+    private = private_inputs(study)
+    for task in tasks.values():
+        payload = parse(snapshot(root, task['parent']))
+        require(not private.intersection(sha(value.encode('utf-8')) for value in payload['files_utf8'].values()),
+                'Private reference/review content leaked into parent payload')
     require(isinstance(study['assignments'], list), 'Assignments must include every arm, including failures')
     assignments, blind_ids = set(), set()
     for run in study['assignments']:
@@ -145,7 +150,7 @@ def validate(study, root):
             fields(score, ['blind_id', 'output_sha256', 'reviewer', 'timestamp', 'blinded', 'conflicts', 'dimensions', 'citations'])
             require(run['output'] is not None and score['output_sha256'] == run['output']['sha256']
                     and score['blind_id'] == run['blind_id'], 'Score subject mismatch')
-            timestamp(score['timestamp'])
+            chronology(score['timestamp'], study['registered_at'])
             string(score['reviewer'])
             require(score['blinded'] is True and score['conflicts'] == [], 'Unblinded/conflicted score')
             require(score['reviewer'] not in (task['author'], task['checker']) and score['reviewer'] not in scorers,
