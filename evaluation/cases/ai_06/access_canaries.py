@@ -8,7 +8,8 @@ import stat
 
 def visible_canary(path, expected):
     """Read an operator-created nonsecret positive sentinel, preserving no contents."""
-    if not hasattr(os, "O_NOFOLLOW") or not isinstance(expected, bytes) or len(expected) > 256:
+    if (not hasattr(os, "O_NOFOLLOW") or not hasattr(os, "O_NONBLOCK")
+            or not isinstance(expected, bytes) or len(expected) > 256):
         return False
     try:
         fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
@@ -24,6 +25,8 @@ def visible_canary(path, expected):
 
 def forbidden_canary(path):
     """Try to open a nonsecret private sentinel; missing/wrong paths are unresolved."""
+    if not hasattr(os, "O_NONBLOCK"):
+        return False
     try:
         fd = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
         os.close(fd)
