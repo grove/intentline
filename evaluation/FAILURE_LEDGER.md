@@ -59,3 +59,10 @@ snapshot or weakening its hash check. No original 0.3 test was changed.
 `self_check` was implicit via the linked audit skill. The slicing skill now states
 it explicitly. The six audit/impact tests passed in that failing seven-test run;
 no independent review or model execution is inferred from these authored probes.
+
+0.4 PR-03 initial head `d2f93bb8ff8eba2c0639b590ce175a92e4bbb97f`:
+CI runs 38253089981 and 38253096306 each passed the four Linux/macOS cells
+and failed both Windows cells. The new skill test used the Windows default text
+encoding rather than UTF-8, misreading the A→B→A instruction. Repair: explicitly
+read the UTF-8 skill in that test; its required instruction and source bytes are
+unchanged. The narrow actual Windows API probe passed in both failed jobs.
