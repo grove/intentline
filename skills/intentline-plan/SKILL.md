@@ -115,3 +115,10 @@ Related empty/spaces/tabs variations belong in one outcome's boundaries rather
 than overlapping R rows. A settled outcome without an observation harness is a
 gap, not an outcome question. These are the authored probes in the release's
 failure ledger, not a claim of measured prompt improvement.
+
+For an explicitly supplied Lore report, follow the optional
+[Lore context guide](../../docs/LORE_CONTEXT.md). Envelope inspection and ordinary
+--context capture need no peer installation. Keep the full report advisory and
+bind actual constraints to separately captured originals; never invoke Lore or
+let a report grant effects. Absent/stale/unsupported context does not stop the
+no-Lore path.

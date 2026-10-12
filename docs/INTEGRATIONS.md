@@ -37,10 +37,10 @@ The optional P2P approved-contract exporter is deferred: Intentline assertions
 are not authenticated P2P approval and the real approved-contract path has not
 been qualified end to end for Intentline.
 
-Lore's pinned bootstrap schema 1 and initialized schema 5 were inspected in
-V09, SHARED_INTELLIGENCE and AGENT_INTEGRATION. The P1 Lore adapter is deferred.
-You may explicitly select an ordinary generated report using `--context`;
-its bytes remain unverified advisory source content. No Lore-specific schema
-interpretation, inference, database access, init/update or policy promotion is
-claimed. A semantic agent must preserve revisions, provenance, exceptions,
-omissions and fallback qualifications; missing original evidence is a lead/gap.
+An experimental read-only [Lore report adapter](LORE_CONTEXT.md) recognizes the
+pinned bootstrap schema 1 and initialized schema 5 envelopes. Explicit reports
+use existing --context capture, unchanged bytes and unverified authority; no
+new prepare flag, peer installation, inference or registry access. The small
+inspector reports envelope/identity limits, never binding constraints. Use actual
+captured originals for applicable policy and preserve all report qualifications.
+No-Lore planning works unchanged; planning benefit is unmeasured.
