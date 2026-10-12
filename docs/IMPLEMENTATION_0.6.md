@@ -1,5 +1,37 @@
 # Intentline 0.6 implementation handoff
 
+## Current post-merge handoff, 12 October 2026
+
+Current remote main was rechecked at
+`21633c5256e62637793a499eb097001b5073bf83`; PRs #31–#35 are merged in dependency
+order. Its file tree equals independently reviewed integration head
+`5aa2476548007b8f250c61d67aea0e18f1269b28`. All five post-merge six-cell CI runs
+passed; [final main CI](https://github.com/grove/intentline/actions/runs/38294477082)
+and the content-matching fresh wheel/sdist installed checks establish engineering
+preparation. Repeated local checks on Python 3.11/3.14 each ran 165 tests,
+164 passing and one Windows-only skip. Windows secure study storage remains
+unsupported and fails closed. Package metadata is still `0.5.0rc1`, with no release.
+
+The offline follow-up clarifies the existing control rubric and preserves prior
+private reports, inventories, cohorts, rejected cases, challenges and failed
+attempts. New source/control hypotheses are separate unqualified revisions.
+Read-only upstream edit-history inspection recovered creation entries for two
+selected requests; the third has no recorded body edit. Exact retrieved revisions
+stay private, alongside the unchanged earlier captures. Activity `updatedAt`
+timestamps alone are not evidence that a request body changed.
+Zero source-qualified tasks, registered study assignments, calibrated judges,
+planning attempts or scored outputs exist. Planning usefulness/cost advantage
+are unmeasured; human independence and native-model usage/billing are unverified
+or unknown. No inference runner or product repair is justified by this evidence.
+
+The next execution remains conditional on source and complete-control resolution,
+native role-specific host witnesses, enforced limits and an explicit bounded
+provider/model/source/host grant. A proposal is not a grant. Publication, merge,
+version/tag/package release and formal evaluation remain separate effects.
+
+The sections below retain earlier dated preparation observations, including
+their original main, draft-publication and pending-validation states.
+
 12 October 2026. This is engineering-prepared AI-only development evaluation,
 not a planning-efficacy release. Starting/current verified remote main is
 `8c17d093ae77e2b1588f9671fc586aa733a0a801`. Work is isolated in a local checkout

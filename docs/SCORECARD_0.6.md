@@ -1,5 +1,37 @@
 # Intentline 0.6 engineering and evidence scorecard
 
+## Current post-merge decision, 12 October 2026
+
+Remote main rechecked: `21633c5256e62637793a499eb097001b5073bf83`.
+PRs #31–#35 are merged; all five post-merge CI runs passed (30 jobs).
+The [final main run](https://github.com/grove/intentline/actions/runs/38294477082)
+covers Linux/macOS/Windows and Python 3.11/3.14. Main's file tree matches the
+independently reviewed integration head `5aa2476548007b8f250c61d67aea0e18f1269b28`.
+Both supported local Python versions again ran 165 tests: 164 pass, one
+Windows-only skip. Fresh wheel/sdist installation qualified the merged content;
+package metadata remains `0.5.0rc1`. No versioned release occurred.
+
+Engineering is prepared; planning usefulness and cost advantage are **unmeasured**.
+Qualified historical tasks, registered assignments, calibrated judges, planning
+attempts and scored outputs remain **zero**. Human independence is **unverified**.
+Native engineering-model usage and billed costs remain unknown, not zero.
+
+Further source-only review corrected an overly narrow private interpretation of
+the unchanged rubric: routine details can cause unnecessary blockers without an
+unavailable harness. New control hypotheses remain unfrozen and unqualified;
+old controls, blockers and cohorts are preserved. Request history, authority,
+source rights, complete controls, actual role isolation and an explicit bounded
+inference grant remain gates. Shared subagents and shell-only probes cannot
+qualify a model host. No experiment inference or product repair follows.
+
+Actual read-only GitHub history returned creation entries for two selected
+requests and no recorded edits for the third. New source revisions remain private;
+the earlier `updatedAt` metadata alone did not prove body edits. This improves
+provenance preparation without qualifying a control set or measuring planning.
+
+The observations below are preserved dated preparation records. Their earlier
+main, draft-PR, test-count and pending-CI statements describe those earlier stages.
+
 Observed 12 October 2026. Starting/current verified remote main:
 `8c17d093ae77e2b1588f9671fc586aa733a0a801`, the merged 0.5 baseline. Its
 [six-cell CI](https://github.com/grove/intentline/actions/runs/38276513783) passed;
