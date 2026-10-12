@@ -1,0 +1,41 @@
+{
+  "contract": "intentline.acceptance",
+  "schema_version": 1,
+  "contract_id": "standalone",
+  "revision": 1,
+  "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE",
+  "intended_outcome": "The save button is blue without peer runtimes",
+  "requirements": [
+    {
+      "id": "R1",
+      "statement": "Require P2P installation",
+      "basis": "request",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Make the save button blue without peer runtimes"
+        }
+      ],
+      "boundaries": [
+        "normal input",
+        "representative falsifying input"
+      ],
+      "seam": "public requested interface",
+      "oracle": "Require P2P installation",
+      "planned_evidence": "Observe the public requested outcome against source-derived expectations",
+      "plan_state": "planned"
+    }
+  ],
+  "constraints": [],
+  "out_of_scope": [],
+  "open_decisions": [],
+  "evidence_gaps": [],
+  "change_notes": [
+    {
+      "revision": 1,
+      "kind": "initial"
+    }
+  ]
+}

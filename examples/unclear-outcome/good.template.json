@@ -1,0 +1,55 @@
+{
+  "contract": "intentline.acceptance",
+  "schema_version": 1,
+  "contract_id": "unclear-outcome",
+  "revision": 1,
+  "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE",
+  "intended_outcome": "Invalid input produces an error",
+  "requirements": [
+    {
+      "id": "R1",
+      "statement": "Invalid input produces an error",
+      "basis": "request",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Show an error on invalid input; error text is not yet decided"
+        }
+      ],
+      "boundaries": [
+        "normal input",
+        "representative falsifying input"
+      ],
+      "seam": "public requested interface",
+      "oracle": "Invalid input produces an error",
+      "planned_evidence": "Observe the public requested outcome against source-derived expectations",
+      "plan_state": "planned"
+    }
+  ],
+  "constraints": [],
+  "out_of_scope": [],
+  "open_decisions": [
+    {
+      "id": "D1",
+      "statement": "Which error text should be shown?",
+      "kind": "outcome",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Show an error on invalid input; error text is not yet decided"
+        }
+      ]
+    }
+  ],
+  "evidence_gaps": [],
+  "change_notes": [
+    {
+      "revision": 1,
+      "kind": "initial"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "contract": "intentline.acceptance",
+  "schema_version": 1,
+  "contract_id": "no-harness",
+  "revision": 1,
+  "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE",
+  "intended_outcome": "Empty usernames are rejected",
+  "requirements": [
+    {
+      "id": "R1",
+      "statement": "Empty usernames are rejected",
+      "basis": "request",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Reject empty usernames; no test harness is supplied"
+        }
+      ],
+      "boundaries": [
+        "normal input",
+        "representative falsifying input"
+      ],
+      "seam": "public requested interface",
+      "oracle": "Empty usernames are rejected",
+      "planned_evidence": "Gap: supply a public validation call or manual observation method",
+      "plan_state": "passed"
+    }
+  ],
+  "constraints": [],
+  "out_of_scope": [],
+  "open_decisions": [],
+  "evidence_gaps": [
+    {
+      "requirement_ids": [
+        "R1"
+      ],
+      "reason": "No usable validation interface/harness supplied"
+    }
+  ],
+  "change_notes": [
+    {
+      "revision": 1,
+      "kind": "initial"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "contract": "intentline.acceptance",
+  "schema_version": 1,
+  "contract_id": "behavior-regression",
+  "revision": 1,
+  "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE",
+  "intended_outcome": "Timeout emits a warning and existing retry behavior stays unchanged",
+  "requirements": [
+    {
+      "id": "R1",
+      "statement": "Timeout disables all retries",
+      "basis": "request",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Add a timeout warning without changing retry behavior"
+        }
+      ],
+      "boundaries": [
+        "normal input",
+        "representative falsifying input"
+      ],
+      "seam": "public requested interface",
+      "oracle": "Timeout disables all retries",
+      "planned_evidence": "Observe the public requested outcome against source-derived expectations",
+      "plan_state": "planned"
+    }
+  ],
+  "constraints": [
+    {
+      "statement": "Retry behavior stays unchanged",
+      "basis": "request",
+      "scope": "Existing retry behavior",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Add a timeout warning without changing retry behavior"
+        }
+      ]
+    }
+  ],
+  "out_of_scope": [],
+  "open_decisions": [],
+  "evidence_gaps": [],
+  "change_notes": [
+    {
+      "revision": 1,
+      "kind": "initial"
+    }
+  ]
+}
