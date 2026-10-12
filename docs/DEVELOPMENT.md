@@ -83,5 +83,7 @@ Python 3.9 and relocated 3.11 shim are unsuitable. The standalone 3.11.17 and
 Homebrew 3.14.8 were used for local qualification. Store complete failing and
 passing logs privately. Before publication, inspect staged filenames/diffs and
 distribution inventories for private data. Exact final-head six-cell CI requires
-an authorized commit/push/PR; local tests do not replace it. Package version and
-release claims remain gated, and empirical readiness is independently reported.
+an authorized commit/push/PR; local tests do not replace it. The original five
+0.5 heads passed all six cells. Experimental 0.5.0rc1 metadata follows that gate;
+subsequent heads require their own checks. Tag/package publication and merge
+remain separately authorized, and empirical readiness is independently reported.

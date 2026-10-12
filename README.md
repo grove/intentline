@@ -36,9 +36,10 @@ in another repository. Captured sources can contain sensitive information.
 unmeasured usefulness. The starting merged code is version 0.4.0 at
 `587ef061287f02d4d7328f7c291bf57b85892603`, with all six CI matrix cells passed.
 No GitHub Release was observed on 12 October 2026; PyPI publication is unverified.
-The 0.5 changes remain a local review candidate until publication authorization
-and exact-head CI. Package version stays 0.4.0 until those engineering gates pass;
-no improved planning, human usability or live delivery benefit is claimed.
+The 0.5 changes are published for review in [PRs #26–#30](https://github.com/grove/intentline/pull/30).
+Each original review head passed the six-cell CI matrix. Source package metadata
+is now experimental `0.5.0rc1`, undergoing its own qualification in PR #30.
+No tag/package release or main merge has occurred; usefulness remains unmeasured.
 See [the implementation report](docs/IMPLEMENTATION_0.5.md) and
 [retained 0.4 evidence](docs/SCORECARD_0.4.md).
 The [0.3](docs/SCORECARD_0.3.md) and [0.2](docs/SCORECARD_0.2.md) evidence remains retained.

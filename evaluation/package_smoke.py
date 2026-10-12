@@ -57,7 +57,7 @@ def main(argv=None):
                 run(python,'-B','-m','intentline',command,'--help',cwd=root,env=env)
             executable=prefix/('Scripts/intentline.exe' if os.name == 'nt' else 'bin/intentline')
             run(executable,'--help',cwd=root,env=env)
-            assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.4.0'
+            assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.5.0rc1'
             # Installed manual workflow uses the shipped public example, not a live agent.
             source=data/'examples/username-validation/request.md';work=root/(kind+'-work')
             command=[str(python),'-B','-m','intentline','prepare','--source',str(source),'--root',str(data),'--out',str(work),'--json']

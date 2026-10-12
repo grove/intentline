@@ -1,13 +1,14 @@
 # Intentline 0.5 implementation handoff
 
 12 October 2026. This report separates feasible engineering from unavailable
-independent empirical work. No paid inference, model launcher, new scoring
-framework, coding-agent controller, participant impersonation, approval, merge,
-release/tag or remote repository mutation was performed.
+independent empirical work. The user authorized commit, push and five focused PRs. Those effects are complete;
+RC source preparation follows the initial exact-head engineering CI gate.
+No paid inference, new scoring framework, coding-agent controller, participant
+impersonation, fabricated approval, merge or tag/package release was performed.
 
 ## Baseline and effect boundary
 
-Starting main and current committed HEAD:
+Starting main:
 `587ef061287f02d4d7328f7c291bf57b85892603` (Intentline 0.4.0).
 Remote main was fetched/rechecked and matched. No open Intentline PR was observed.
 Baseline local suite: 120 tests on Python 3.14.8 and standalone 3.11.17, 119 pass
@@ -16,15 +17,26 @@ and one actual-Windows API probe skip on macOS. Exact baseline CI
 all six OS/interpreter cells. No GitHub Release was observed; PyPI publication
 was not verified.
 
-The requested implementation plan explicitly separates preparation from commit,
-push, PR, version/release and merge effects. Those publication effects have not
-been granted. All feasible changes are local on `implement/05-engineering`.
-There are **no new commits or PR URLs** to report. Exact-head final CI and a version
-change remain gated on publication authority. No force push is contemplated.
+The user approved publishing the five concrete review units. They are stacked in
+dependency order, with no merge, force push, tag/package release, inference or
+participant outreach authority. The original exact review heads are:
+
+| Unit | Initial commit | PR | Exact-head CI |
+|---|---|---|---|
+| 01-readiness | `149acde9e797c33a525caa0c829d2f5c89919526` | [26](https://github.com/grove/intentline/pull/26) | [six cells passed](https://github.com/grove/intentline/actions/runs/38274554042) |
+| 02-workflow | `5ae1927647e1a99c9f01f9b141f82b9a28f7bad7` | [27](https://github.com/grove/intentline/pull/27) | [six cells passed](https://github.com/grove/intentline/actions/runs/38274553731) |
+| 04-native | `711dd8ca9642b473e8912ace60720a178a8007d3` | [28](https://github.com/grove/intentline/pull/28) | [six cells passed](https://github.com/grove/intentline/actions/runs/38274552760) |
+| 05-slicing | `7b41bf982d1a8c4940bc1d7e285549a8a15a0030` | [29](https://github.com/grove/intentline/pull/29) | [six cells passed](https://github.com/grove/intentline/actions/runs/38274552919) |
+| 06-integration | `46d45d760f22a39930647dc531aba48b09f216ac` | [30](https://github.com/grove/intentline/pull/30) | [six cells passed](https://github.com/grove/intentline/actions/runs/38274553937) |
+
+PR #30 also contains subsequent RC/report qualification commits. Its current
+head and checks are available on the PR; a report cannot embed its own commit
+identity. The original preparation receipt remains dated and byte-preserved;
+engineering-05-publication.json records actual observed initial CI metadata.
 
 ## Work-package delivery and review boundaries
 
-| Package | Delivered locally | Paths / proposed review unit |
+| Package | Delivered | Paths / proposed review unit |
 |---|---|---|
 | 01 study readiness | Frozen 0.4 code/skills/docs/schema and representative source/CLI/native/child bytes; existing-validator privacy/chronology fixes; private source research and intake preflight | evaluation/baseline_05, intake_05.py, INTAKE_05.md, planning_02.py, slicing_04.py; new baseline/intake/study-guard tests; distinct planning registration/readiness receipts |
 | 02 actual user path | Supported whole-tree direct-file entry retained; stale current merged-code guidance corrected; real first-use protocol and expanded installed manual controls | README, docs/AGENT_GUIDE.md and DEVELOPMENT.md; evaluation/USABILITY_05.md and package_smoke.py |
@@ -33,9 +45,9 @@ change remain gated on publication authority. No force push is contemplated.
 | 05 slicing preparation | Existing evaluator/rubric reused; distinct empty development registration, source-bound provisional parents privately; diagnostic NO SPLIT/SPLIT policy | evaluation/SLICING_05.md, cases/registration_slicing_05.json, results/slicing-05-not-run.* |
 | 06 integrated QA/report | Preserved contracts/security/historical bytes, expanded package/privacy checks and CI receipt commands; independent decisions | MANIFEST.in, .github/workflows/ci.yml, new public readiness tests, this report and SCORECARD_0.5.md |
 
-Every review unit is local/uncommitted, unmerged and has no remote head CI. Group
-related readiness/slicing changes when publishing rather than creating an empty
-conditional PR. No other repository was modified. No local peer dirty changes
+All five review units are committed/pushed and unmerged. Their original exact
+heads passed the six-cell CI matrix. No empty conditional semantic-correction PR
+was created. No other repository was modified. No local peer dirty changes
 were used as a released consumer qualification.
 
 ## Reproducible engineering evidence
@@ -66,8 +78,9 @@ interpret that as authenticated proof or replace the consumer's final status.
 
 Final full suite: **136 tests on each of Python 3.11.17 and 3.14.8; 135 pass,
 one actual-Windows probe skipped on macOS**. Both fresh wheel and fresh sdist
-install/manual workflow controls passed on both interpreters. Local package version
-remains 0.4.0 because exact-head remote CI/publication authority is absent. Installed
+install/manual workflow controls passed on both interpreters. After those original committed heads passed all six remote CI cells, source
+package metadata was set to experimental 0.5.0rc1. RC qualification is recorded
+separately from the dated preparation checks; no distribution was published. Installed
 controls cover whole skill links, no context, permitted docs, missing harness as a
 gap, material open decision, original source bytes, stale changed source, unchanged
 revision/hash reuse, read-only file inventory, successor review, NO SPLIT/SPLIT,
@@ -77,7 +90,9 @@ receipts are in the operator's ignored `.intentline/05/qualification.json`, outs
 the distribution to avoid self-referential artifact hashes; the final response
 reports them. The retained local logs under ignored `.intentline/05` include
 baseline, failing guard controls, repaired focused suites and interpreter failures.
-Never convert an unexecuted final CI job to passed. Applicable validation commands:
+Never convert an unexecuted final CI job to passed. Initial per-unit committed
+archives also passed 131, 131, 134, 134 and 136 tests respectively on macOS/3.14.8,
+each with the actual-Windows probe skip. Applicable validation commands:
 
 ```sh
 python -B -m unittest discover -v
@@ -90,8 +105,8 @@ python -B evaluation/package_smoke.py /private/fresh-dist
 
 The ambient Python 3.9 is unsupported; its relocated Python 3.11 shim also fails
 before importing encodings. A working standalone 3.11.17 was located, without
-system edits. Final local qualification uses that and Homebrew 3.14.8. Linux and
-actual Windows 0.5 results await exact-head CI. Windows continues exit 3 before
+system edits. Final local qualification uses that and Homebrew 3.14.8. Initial exact-head Linux and actual Windows CI passed; Windows passed the
+existing secure refusal controls, without qualifying record storage. Windows continues exit 3 before
 record I/O; no insecure storage fallback or rushed backend was added.
 
 ## Available task and user evidence
@@ -157,10 +172,10 @@ independence, caller authority or behavioral proof from approval prose/PASS.
 
 ## Separate release decisions and next step
 
-Engineering: local checks passed, pending authorized
-publication/exact-head six-cell CI. Keep version 0.4.0 until all engineering gates
-pass; then propose an experimental 0.5 RC with separate tag/package publication
-authority. No main merge or release is authorized by preparation/readiness.
+Engineering: original committed heads passed all six CI cells and offline/package
+checks; experimental source RC 0.5.0rc1 is prepared for its own exact-head
+qualification. No main merge, tag or package publication is authorized. Review
+readiness and empirical usefulness remain separate decisions.
 
 Empirical: unmeasured / blocked_external; observed-usefulness objective unmet.
 External accountable task/reference authors, two task/gold reviewers, two blinded
@@ -169,8 +184,8 @@ and bounded inference grant are required for a genuine diagnostic pilot. Native
 consumer trust qualification is an additional independent stop. No superiority,
 savings or safely verified live native result is claimed.
 
-The next engineering action is operator authorization to commit the concrete local
-review units, push focused branches and create PRs, followed by actual exact-head
-CI. Merge, release publication, inference and participant outreach remain separate
-effects. The next empirical action is independent private intake review; no model
-spending is required merely to identify the missing artifacts.
+The remaining engineering steps are RC/final-head qualification and review. Merge
+and tag/package publication require separate authorization. The next empirical
+action is independent private intake review; no model spending is required merely
+to identify missing artifacts. Inference and participant outreach remain separate
+effects.
