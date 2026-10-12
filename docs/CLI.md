@@ -54,3 +54,14 @@ Matching rows/IDs do not establish semantic equivalence. Reads write nothing.
 `approval-request --work WORK --json` returns that exact display and a deterministic
 unapproved template with blank actor/timestamp/reference fields. An external
 actor supplies actual authority through existing `adopt`; viewing never adopts.
+
+`amend-source --work OLD --amendment FILE --root ROOT [--context FILE ...]
+--out NEW --expected-contract-sha256 HASH` captures a distinct successor. Choose
+`--refresh-context` instead of `--amendment` for changed/replaced selected context.
+Historical context is archived, never presumed current. All current context must
+be explicitly selected. Original and amendment bytes remain separate.
+
+`reconcile --work NEW --draft FILE --continuity FILE` binds the initial schema-1
+contract and strict continuity schema 1, publishing current.json last under one
+writer lock. `propose` still handles later same-source revisions. Successors need
+new external adoption; old assertions never transfer, including A→B→A reversion.

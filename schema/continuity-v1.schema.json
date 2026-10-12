@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "record": {
+      "const": "intentline.continuity"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "predecessor_contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "predecessor_source_bundle_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_bundle_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R[1-9][0-9]*$"
+            },
+            "minItems": 1
+          },
+          "to": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^R[1-9][0-9]*$"
+            },
+            "minItems": 0
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "preserved",
+              "changed",
+              "retired",
+              "split",
+              "merged"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "line_start": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999999
+                },
+                "line_end": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999999
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "source_id",
+                "line_start",
+                "line_end",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "disposition",
+          "reason",
+          "source_refs"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "added_requirement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^R[1-9][0-9]*$"
+      },
+      "minItems": 0
+    },
+    "other_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "constraints",
+              "out_of_scope"
+            ]
+          },
+          "from_index": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999999
+          },
+          "to_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999999
+            },
+            "minItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "line_start": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999999
+                },
+                "line_end": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999999
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "source_id",
+                "line_start",
+                "line_end",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "category",
+          "from_index",
+          "to_indices",
+          "reason",
+          "source_refs"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "record",
+    "schema_version",
+    "predecessor_contract_sha256",
+    "predecessor_source_bundle_sha256",
+    "contract_sha256",
+    "source_bundle_sha256",
+    "mappings",
+    "added_requirement_ids",
+    "other_changes"
+  ],
+  "additionalProperties": false
+}

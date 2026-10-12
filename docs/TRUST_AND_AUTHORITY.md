@@ -12,3 +12,10 @@ agent or human. Adoption records are operator assertions with unverified actors.
 Immutable history is retained locally, not cryptographically protected against
 an owner who can rewrite the entire directory. No proof runner, controller,
 daemon, network client, or peer runtime is part of Intentline.
+
+A successor is a new source generation and distinct contract, never a transferred
+approval. Amendments are caller-asserted intent, not adoption references. Archived
+sources retain exact history with frozen_historical provenance; only current
+amendments/context are live-revalidated. Ancestor hashes establish lineage bytes,
+not independent review or permission. Interrupted reconciliation remains blocked
+until both initial contract and continuity are complete and current is published.

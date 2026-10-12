@@ -24,7 +24,7 @@ def references(row, blobs, manifest):
         if ref['quote'] not in (exact, exact.removesuffix('\n').removesuffix('\r')):
             raise IntentlineError('Quotation mismatch against saved source bytes')
     basis = row.get('basis')
-    if basis in ('request', 'necessary_invariant') and not any(roles[r['source_id']] == 'request' for r in row['source_refs']):
+    if basis in ('request', 'necessary_invariant') and not any(roles[r['source_id']] in ('request', 'amendment') for r in row['source_refs']):
         raise IntentlineError('Requested/inferred outcomes require original-request support')
     if basis == 'project_constraint' and not any(roles[r['source_id']] == 'context' for r in row['source_refs']):
         raise IntentlineError('Project constraint requires selected project context')
@@ -110,6 +110,9 @@ def current(work, manifest=None, blobs=None, source_digest=None):
             if history:
                 revision_check(history[-1], c, history)
             history.append(c)
+    if manifest['schema_version'] == 2:
+        from .continuity import completed
+        completed(work, manifest, blobs, history[0])
     last = history[-1]
     expected = {'contract_id': last['contract_id'], 'revision': last['revision'],
                 'contract_sha256': sha(canonical(last)), 'source_bundle_sha256': source_digest}
@@ -140,6 +143,8 @@ def propose(work_path, draft_path):
         if before == draft:
             return {**pointer, 'summary': 'Unchanged proposal reused; no new revision'}
         if before is None:
+            if manifest['schema_version'] == 2:
+                raise IntentlineError('Initial successor requires reconcile with complete continuity')
             if draft['revision'] != 1:
                 raise IntentlineError('Initial proposal must be revision 1')
         else:
