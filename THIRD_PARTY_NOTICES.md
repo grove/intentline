@@ -3,7 +3,8 @@
 Intentline is Apache-2.0. Its skills and contract design selectively adapt the
 spec envelope, stable requirement identity, source preservation, independent
 oracles, and authority separation described in Promise to Proof (Apache-2.0),
-copyright its contributors, revision `a26e0a9c50a7d75fc3a02feda491bf497de94cf4`.
+copyright its contributors, revisions `a26e0a9c50a7d75fc3a02feda491bf497de94cf4` (0.1) and
+`17f3deb982a8224f71b12bda74be6b24d86571e4` (0.2 selective clarification).
 Sources: `skills/productivity/plan-acceptance/SKILL.md`,
 `skills/productivity/audit-acceptance/SKILL.md`,
 `docs/acceptance-contract-protocol.md`.
