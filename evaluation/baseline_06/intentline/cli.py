@@ -1,0 +1,173 @@
+"""One versioned stdout result; diagnostics use stderr."""
+
+import argparse
+import json
+import os
+import sys
+
+from .errors import IntentlineError
+
+
+class Parser(argparse.ArgumentParser):
+    def error(self, message):
+        raise IntentlineError(message)
+
+
+def parser():
+    p = Parser(description="Plan acceptance without implementing or proving it.")
+    p.add_argument("--json", action="store_true", help="emit intentline.result schema 1")
+    sub = p.add_subparsers(dest="command", required=True)
+    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "amend-source", "reconcile", "inspect-native", "audit-record", "adopt", "export"):
+        command = sub.add_parser(name)
+        command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+        if name not in ("prepare", "inspect-native"):
+            command.add_argument("--work", required=True)
+        if name == "inspect-native":
+            command.add_argument("--bundle", required=True)
+        if name == "prepare":
+            command.add_argument("--source", required=True)
+            command.add_argument("--context", action="append", default=[])
+            command.add_argument("--root", default=os.getcwd())
+            command.add_argument("--out", default=".intentline/work/request")
+        if name == "amend-source":
+            mode = command.add_mutually_exclusive_group(required=True)
+            mode.add_argument("--amendment")
+            mode.add_argument("--refresh-context", action="store_true")
+            command.add_argument("--root", required=True)
+            command.add_argument("--context", action="append", default=[])
+            command.add_argument("--out", required=True)
+            command.add_argument("--expected-contract-sha256", required=True)
+        if name == "reconcile":
+            command.add_argument("--draft", required=True)
+            command.add_argument("--continuity", required=True)
+        if name == "propose":
+            command.add_argument("--draft", required=True)
+        if name == "render":
+            command.add_argument("--format", choices=["markdown"], default="markdown")
+        if name == "review":
+            command.add_argument("--against-revision", type=int)
+        if name == "audit-record":
+            command.add_argument("--report", required=True)
+        if name == "adopt":
+            command.add_argument("--expected-contract-sha256", required=True)
+            command.add_argument("--approval-file", required=True)
+        if name == "export":
+            command.add_argument("--format", choices=["proofline-direct", "proofline-native", "markdown", "json"], required=True)
+            command.add_argument("--out", required=True)
+            command.add_argument("--product-root", help="exact downstream checkout for binding project references")
+    command = sub.add_parser("slice")
+    command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+    actions = command.add_subparsers(dest="slice_command", required=True)
+    for name in ("preview", "record", "status", "render", "audit-record", "impact", "export", "inspect"):
+        action = actions.add_parser(name)
+        action.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+        if name == "inspect":
+            action.add_argument("--bundle", required=True)
+        else:
+            action.add_argument("--work", required=True)
+        if name == "export":
+            action.add_argument("--child", required=True)
+            action.add_argument("--out", required=True)
+        if name in ("preview", "record"):
+            action.add_argument("--proposal", required=True)
+        if name == "audit-record":
+            action.add_argument("--report", required=True)
+        if name == "impact":
+            action.add_argument("--successor-work", required=True)
+        if name == "record":
+            action.add_argument("--expected-parent-sha256", required=True)
+    return p
+
+
+def execute(args):
+    from .paths import capability
+    capability()
+    if args.command == "slice":
+        from . import slice_records
+        if args.slice_command in ("export", "inspect"):
+            from . import slice_export
+            if args.slice_command == "inspect": return slice_export.inspect(args.bundle)
+            return slice_export.export(args.work,args.child,args.out)
+        if args.slice_command == "audit-record":
+            from .slice_audits import audit_record
+            return audit_record(args.work,args.report)
+        if args.slice_command == "impact":
+            from .slice_impact import impact
+            return impact(args.work,args.successor_work)
+        if args.slice_command == "preview": return slice_records.preview(args.work,args.proposal)
+        if args.slice_command == "record": return slice_records.record(args.work,args.proposal,args.expected_parent_sha256)
+        return slice_records.status(args.work,args.slice_command == "render")
+    if args.command == "inspect-native":
+        from .native_handoff import inspect_native
+        return inspect_native(args.bundle)
+    if args.command == "amend-source":
+        from .amendments import amend_source
+        return amend_source(args.work, args.amendment, args.context, args.root, args.out,
+                            args.expected_contract_sha256, args.refresh_context)
+    if args.command == "reconcile":
+        from .continuity import reconcile
+        return reconcile(args.work, args.draft, args.continuity)
+    if args.command == "review":
+        from .review import review
+        return review(args.work, args.against_revision)
+    if args.command == "approval-request":
+        from .review import approval_request
+        return approval_request(args.work)
+    if args.command == "prepare":
+        from .sources import prepare
+        return prepare(args.source, args.context, args.root, args.out)
+    if args.command == "propose":
+        from .contracts import propose
+        return propose(args.work, args.draft)
+    if args.command in ("check", "status", "render"):
+        from .contracts import inspect
+        status, contract = inspect(args.work)
+        if args.command == "render":
+            if contract is None:
+                raise IntentlineError("No current contract to render")
+            from .render import markdown
+            from .paths import Directory
+            from .sources import bundle
+            with Directory(args.work) as work:
+                manifest, _, _ = bundle(work)
+            status["markdown"] = markdown(contract, status, manifest)
+        return status
+    if args.command == "audit-record":
+        from .audits import audit_record
+        return audit_record(args.work, args.report)
+    if args.command == "adopt":
+        from .adoption import adopt
+        return adopt(args.work, args.expected_contract_sha256, args.approval_file)
+    if args.command == "export":
+        from .export import export
+        return export(args.work, args.format, args.out, args.product_root)
+    raise IntentlineError("No work item recorded yet")
+
+
+def main(argv=None):
+    sys.dont_write_bytecode = True
+    actual = sys.argv[1:] if argv is None else argv
+    json_mode = "--json" in actual
+    command = None
+    try:
+        args = parser().parse_args(actual)
+        command = args.command
+        data = execute(args)
+        result = {"result": "intentline.result", "schema_version": 1,
+                  "command": command, "ok": True, "data": data}
+        code = data.get("exit_code", 0)
+        result["ok"] = code == 0
+        if json_mode:
+            print(json.dumps(result, ensure_ascii=True, sort_keys=True))
+        else:
+            print(data.get("markdown", data.get("summary", json.dumps(data, ensure_ascii=True))))
+        return code
+    except (IntentlineError, OSError, UnicodeError, ValueError) as exc:
+        code = exc.code if isinstance(exc, IntentlineError) else 3
+        message = str(exc)
+        print(message, file=sys.stderr)
+        if json_mode:
+            print(json.dumps({"result": "intentline.result", "schema_version": 1,
+                              "command": command, "ok": False,
+                              "error": {"code": code, "message": message}}, ensure_ascii=True))
+        return code

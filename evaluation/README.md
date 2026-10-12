@@ -138,3 +138,13 @@ precede registration; scoring must follow it. These mechanical controls do not
 authenticate independence or detect semantic/partial/encoded answer exposure.
 Existing schemas, rubric dimensions and historical bytes remain unchanged, with
 exact 0.4 source/output and earlier evidence inventories under baseline_05.
+
+## 0.6 AI-only development lane
+
+`ai_development_06.py` is a read-only adapter for already-produced private
+AI-development artifacts. It reuses the existing rubric, secure file reads,
+assignment accounting and usage primitives, while preserving the formal studies
+and their eligibility rules. [Exact record specification](AI_DEVELOPMENT_06.md).
+No model runner, inference authority or human-independent validity is added.
+`baseline_06` freezes the exact merged 0.5 code/skill/schema/evidence identities
+and public authored source/CLI controls; these are engineering fixtures.
