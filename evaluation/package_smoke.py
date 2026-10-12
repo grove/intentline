@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -19,6 +20,29 @@ def run(*args, cwd, env):
     if result.returncode:
         raise RuntimeError(result.stdout+'\n'+result.stderr)
     return result.stdout
+
+
+def ai_receipt(python, data, root, env):
+    """Operator copies public empty data; the installed evaluator only reads it."""
+    source = data/'evaluation/cases/ai_06/not-run-packet'
+    private = root/'ai-receipt'
+    private.mkdir(mode=0o700)
+    shutil.copytree(source, private, dirs_exist_ok=True)
+    private.chmod(0o700)  # copytree preserves public source directory permissions.
+    pin = (private/'registration.sha256').read_text().strip()
+    command = [str(python), '-I', '-B', '-m', 'evaluation.ai_development_06', 'report',
+               str(private/'study.json'), '--private-root', str(private), '--registration-sha256', pin]
+    before = {str(p.relative_to(private)): p.read_bytes() for p in private.rglob('*') if p.is_file()}
+    result = subprocess.run(command, cwd=root, env=env, capture_output=True, text=True)
+    if os.name != 'posix':
+        assert result.returncode == 3 and not result.stdout, 'Windows evaluator must refuse storage'
+    else:
+        assert result.returncode == 0, result.stderr
+        expected = json.loads((data/'evaluation/results/ai-development-06-not-run.json').read_bytes())
+        assert json.loads(result.stdout) == expected, 'Installed report differs from frozen empty receipt'
+        assert expected['actual_attempts'] == expected['registered_assignments'] == 0
+        assert all(v is None for v in expected['all_in_usage'].values())
+    assert before == {str(p.relative_to(private)): p.read_bytes() for p in private.rglob('*') if p.is_file()}, 'Read-only evaluator wrote records'
 
 
 def main(argv=None):
@@ -49,6 +73,19 @@ def main(argv=None):
             assert (data/'docs/SCORECARD_0.4.md').is_file()
             assert (data/'docs/SCORECARD_0.5.md').is_file()
             assert (data/'docs/IMPLEMENTATION_0.5.md').is_file()
+            for name in ('SCORECARD_0.6.md', 'IMPLEMENTATION_0.6.md'):
+                assert (data/'docs'/name).is_file()
+            for name in ('AI_DEVELOPMENT_06.md', 'CODEX_PREPARATION_06.md', 'AGENT_ACCESS_06.md',
+                         'CODEX_JUDGING_06.md', 'JUDGE_CONTROLS_06.md', 'RUNBOOK_06.md'):
+                path = data/'evaluation'/name
+                for link in re.findall(r'\]\(([^)]+)\)', path.read_text()):
+                    if not link.startswith('https://'):
+                        assert (path.parent/link).is_file(), 'Broken installed evaluation link: '+link
+            run(python, '-I', '-B', '-m', 'evaluation.ai_development_06', '--help', cwd=root, env=env)
+            located = Path(run(python, '-I', '-B', '-c',
+                               'import evaluation.ai_development_06 as a; print(a.__file__)', cwd=root, env=env).strip())
+            assert prefix in located.parents, 'Evaluator imported from source instead of fresh install'
+            ai_receipt(python, data, prefix, env)
             for operation in ('preview','record','status','render','impact','audit-record','export','inspect'):
                 run(python,'-B','-m','intentline','slice',operation,'--help',cwd=root,env=env)
             for schema in ('acceptance-v1','source-bundle-v2','continuity-v1','native-handoff-v1','slicing-v1','slice-audit-v1','slice-handoff-v1'):
@@ -161,12 +198,16 @@ def main(argv=None):
             assert any(n.endswith('/evaluation/baseline_04/.github/workflows/ci.yml') for n in names)
             assert any(n.endswith('/evaluation/slicing_04.py') for n in names)
             assert any(n.endswith('/INTENTLINE_0.4_IMPLEMENTATION_PLAN.md') for n in names)
-            for required in ('INTENTLINE_0.5_IMPLEMENTATION_PLAN.md','evaluation/intake_05.py','evaluation/INTAKE_05.md','evaluation/USABILITY_05.md','evaluation/SLICING_05.md','evaluation/baseline_05/identity.json','evaluation/results/planning-05-not-run.json','evaluation/results/slicing-05-not-run.json'):
+            for required in ('INTENTLINE_0.6_IMPLEMENTATION_PLAN.md','INTENTLINE_0.5_IMPLEMENTATION_PLAN.md','evaluation/intake_05.py','evaluation/INTAKE_05.md','evaluation/USABILITY_05.md','evaluation/SLICING_05.md','evaluation/baseline_05/identity.json','evaluation/results/planning-05-not-run.json','evaluation/results/slicing-05-not-run.json', 'evaluation/ai_development_06.py', 'evaluation/AI_DEVELOPMENT_06.md', 'evaluation/JUDGE_CONTROLS_06.md', 'evaluation/cases/ai_06/authored-controls.json', 'evaluation/baseline_06/identity.json', 'evaluation/results/ai-development-06-not-run.json'):
                 assert any(n.endswith('/'+required) for n in names),required
             for name in names:
                 path=PurePosixPath(name)
                 assert not path.is_absolute() and '..' not in path.parts
-                assert not any(part in ('private-studies','restricted-gold','restricted-reviews','restricted-outcomes','.intentline') for part in path.parts), 'Private materials in sdist'
+                assert not any(part in ('private-studies','restricted','restricted-gold','restricted-reviews','restricted-outcomes','.intentline') for part in path.parts), 'Private materials in sdist'
+        with zipfile.ZipFile(wheels[0]) as wheel:
+            for name in wheel.namelist():
+                assert not any(part in ('private-studies','restricted','.intentline','original-05','historical') for part in PurePosixPath(name).parts), 'Private materials in wheel'
+            assert 'evaluation/ai_development_06.py' in wheel.namelist()
     return 0
 
 

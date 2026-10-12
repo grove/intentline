@@ -150,3 +150,43 @@ excludes only that unchanged attachment's intentional hard breaks. No production
 validation, test or privacy gate was suppressed. Local Git metadata required
 escalated execution after the default sandbox refused index.lock; this did not
 use a GitHub checkout to bypass filesystem controls.
+
+## 0.6 engineering critique, 12 October 2026
+
+Independent AI engineering critique reproduced adapter-only failures using
+authored fixtures: null totals hiding known cap overruns, oracle contexts receiving
+gold, role/grant/host identity mismatches, unresolved critic dissent escaping
+qualification, critical omissions downgraded, unknown/overrun horizons, and
+unscored runs exposing comparative zeroes. Focused regression controls now refuse
+these or retain unqualified status. All original failed notes and prepared
+outputs remain private; no product skill or formal evaluator was tuned.
+
+These are deterministic engineering corrections. Three provisional ledgers and
+source challenges are AI preparation, not observed Intentline planning failures.
+Package 05 semantic product repair is omitted. No model-quality benefit, human
+review, native Proofline qualification or comparative result is inferred.
+
+The ambient Python 3.11 shim printed a version but failed imports due to missing
+encodings; the existing standalone 3.11.17 was used instead. Ambient Python 3.14
+lacked a runnable build module; the existing build-tool environment was reused.
+Neither failure was counted as a passing qualification or repaired by system edits.
+
+The first new installed receipt smoke failed because copytree restored the public
+packet directory mode after private directory creation. The operator copy now
+reapplies 0700; the read-only validator's refusal was correct. A subsequent source
+install failed on unavailable PyPI DNS. Fresh wheel/sdist installed controls then
+passed on both supported local interpreters using PIP_NO_INDEX=1 and an existing
+bundled setuptools 79.0.1 wheel. Original failed logs/artifacts are retained.
+
+A real coordinator-only nonsecret canary probe opened gold/other-arm/answer sibling
+sentinels despite 0700/0600 storage. No model or private answer was read in this
+probe, and no separate role host was qualified. Network/app checks stay untested.
+The first probe helper import failed outside the repository import path; its
+original stdout and observed failure receipt remain retained with the successful
+local-helper attempt. Shared host isolation is still a failing experiment gate.
+
+Task-specific offline calibration preparation could ground 19 provisional controls
+(6 positive, 13 negative) but retained 11 blocked categories rather than inventing
+source rules: authority/gap/blocker for all three cases and exclusion/exception
+for one. Mechanical anchors pass on prepared candidates; no source qualification,
+calibration prediction or planning assignment follows from these authored fixtures.

@@ -148,3 +148,11 @@ and their eligibility rules. [Exact record specification](AI_DEVELOPMENT_06.md).
 No model runner, inference authority or human-independent validity is added.
 `baseline_06` freezes the exact merged 0.5 code/skill/schema/evidence identities
 and public authored source/CLI controls; these are engineering fixtures.
+
+[Delegated preparation](CODEX_PREPARATION_06.md), [access gates](AGENT_ACCESS_06.md),
+[blind judging](CODEX_JUDGING_06.md), [control types](JUDGE_CONTROLS_06.md) and
+[operator runbook](RUNBOOK_06.md) are prepared. Public authored controls and a
+reproducible dated empty receipt are separate from private source/AI-ledger work.
+Actual planning comparison/calibration remain not_run; see
+[scorecard](../docs/SCORECARD_0.6.md). Complete private inputs cannot be mounted to
+shared agents and called isolated. No human-independent evidence was produced.

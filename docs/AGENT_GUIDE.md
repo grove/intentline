@@ -86,3 +86,14 @@ contributions, conservative constraint/exclusion inheritance, observable prerequ
 outcomes and a named assembled-parent verifier. Optional audit reports remain
 actor-unverified; self-context work is self_check. Parent adoption never grants
 child acceptance. Follow [slicing](SLICING.md) and [handoff limits](SLICING_INTEGRATIONS.md).
+
+## 0.6 AI-development inspection
+
+Use the same intentline-plan, intentline-audit and intentline-slice entry paths.
+Their source, revision, adoption and advisory-export boundaries remain intact.
+The installed optional `evaluation.ai_development_06` module provides read-only
+validate/assess/report for imported AI-development records; it never dispatches
+an agent. See [the runbook](../evaluation/RUNBOOK_06.md) and
+[exact spec](../evaluation/AI_DEVELOPMENT_06.md). Supply an owner-only private root
+and separately retained registration digest. Shared subagents do not isolate
+gold, calibrate judges or establish human-independent eligibility.

@@ -15,7 +15,7 @@ dependencies = []
 intentline = "intentline.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["intentline*"]
+include = ["intentline*", "evaluation"]
 
 [tool.setuptools.data-files]
 "share/intentline/schema" = ["schema/*.json"]
@@ -25,3 +25,9 @@ include = ["intentline*"]
 "share/intentline/docs" = ["docs/*.md"]
 "share/intentline/examples/slicing" = ["examples/slicing/*"]
 "share/intentline/examples/username-validation" = ["examples/username-validation/*"]
+"share/intentline/evaluation" = ["evaluation/*.md"]
+"share/intentline/evaluation/cases/ai_06" = ["evaluation/cases/ai_06/*.md", "evaluation/cases/ai_06/*.txt", "evaluation/cases/ai_06/*.json", "evaluation/cases/ai_06/access_canaries.py"]
+"share/intentline/evaluation/cases/ai_06/not-run-packet" = ["evaluation/cases/ai_06/not-run-packet/study.json", "evaluation/cases/ai_06/not-run-packet/registration.sha256"]
+"share/intentline/evaluation/cases/ai_06/not-run-packet/instructions" = ["evaluation/cases/ai_06/not-run-packet/instructions/*.txt"]
+"share/intentline/evaluation/cases/ai_06/not-run-packet/receipts" = ["evaluation/cases/ai_06/not-run-packet/receipts/*.json"]
+"share/intentline/evaluation/results" = ["evaluation/results/ai-development-06-*.json", "evaluation/results/ai-development-06-*.sha256"]

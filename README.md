@@ -76,3 +76,14 @@ Optional: [advisory Lore reports](docs/LORE_CONTEXT.md),
 [direct Proofline handoff](docs/INTEGRATIONS.md), and the source-distribution
 [evaluation protocol](evaluation/README.md). All peers remain optional. The
 acceptance/result schema 1 and existing CLI behavior remain compatible.
+
+## 0.6 development preparation
+
+The existing three skills and deterministic CLI remain unchanged. A separate
+read-only AI-development adapter inspects already-produced private planning
+artifacts, frozen source identities, calibrated blind critique and all-attempt
+costs. It never runs a model or confers human independence. See the
+[0.6 scorecard](docs/SCORECARD_0.6.md) and
+[operator runbook](evaluation/RUNBOOK_06.md). Actual comparison is **not_run**;
+source/host/budget/calibration gates remain open. Package metadata stays
+experimental `0.5.0rc1`; no version/tag/package release is implied.
