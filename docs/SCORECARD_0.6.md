@@ -29,6 +29,24 @@ requests and no recorded edits for the third. New source revisions remain privat
 the earlier `updatedAt` metadata alone did not prove body edits. This improves
 provenance preparation without qualifying a control set or measuring planning.
 
+The [final execution-gate receipt](../evaluation/results/ai-development-06-execution-gates.json)
+preserves further offline progress: exact creation-boundary inputs, historical
+dependency evidence and 22 authored controls, with eight unsupported category
+slots. A fresh offline Docker instance produced native administrative file and
+directory permission denials against existing synthetic canaries. Search's empty
+result and empty session/MCP inventories remain unqualified; no model-role host
+or hard provider dollar/request/time enforcement passed. Native weighted token
+budgeting was found, but it checks usage after a response. No thread or model
+turn was started. Temporary Docker resources were cleaned up.
+
+Final decisions remain separate: **engineering prepared** under the plan's
+permitted `not_run` fallback; **AI-development comparison not run**, with zero
+qualified tasks, judges, assignments, attempts and scores; **formal human
+independence unverified**. Finishing the measured comparison requires source-fit
+resolution (or a newly frozen source-only replacement cohort), actual complete
+role-host qualification, enforced limits, explicit bounded inference authority,
+calibration and the nine-arm-attempt comparison. Versioned release is separate.
+
 The observations below are preserved dated preparation records. Their earlier
 main, draft-PR, test-count and pending-CI statements describe those earlier stages.
 

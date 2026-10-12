@@ -29,6 +29,32 @@ native role-specific host witnesses, enforced limits and an explicit bounded
 provider/model/source/host grant. A proposal is not a grant. Publication, merge,
 version/tag/package release and formal evaluation remain separate effects.
 
+### Final execution-gate follow-up, 12 October 2026
+
+The [dated sanitized receipt](../evaluation/results/ai-development-06-execution-gates.json)
+records the next offline stage without rewriting previous observations. Exact
+creation-boundary sources, corrected ledger candidates and historical dependency
+mechanics are preserved privately. There are now 22 full authored control
+candidates across 30 required slots; eight lack defensible source support and
+criticality remains incomplete. The original cohort and its blockers are retained.
+No ten-control task population or source-qualified task is claimed.
+
+A new credential-free, network-disabled, unmounted Docker preflight used only
+synthetic canaries and the pinned Codex 0.162.1 binary. Actual native administrative
+file reads allowed the visible canary and denied existing operator/other-arm
+canaries with `EACCES`; an operator-directory listing was also denied. Native
+search returned an empty result rather than a permission error. Empty session/MCP
+inventories and administrative APIs do not qualify model-role tool, app, session
+or provider boundaries. No thread or model turn was started; temporary Docker
+resources were removed after preserving witnesses.
+
+Pinned runtime source confirms native weighted rollout budgeting, but its
+post-response accounting does not establish hard dollar/request/time limits.
+The bounded proposal therefore remains unapproved and non-executable. Under
+PR-04's explicit fallback, the engineering-prepared `not_run` decision stands;
+the empirical acceptance-planning question remains open. No product repair,
+new runner, release or measured advantage follows from this preparation.
+
 The sections below retain earlier dated preparation observations, including
 their original main, draft-publication and pending-validation states.
 
