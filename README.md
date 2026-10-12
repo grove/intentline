@@ -8,8 +8,12 @@ It does not write semantic requirements, implement code, run proof, or approve w
 Python 3.11+; runtime dependencies: none. Install with `python -m pip install .`.
 Use `intentline --help` or `python -B -m intentline --help`.
 
-Start with the [five-minute manual tutorial](docs/TUTORIAL.md), or give your
-existing assistant [the planning skill](skills/intentline-plan/SKILL.md).
+For one-request planning, give your command-capable assistant the original
+request file and [the installed planning skill](skills/intentline-plan/SKILL.md):
+“Use Intentline to plan acceptance for request.md; save and return a private draft.”
+See [installed host entry](docs/AGENT_GUIDE.md). The agent handles JSON and CLI
+stages; audit and adoption are separate. The [manual tutorial](docs/TUTORIAL.md)
+works without an agent.
 Optional review uses [the audit skill](skills/intentline-audit/SKILL.md).
 Installed skills/docs are under your Python environment's `share/intentline/`.
 

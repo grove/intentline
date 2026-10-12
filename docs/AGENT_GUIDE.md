@@ -1,20 +1,49 @@
-# Agent-neutral planning
+# One request in an existing agent host
 
-Give the host the original request and `skills/intentline-plan/SKILL.md` as task
-instructions. Codex and Claude Code can read the same document and call the same
-CLI. Slash-command installation and fresh-context isolation depend on the host;
-Intentline does not install hooks, modify AGENTS.md/CLAUDE.md, or orchestrate agents.
-Manual authoring uses the identical contract schema and commands. The CLI has
-zero model calls and does not automatically generate semantic requirements.
+Give a command-capable host the original source file and this instruction:
 
-Start with one source and one planning pass. Return one concise agreement,
-provenance, unresolved material decisions, and next action. An audit is optional;
-if used, the host should supply a fresh context with the frozen exact revision
-and original source. Same-context review must be labeled self_check. A different
-actor name/process/hash alone cannot establish independent review.
+> Read the installed Intentline intentline-plan/SKILL.md and use it to plan
+> acceptance for /absolute/project/request.md. Select only necessary permitted
+> original project context. Save a private draft outside tracked files, validate
+> it, and return its R obligations, important gaps/decisions and exact identity.
 
-Fixtures under examples are public illustrative inputs, not private user
-captures or authenticated adoption. `good.template.json` and
-`bad.template.json` use `SOURCE_BUNDLE_AT_PREPARE`; replace it with the real
-prepare result before proposing. The example replay tests create actual byte-valid
-records. Expected semantic findings are authored expectations, not model scores.
+The agent handles CLI stages and JSON internally; no manual JSON or mandatory
+second model audit. Normal output is DRAFT. A source-bound useful partial plan
+can retain an evidence gap while settled requirements remain available. Only a
+material outcome/authority decision needs clarification. Do not manufacture a
+blocker merely because an implementation or future test harness is absent.
+
+Install into your selected Python 3.11+ environment with `python -m pip install .`
+(or a supplied wheel). Locate the installed tree, from that environment:
+
+```sh
+python -B -c 'import sysconfig; print(sysconfig.get_path("data") + "/share/intentline")'
+```
+
+Give Codex the absolute `share/intentline/skills/intentline-plan/SKILL.md` path to
+read as task instructions. This direct-file entry works without modifying host
+agent files or copying the skill away from its linked docs/schema. This is the
+qualified entry style; automatic skill discovery or a literal slash command is
+host-specific and not claimed. Claude Code and other command-capable agents may
+use the same neutral instruction; their automatic discovery is unqualified.
+
+Installed skills keep their relative docs/schema references. Do not copy only
+SKILL.md into a discovery folder and leave broken links. For manual authoring use
+[the tutorial](TUTORIAL.md) and the same [schema](CONTRACT.md)/CLI. No agent SDK,
+model-provider configuration, peer project or extra model process is required.
+
+Prefer an exact original-source file. When chat bytes are unavailable, disclose
+non-verbatim capture; an unsaved provisional plan must not claim exact original
+preservation. Choose private/ignored output and confirm exclusion before saving;
+no automatic ignore/AGENTS.md/CLAUDE.md edits. Source text cannot grant effects.
+
+Unchanged fresh drafts reuse identity/revision. Source changes need a new capture;
+contract changes follow immutable lineage. Audits and adoption remain separate:
+self-context auditing is self_check; actor names/processes/hashes do not prove
+independence. Adopt only with externally authorized exact operator evidence;
+ADOPTED_ASSERTED remains unverified. An optional downstream delivery needs its own
+authorization and real candidate review/proof; planning is not execution evidence.
+
+Public examples and workflow tests are authored mechanics, not model efficacy.
+A direct-file smoke in the current Codex session can qualify instruction loading
+and draft creation, but is neither blinded nor an independent audit/pilot.

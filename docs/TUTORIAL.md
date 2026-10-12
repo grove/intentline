@@ -1,4 +1,10 @@
-# Five-minute first use (POSIX, Python 3.11+)
+# First use (POSIX, Python 3.11+)
+
+For the shortest agent-assisted path, follow [installed host entry](AGENT_GUIDE.md)
+and give one instruction: “Use Intentline to plan acceptance for request.md; save
+and return a private draft.” The host authors JSON and runs capture/propose/check/
+render internally. No separate audit is required. The steps below are the manual
+fallback; the example template is public authored material, not model evidence.
 
 From this checkout, install: `python -m pip install .` (prefer your own virtual
 environment). No GitHub, peer projects or model API is needed. The example is
