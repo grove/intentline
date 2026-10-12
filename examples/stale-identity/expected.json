@@ -1,0 +1,6 @@
+{
+  "bad_mechanically_invalid": true,
+  "semantic_finding": "Wrong source digest",
+  "good_status": "STRUCTURALLY_VALID",
+  "evaluation": "authored_fixture_expectation; real_model_not_run"
+}

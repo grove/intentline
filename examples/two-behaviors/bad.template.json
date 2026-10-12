@@ -1,0 +1,41 @@
+{
+  "contract": "intentline.acceptance",
+  "schema_version": 1,
+  "contract_id": "two-behaviors",
+  "revision": 1,
+  "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE",
+  "intended_outcome": "Reject empty usernames",
+  "requirements": [
+    {
+      "id": "R1",
+      "statement": "Reject empty usernames",
+      "basis": "request",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Reject empty usernames"
+        }
+      ],
+      "boundaries": [
+        "normal input",
+        "representative falsifying input"
+      ],
+      "seam": "public requested interface",
+      "oracle": "Reject empty usernames",
+      "planned_evidence": "Observe the public requested outcome against source-derived expectations",
+      "plan_state": "planned"
+    }
+  ],
+  "constraints": [],
+  "out_of_scope": [],
+  "open_decisions": [],
+  "evidence_gaps": [],
+  "change_notes": [
+    {
+      "revision": 1,
+      "kind": "initial"
+    }
+  ]
+}

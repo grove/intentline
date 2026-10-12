@@ -1,0 +1,58 @@
+{
+  "contract": "intentline.acceptance",
+  "schema_version": 1,
+  "contract_id": "accepted-versus-proposed",
+  "revision": 1,
+  "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE",
+  "intended_outcome": "Retries retain the accepted policy",
+  "requirements": [
+    {
+      "id": "R1",
+      "statement": "Retries retain the accepted policy",
+      "basis": "request",
+      "source_refs": [
+        {
+          "source_id": "S1",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Keep the accepted retry policy"
+        }
+      ],
+      "boundaries": [
+        "normal input",
+        "representative falsifying input"
+      ],
+      "seam": "public requested interface",
+      "oracle": "Retries retain the accepted policy",
+      "planned_evidence": "Observe the public requested outcome against source-derived expectations",
+      "plan_state": "planned"
+    }
+  ],
+  "constraints": [
+    {
+      "statement": "Accepted three-retry policy remains applicable",
+      "basis": "project_constraint",
+      "scope": "Retries",
+      "source_refs": [
+        {
+          "source_id": "S2",
+          "line_start": 1,
+          "line_end": 1,
+          "quote": "Accepted ADR: retry up to three times"
+        }
+      ]
+    }
+  ],
+  "out_of_scope": [],
+  "open_decisions": [],
+  "evidence_gaps": [],
+  "change_notes": [
+    {
+      "revision": 1,
+      "kind": "initial"
+    }
+  ],
+  "advisory_notes": [
+    "The later proposal is not an accepted supersession"
+  ]
+}

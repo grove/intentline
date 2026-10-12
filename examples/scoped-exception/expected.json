@@ -1,0 +1,6 @@
+{
+  "bad_mechanically_invalid": false,
+  "semantic_finding": "Payment exception omitted",
+  "good_status": "STRUCTURALLY_VALID",
+  "evaluation": "authored_fixture_expectation; real_model_not_run"
+}
