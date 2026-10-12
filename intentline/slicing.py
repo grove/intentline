@@ -94,7 +94,86 @@ def check(plan, contract, manifest, blobs, parent):
     validate(plan, SLICING)
     require(plan['parent'] == parent, 'Slicing parent identity mismatch')
     references(plan['rationale'], manifest, blobs)
-    require(plan['decision'] == 'no_split', 'SPLIT validation is not available in this package')
-    require(not any(plan[k] for k in ('children','allocations','prerequisites','parent_final_checks')),
-            'NO SPLIT must retain the direct parent route without child records')
+    if plan['decision'] == 'no_split':
+        require(not any(plan[k] for k in ('children','allocations','prerequisites','parent_final_checks')),
+                'NO SPLIT must retain the direct parent route without child records')
+        return plan
+    require(2 <= len(plan['children']) <= 8, 'SPLIT requires 2–8 independently observable children')
+    children = indexed(plan['children'], 'child')
+    requirements = {r['id']:r for r in contract['requirements']}
+    criteria = {}
+    for child in children.values():
+        for row in indexed(child['requirements'], 'criterion').values():
+            supported(row, requirements, manifest, blobs)
+            require(row['plan_state'] == 'gap' if row['gap_reason'] is not None else row['plan_state'] == 'planned',
+                    'Gap criterion requires explicit gap_reason; planned evidence cannot claim a gap away')
+            for rid in row['parent_requirement_ids']:
+                require(set(requirements[rid]['boundaries']) <= set(row['boundaries']), 'Parent boundaries omitted from child')
+            criteria[(child['id'],row['id'])] = row
+    checks = indexed(plan['parent_final_checks'], 'parent check')
+    for row in checks.values(): supported(row, requirements, manifest, blobs)
+    allocations = {row['parent_requirement_id']:row for row in plan['allocations']}
+    ordered_unique([r['parent_requirement_id'] for r in plan['allocations']], 'allocation IDs')
+    require(allocations.keys() == requirements.keys(), 'Every parent R requires exactly one allocation')
+    accounted, check_links = set(), set()
+    for rid, allocation in allocations.items():
+        ordered_unique(allocation['parent_check_ids'], 'parent check references')
+        require(all(i in checks and rid in checks[i]['parent_requirement_ids'] for i in allocation['parent_check_ids']),
+                'Missing/unrelated final parent ownership')
+        check_links.update((rid,i) for i in allocation['parent_check_ids'])
+        owners = allocation['contributors']
+        require(bool(owners) == (allocation['parent_only_reason'] is None), 'Parent-only allocation requires an explicit integrated-owner reason')
+        qualified = [(r['child_id'],r['criterion_id']) for r in owners]
+        ordered_unique(qualified, 'qualified contributors')
+        for ref in owners:
+            key = (ref['child_id'],ref['criterion_id'])
+            require(key in criteria and rid in criteria[key]['parent_requirement_ids'], 'Dangling/unrelated contribution')
+            row = criteria[key]
+            if ref['role'] == 'full':
+                parent_row = requirements[rid]
+                require(children[key[0]]['kind'] == 'outcome' and row['parent_requirement_ids'] == [rid]
+                        and row['contribution'] == parent_row['statement'] and row['oracle'] == parent_row['oracle'],
+                        'Full mapping requires the complete original outcome and oracle; use partial/preservation for fragments')
+            if children[key[0]]['kind'] == 'enabling':
+                require(ref['role'] == 'preservation', 'Enabling steps cannot count as fulfilled product outcomes')
+            accounted.add((rid,key))
+    require(accounted == {(rid,key) for key,row in criteria.items() for rid in row['parent_requirement_ids']},
+            'Orphan/unallocated child criterion')
+    require(check_links == {(rid,i) for i,row in checks.items() for rid in row['parent_requirement_ids']},
+            'Orphan parent final check')
+    graph = {i:[] for i in children}
+    edges = [(r['child_id'],r['requires_child_id']) for r in plan['prerequisites']]
+    ordered_unique(edges, 'prerequisites')
+    for edge in plan['prerequisites']:
+        child, prerequisite = edge['child_id'], edge['requires_child_id']
+        require(child in children and prerequisite in children and child != prerequisite, 'Missing/self prerequisite')
+        require(edge['required_outcome'] == children[prerequisite]['outcome'], 'Prerequisite must name the exact observable child outcome')
+        references(edge, manifest, blobs)
+        graph[child].append(prerequisite)
+    visiting, visited = set(), set()
+    def visit(child):
+        require(child not in visiting, 'Cyclic prerequisites')
+        if child in visited: return
+        visiting.add(child)
+        for prerequisite in graph[child]: visit(prerequisite)
+        visiting.remove(child); visited.add(child)
+    for child in children: visit(child)
     return plan
+
+
+def ordered_unique(values, label):
+    require(len(values) == len(set(values)) and values == sorted(values), 'Duplicate or noncanonical ordering: '+label)
+
+
+def indexed(rows, label):
+    ordered_unique([r['id'] for r in rows], label+' IDs')
+    return {r['id']:r for r in rows}
+
+
+def supported(row, requirements, manifest, blobs):
+    ids = row['parent_requirement_ids']
+    ordered_unique(ids, 'parent requirement references')
+    require(set(ids) <= requirements.keys(), 'Invented parent obligation')
+    references(row, manifest, blobs)
+    allowed = {canonical(ref) for rid in ids for ref in requirements[rid]['source_refs']}
+    require(all(canonical(ref) in allowed for ref in row['source_refs']), 'Unrelated source support for child/parent check')
