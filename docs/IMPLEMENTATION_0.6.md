@@ -1,15 +1,97 @@
 # Intentline 0.6 implementation handoff
 
-## Narrower diagnostic route, 13 October 2026
+## Closeout decision, 13 October 2026
 
-The user requested a pragmatic comparison without P2P. The new
-[small pilot](../evaluation/PILOT_06.md) uses three fixed historical tasks, two
-text-only Sol 6.1 planning arms and one fresh Luna 6 critique per pair. It tests
-existing Intentline semantic instructions, preserves the original blocked study,
-and makes no qualified or human-independent claim. Both native no-tool mock
-preflights failed; the prepared direct API alternative needs separate API access,
-bounded authority and transport accounting. No pilot planning outputs or observed
-usefulness are claimed by this document.
+The 0.6 development work is **closed**: engineering is complete, the bounded
+subscription pilot has ended, and its failures and inconclusive findings are
+retained. No further experiment or product work is scheduled under 0.6.
+No verified planning advantage was established; observed token/time overhead
+and imperfect critique controls are the result, not unfinished evidence to
+replace until a favorable outcome appears.
+
+The original strict study closes as `not_run`, with its zero qualified population
+unchanged. Formal human independence remains unverified. Any future measurement
+requires a separately declared study and bounded authorization. Local follow-up
+changes are prepared for review; publication and release are separate decisions.
+Version stays `0.5.0rc1`; this is not a versioned 0.6 release. New cross-platform
+CI and installed-artifact qualification for the local repair remain unrun.
+
+## Subscription coding-agent pilot, 13 October 2026
+
+All three frozen tasks now have real ordinary/Intentline planning outputs from
+signed-in native Codex outside the coordinator sandbox. Both arms used Sol 6.1,
+high reasoning, Standard speed, identical common tools/settings/source bytes and
+600-second limits. Luna 6 critiques had 300-second limits. Treatment read the
+complete actual skill and ran `prepare`, `propose`, `check`, `render`. No API
+project/key, credential extraction, P2P, evaluator or production runner was added.
+
+| Frozen task | Ordinary | Intentline | Input-token ratio | AI-development finding |
+|---|---:|---:|---:|---|
+| pytest #14112 | 177.8 s | 337.8 s | 2.68 | Both plans cover the material source obligations; no established winner. Source-grounded critique has later-discovered arm-mapping exposure |
+| Flask #5895 | 157.0 s | 288.3 s | 5.26 | Initial critic failed source reads; corrected critique read originals. Scope/release/routing judgments remain contested; arm mapping was accessible |
+| CPython #143346 | 161.7 s | 296.3 s | 4.30 | Both give the same discriminating mixed-indent witnesses and protect working defaults. Luna preferred narrower treatment evidence gates, but adverse counts are contested |
+
+Intentline took 1.83–1.90 times ordinary elapsed time, 2.68–5.26 times total input
+(including cache), 1.64–2.09 times uncached input and 2.12–2.20 times output tokens.
+No verified overall planning advantage is established. These measurements do not
+establish broad equality, superiority or a billed-cost conclusion.
+
+Revision 5 stopped after seven attempts: four plans, two completed critiques
+(one failed actual source reads), and one prematurely dispatched CPython session
+stopped before saving a plan. That sequencing error and all failures are retained.
+The user's continuation approval authorized four additional single-turn sessions
+within a one-hour window, using the already approved models/configuration/limits.
+Revision 6 corrected one critic source-reading sentence, reused saved Flask plans
+and produced the CPython pair. It stopped after three completed sessions when
+operator inspection found `assignment.blind_mapping` in critic-readable configs.
+There is no observed read of that metadata in completed command transcripts, but
+canary denials did not prove the actual mapping inaccessible. Earlier critiques
+cannot be called properly blinded.
+
+Revision 7 is a separately declared smallest preparation repair: remove that
+unused field from a fresh critic workspace and keep mapping operator-only. It
+used only the fourth already approved session and the same absolute deadline.
+Native canaries verified readable metadata lacked the mapping and an existing
+synthetic private config returned EPERM. CPython critique read every original by
+completion; it opened plans before separate raw excerpts and read the license
+file during self-review, despite its contents already appearing in initial TASK.
+Thus strict sources-first file ordering was not fully followed. Two retained
+CLI/product references and format also weaken blinding. No fully control-qualified
+blinded comparison or aggregate critique score is claimed. Luna is uncalibrated;
+AI-only source verification preserves counterexamples and disagreements.
+
+Eleven real attempts are retained: six complete plans, four complete critique
+sessions and one stopped partial plan. Ten native terminal usage receipts cover
+2,805,552 input tokens (2,301,568 cached), 67,334 output tokens and 17,680 reported
+reasoning tokens; reasoning is reported separately, not added to output. Partial
+session usage, provider calls, backend versions, credits and USD remain unknown.
+No experiment retry occurred within a revision; post-fix measurements were newly
+declared, not replacements selected for quality. Private sealed records retain
+all transcripts, raw/anonymized plans, mappings, CLI artifacts and failed fixtures.
+
+Actual file/shell/search/edit/Python/CLI use worked under native restrictions.
+Sampled existing forbidden canaries returned EPERM. App/MCP/delegation exclusions,
+conditional provenance/rights and partial blinding remain exploratory limitations,
+not formal qualification. Git's macOS launcher was unavailable; the treatment's
+disclosed filesystem metadata fallback is retained. A redundant browser key was
+ignored; inventories/dispatcher witnesses support exclusions, not that key.
+
+Engineering remains complete with the small local `O_SEARCH` compatibility repair:
+intermediate traversal uses search permission where supported, while selected
+read access, nofollow, ownership/identity and atomic-storage checks remain.
+Old-runtime failure and successful authored native CLI fixtures are preserved.
+Both supported macOS Python suites pass 166 tests: 165 passed, one Windows-only
+skip. New cross-platform CI/installed-artifact checks remain unrun. Package stays
+`0.5.0rc1`; Windows secure study storage is unsupported and fails closed.
+Remote main is `21633c5256e62637793a499eb097001b5073bf83`. No push, PR, merge,
+tag, release or package publication occurred.
+
+The original strict study remains **not_run**: zero qualified tasks/hosts,
+calibrated judges, registered study assignments, planning attempts and scored
+outputs. Its planning usefulness/cost advantage remain unmeasured; earlier
+engineering usage/billing remain unknown. Formal human independence is unverified.
+The dated records below remain historical; this exploratory evidence does not
+populate or qualify that separate study.
 
 ## Current post-merge handoff, 12 October 2026
 

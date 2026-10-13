@@ -27,15 +27,18 @@ class Directory:
     def __init__(self, path, create=False):
         capability()
         self.path = absolute(path)
-        fd = os.open('/', os.O_RDONLY | os.O_DIRECTORY)
+        # Traversal needs search permission, not directory listing permission.
+        search_mode = getattr(os, 'O_SEARCH', os.O_RDONLY)
+        fd = os.open('/', (search_mode if len(self.path.parts) > 1 else os.O_RDONLY) | os.O_DIRECTORY)
         try:
-            for part in self.path.parts[1:]:
+            for index, part in enumerate(self.path.parts[1:], 1):
                 if create:
                     try:
                         os.mkdir(part, 0o700, dir_fd=fd)
                     except FileExistsError:
                         pass
-                new = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+                mode = os.O_RDONLY if index == len(self.path.parts) - 1 else search_mode
+                new = os.open(part, mode | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
                 os.close(fd)
                 fd = new
             self.fd = fd

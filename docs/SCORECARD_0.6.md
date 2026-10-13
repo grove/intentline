@@ -1,15 +1,39 @@
 # Intentline 0.6 engineering and evidence scorecard
 
-## Narrower diagnostic route, 13 October 2026
+**0.6 development closed on 13 October 2026.** Engineering is complete; the
+bounded pilot ended with no verified planning advantage and explicit control
+limitations. The strict study remains `not_run`, and human independence remains
+unverified. No further 0.6 inference or product work is scheduled. Local changes
+are prepared for review; publication/release and repair CI/artifact qualification
+remain separate, unperformed work. Package version remains `0.5.0rc1`.
 
-A separately declared [small pilot](../evaluation/PILOT_06.md) replaces the
-practical next step with ordinary versus Intentline semantic instructions on three
-fixed tasks. P2P and full CLI execution are outside this pilot. Six Sol 6.1 plans
-and three Luna 6 pair critiques are proposed, not observed. Both native mock
-preflights failed the clean-context/tool gate. A prepared direct API alternative
-requires API access and separate bounded authority before dispatch. The original
-qualified study remains `not_run`; authored checklists and preparation do not
-measure usefulness. Formal human independence remains unverified.
+## Subscription pilot result, 13 October 2026
+
+| Area | Current result |
+|---|---|
+| Engineering | Complete with local `O_SEARCH` repair; both supported macOS Python suites: 165 pass, one skip. New cross-platform CI/installed-artifact checks unrun |
+| Actual coding-agent use | Three Sol 6.1 planning pairs; full actual skill and prepare/propose/check/render in every treatment; Luna 6 source critique; Codex subscription only |
+| pytest #14112 | 177.8 s ordinary / 337.8 s Intentline; no established winner; source-grounded critique has later-discovered accessible arm metadata |
+| Flask #5895 | 157.0 s / 288.3 s; original source-read failure retained; corrected critique read originals, but metadata exposure and contested findings limit comparison |
+| CPython #143346 | 161.7 s / 296.3 s; both preserve core behavior and give discriminating oracles. Final critic mapping removed; source-file ordering and remaining brand cues limit critique |
+| Planning benefit | No verified overall advantage. Luna's favorable CPython judgment about narrower evidence gates remains contested, not authoritative ground truth |
+| Overhead | Intentline 1.83–1.90 times elapsed, 2.68–5.26 times total input including cache, 1.64–2.09 times uncached input, 2.12–2.20 times output tokens |
+| Retention/allowance | Eleven actual attempts: six plans, four critique sessions, one stopped partial; seven initial plus exactly four approved continuation sessions. New revisions preserve failures, not quality-based retries |
+| Critique controls | Explicit arm mapping was actor-readable in earlier configs; no observed read. Removed for final critic. Partial brand/format blinding and sources-first ordering deviation remain; no fully control-qualified blinded comparison claimed |
+| Usage/cost | Ten native terminal receipts; interrupted usage, internal calls, backend versions, subscription credits and USD unknown. Earlier engineering usage/billing unknown |
+| Strict 0.6 study | not_run; zero qualified tasks/hosts, calibrated judges, registered study assignments, planning attempts and scored outputs |
+| Formal human independence | Unverified; AI critique/source verification is not human ground truth |
+
+Observed source-reading and metadata failures justified only small preparation
+repairs, each declared before new measurement. Actual controls, failures, raw
+findings and verification disagreements remain sealed privately. Conditional
+source provenance, sampled native boundaries, accepted app/MCP/delegation
+exclusions, unavailable Git launcher and uncalibrated critique are explicit limits.
+See [implementation handoff](IMPLEMENTATION_0.6.md) and
+[pilot protocol](../evaluation/PILOT_06.md). No product feature, evaluator, provider
+dependency or remote publication was added; version stays `0.5.0rc1`, and Windows
+secure study storage remains unsupported/fail-closed. Dated records below are
+historical and do not populate strict-study receipts.
 
 ## Current post-merge decision, 12 October 2026
 
