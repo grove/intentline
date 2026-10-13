@@ -1,5 +1,106 @@
 # Intentline 0.6 engineering and evidence scorecard
 
+**0.6 development closed on 13 October 2026.** Engineering is complete; the
+bounded pilot ended with no verified planning advantage and explicit control
+limitations. The strict study remains `not_run`, and human independence remains
+unverified. No further 0.6 inference or product work is scheduled. Local changes
+are prepared for review; publication/release and repair CI/artifact qualification
+remain separate, unperformed work. Package version remains `0.5.0rc1`.
+
+## Subscription pilot result, 13 October 2026
+
+| Area | Current result |
+|---|---|
+| Engineering | Complete with local `O_SEARCH` repair; both supported macOS Python suites: 165 pass, one skip. New cross-platform CI/installed-artifact checks unrun |
+| Actual coding-agent use | Three Sol 6.1 planning pairs; full actual skill and prepare/propose/check/render in every treatment; Luna 6 source critique; Codex subscription only |
+| pytest #14112 | 177.8 s ordinary / 337.8 s Intentline; no established winner; source-grounded critique has later-discovered accessible arm metadata |
+| Flask #5895 | 157.0 s / 288.3 s; original source-read failure retained; corrected critique read originals, but metadata exposure and contested findings limit comparison |
+| CPython #143346 | 161.7 s / 296.3 s; both preserve core behavior and give discriminating oracles. Final critic mapping removed; source-file ordering and remaining brand cues limit critique |
+| Planning benefit | No verified overall advantage. Luna's favorable CPython judgment about narrower evidence gates remains contested, not authoritative ground truth |
+| Overhead | Intentline 1.83–1.90 times elapsed, 2.68–5.26 times total input including cache, 1.64–2.09 times uncached input, 2.12–2.20 times output tokens |
+| Retention/allowance | Eleven actual attempts: six plans, four critique sessions, one stopped partial; seven initial plus exactly four approved continuation sessions. New revisions preserve failures, not quality-based retries |
+| Critique controls | Explicit arm mapping was actor-readable in earlier configs; no observed read. Removed for final critic. Partial brand/format blinding and sources-first ordering deviation remain; no fully control-qualified blinded comparison claimed |
+| Usage/cost | Ten native terminal receipts; interrupted usage, internal calls, backend versions, subscription credits and USD unknown. Earlier engineering usage/billing unknown |
+| Strict 0.6 study | not_run; zero qualified tasks/hosts, calibrated judges, registered study assignments, planning attempts and scored outputs |
+| Formal human independence | Unverified; AI critique/source verification is not human ground truth |
+
+Observed source-reading and metadata failures justified only small preparation
+repairs, each declared before new measurement. Actual controls, failures, raw
+findings and verification disagreements remain sealed privately. Conditional
+source provenance, sampled native boundaries, accepted app/MCP/delegation
+exclusions, unavailable Git launcher and uncalibrated critique are explicit limits.
+See [implementation handoff](IMPLEMENTATION_0.6.md) and
+[pilot protocol](../evaluation/PILOT_06.md). No product feature, evaluator, provider
+dependency or remote publication was added; version stays `0.5.0rc1`, and Windows
+secure study storage remains unsupported/fail-closed. Dated records below are
+historical and do not populate strict-study receipts.
+
+## Current post-merge decision, 12 October 2026
+
+Remote main rechecked: `21633c5256e62637793a499eb097001b5073bf83`.
+PRs #31–#35 are merged; all five post-merge CI runs passed (30 jobs).
+The [final main run](https://github.com/grove/intentline/actions/runs/38294477082)
+covers Linux/macOS/Windows and Python 3.11/3.14. Main's file tree matches the
+independently reviewed integration head `5aa2476548007b8f250c61d67aea0e18f1269b28`.
+Both supported local Python versions again ran 165 tests: 164 pass, one
+Windows-only skip. Fresh wheel/sdist installation qualified the merged content;
+package metadata remains `0.5.0rc1`. No versioned release occurred.
+
+Engineering is prepared; planning usefulness and cost advantage are **unmeasured**.
+Qualified historical tasks, registered assignments, calibrated judges, planning
+attempts and scored outputs remain **zero**. Human independence is **unverified**.
+Native engineering-model usage and billed costs remain unknown, not zero.
+
+Further source-only review corrected an overly narrow private interpretation of
+the unchanged rubric: routine details can cause unnecessary blockers without an
+unavailable harness. New control hypotheses remain unfrozen and unqualified;
+old controls, blockers and cohorts are preserved. Request history, authority,
+source rights, complete controls, actual role isolation and an explicit bounded
+inference grant remain gates. Shared subagents and shell-only probes cannot
+qualify a model host. No experiment inference or product repair follows.
+
+Actual read-only GitHub history returned creation entries for two selected
+requests and no recorded edits for the third. New source revisions remain private;
+the earlier `updatedAt` metadata alone did not prove body edits. This improves
+provenance preparation without qualifying a control set or measuring planning.
+
+The [final execution-gate receipt](../evaluation/results/ai-development-06-execution-gates.json)
+preserves further offline progress: exact creation-boundary inputs, historical
+dependency evidence and 22 authored controls, with eight unsupported category
+slots. A fresh offline Docker instance produced native administrative file and
+directory permission denials against existing synthetic canaries. Search's empty
+result and empty session/MCP inventories remain unqualified; no model-role host
+or hard provider dollar/request/time enforcement passed. Native weighted token
+budgeting was found, but it checks usage after a response. No thread or model
+turn was started. Temporary Docker resources were cleaned up.
+
+Final decisions remain separate: **engineering prepared** under the plan's
+permitted `not_run` fallback; **AI-development comparison not run**, with zero
+qualified tasks, judges, assignments, attempts and scores; **formal human
+independence unverified**. Finishing the measured comparison requires source-fit
+resolution (or a newly frozen source-only replacement cohort), actual complete
+role-host qualification, enforced limits, explicit bounded inference authority,
+calibration and the nine-arm-attempt comparison. Versioned release is separate.
+
+Further source-history completion is captured in a separate
+[sanitized receipt](../evaluation/results/ai-development-06-source-completion.json).
+The frozen thirty-case replacement population is unchanged. All thirty creation
+texts are documentarily recovered; the corrected screen has thirteen rejected,
+seventeen blocked, zero passing and zero selected cases. Historical contracts and
+limited-context gap hypotheses advance preparation without qualifying controls.
+The full pinned runtime audit confirms retry settings do not cap successful
+continuations and post-response usage budgets do not establish hard provider
+request/spend limits. No qualified task, host, judge or measured output follows.
+
+**Remaining 0.6 work is empirical:** source/control qualification, actual host and
+limit witnesses, explicit bounded inference authorization, calibration and the
+three-task/three-arm comparison. Engineering is complete under the permitted
+prepared `not_run` fallback. Formal human evaluation and a versioned release are
+separate, unperformed work; usage and billed costs remain unknown.
+
+The observations below are preserved dated preparation records. Their earlier
+main, draft-PR, test-count and pending-CI statements describe those earlier stages.
+
 Observed 12 October 2026. Starting/current verified remote main:
 `8c17d093ae77e2b1588f9671fc586aa733a0a801`, the merged 0.5 baseline. Its
 [six-cell CI](https://github.com/grove/intentline/actions/runs/38276513783) passed;

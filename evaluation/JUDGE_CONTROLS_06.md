@@ -33,6 +33,13 @@ omission, exclusion, authority and exception must include critical seeds. Positi
 expected counts are zero. Negative categories must seed their named dimension.
 Blank or incomplete controls cannot qualify, even if declared status is observed.
 
+Use the full rubric meanings: `gap` concerns material unavailable evidence;
+`blocker` concerns settled outcomes blocked for a missing harness **or routine
+detail**. The public missing-harness fixture is an example, not a required source
+feature. Missing local files do not establish unavailable evidence. Each historical
+seed still needs applicable source anchors, a plausible counterexample and a
+separately retained challenge; overlapping or disputed categories stay unqualified.
+
 Calibration keys: `status` (not_run/observed/failed), `protocol` (nullable ref),
 `judges` (0..2 AI-role receipts), `receipts` (0..2 calibration refs), `metrics`,
 `judging_metrics`. Each judge's context contains only original sources, neutral

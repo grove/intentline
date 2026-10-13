@@ -1,5 +1,188 @@
 # Intentline 0.6 implementation handoff
 
+## Closeout decision, 13 October 2026
+
+The 0.6 development work is **closed**: engineering is complete, the bounded
+subscription pilot has ended, and its failures and inconclusive findings are
+retained. No further experiment or product work is scheduled under 0.6.
+No verified planning advantage was established; observed token/time overhead
+and imperfect critique controls are the result, not unfinished evidence to
+replace until a favorable outcome appears.
+
+The original strict study closes as `not_run`, with its zero qualified population
+unchanged. Formal human independence remains unverified. Any future measurement
+requires a separately declared study and bounded authorization. Local follow-up
+changes are prepared for review; publication and release are separate decisions.
+Version stays `0.5.0rc1`; this is not a versioned 0.6 release. New cross-platform
+CI and installed-artifact qualification for the local repair remain unrun.
+
+## Subscription coding-agent pilot, 13 October 2026
+
+All three frozen tasks now have real ordinary/Intentline planning outputs from
+signed-in native Codex outside the coordinator sandbox. Both arms used Sol 6.1,
+high reasoning, Standard speed, identical common tools/settings/source bytes and
+600-second limits. Luna 6 critiques had 300-second limits. Treatment read the
+complete actual skill and ran `prepare`, `propose`, `check`, `render`. No API
+project/key, credential extraction, P2P, evaluator or production runner was added.
+
+| Frozen task | Ordinary | Intentline | Input-token ratio | AI-development finding |
+|---|---:|---:|---:|---|
+| pytest #14112 | 177.8 s | 337.8 s | 2.68 | Both plans cover the material source obligations; no established winner. Source-grounded critique has later-discovered arm-mapping exposure |
+| Flask #5895 | 157.0 s | 288.3 s | 5.26 | Initial critic failed source reads; corrected critique read originals. Scope/release/routing judgments remain contested; arm mapping was accessible |
+| CPython #143346 | 161.7 s | 296.3 s | 4.30 | Both give the same discriminating mixed-indent witnesses and protect working defaults. Luna preferred narrower treatment evidence gates, but adverse counts are contested |
+
+Intentline took 1.83–1.90 times ordinary elapsed time, 2.68–5.26 times total input
+(including cache), 1.64–2.09 times uncached input and 2.12–2.20 times output tokens.
+No verified overall planning advantage is established. These measurements do not
+establish broad equality, superiority or a billed-cost conclusion.
+
+Revision 5 stopped after seven attempts: four plans, two completed critiques
+(one failed actual source reads), and one prematurely dispatched CPython session
+stopped before saving a plan. That sequencing error and all failures are retained.
+The user's continuation approval authorized four additional single-turn sessions
+within a one-hour window, using the already approved models/configuration/limits.
+Revision 6 corrected one critic source-reading sentence, reused saved Flask plans
+and produced the CPython pair. It stopped after three completed sessions when
+operator inspection found `assignment.blind_mapping` in critic-readable configs.
+There is no observed read of that metadata in completed command transcripts, but
+canary denials did not prove the actual mapping inaccessible. Earlier critiques
+cannot be called properly blinded.
+
+Revision 7 is a separately declared smallest preparation repair: remove that
+unused field from a fresh critic workspace and keep mapping operator-only. It
+used only the fourth already approved session and the same absolute deadline.
+Native canaries verified readable metadata lacked the mapping and an existing
+synthetic private config returned EPERM. CPython critique read every original by
+completion; it opened plans before separate raw excerpts and read the license
+file during self-review, despite its contents already appearing in initial TASK.
+Thus strict sources-first file ordering was not fully followed. Two retained
+CLI/product references and format also weaken blinding. No fully control-qualified
+blinded comparison or aggregate critique score is claimed. Luna is uncalibrated;
+AI-only source verification preserves counterexamples and disagreements.
+
+Eleven real attempts are retained: six complete plans, four complete critique
+sessions and one stopped partial plan. Ten native terminal usage receipts cover
+2,805,552 input tokens (2,301,568 cached), 67,334 output tokens and 17,680 reported
+reasoning tokens; reasoning is reported separately, not added to output. Partial
+session usage, provider calls, backend versions, credits and USD remain unknown.
+No experiment retry occurred within a revision; post-fix measurements were newly
+declared, not replacements selected for quality. Private sealed records retain
+all transcripts, raw/anonymized plans, mappings, CLI artifacts and failed fixtures.
+
+Actual file/shell/search/edit/Python/CLI use worked under native restrictions.
+Sampled existing forbidden canaries returned EPERM. App/MCP/delegation exclusions,
+conditional provenance/rights and partial blinding remain exploratory limitations,
+not formal qualification. Git's macOS launcher was unavailable; the treatment's
+disclosed filesystem metadata fallback is retained. A redundant browser key was
+ignored; inventories/dispatcher witnesses support exclusions, not that key.
+
+Engineering remains complete with the small local `O_SEARCH` compatibility repair:
+intermediate traversal uses search permission where supported, while selected
+read access, nofollow, ownership/identity and atomic-storage checks remain.
+Old-runtime failure and successful authored native CLI fixtures are preserved.
+Both supported macOS Python suites pass 166 tests: 165 passed, one Windows-only
+skip. New cross-platform CI/installed-artifact checks remain unrun. Package stays
+`0.5.0rc1`; Windows secure study storage is unsupported and fails closed.
+Remote main is `21633c5256e62637793a499eb097001b5073bf83`. No push, PR, merge,
+tag, release or package publication occurred.
+
+The original strict study remains **not_run**: zero qualified tasks/hosts,
+calibrated judges, registered study assignments, planning attempts and scored
+outputs. Its planning usefulness/cost advantage remain unmeasured; earlier
+engineering usage/billing remain unknown. Formal human independence is unverified.
+The dated records below remain historical; this exploratory evidence does not
+populate or qualify that separate study.
+
+## Current post-merge handoff, 12 October 2026
+
+Current remote main was rechecked at
+`21633c5256e62637793a499eb097001b5073bf83`; PRs #31–#35 are merged in dependency
+order. Its file tree equals independently reviewed integration head
+`5aa2476548007b8f250c61d67aea0e18f1269b28`. All five post-merge six-cell CI runs
+passed; [final main CI](https://github.com/grove/intentline/actions/runs/38294477082)
+and the content-matching fresh wheel/sdist installed checks establish engineering
+preparation. Repeated local checks on Python 3.11/3.14 each ran 165 tests,
+164 passing and one Windows-only skip. Windows secure study storage remains
+unsupported and fails closed. Package metadata is still `0.5.0rc1`, with no release.
+
+The offline follow-up clarifies the existing control rubric and preserves prior
+private reports, inventories, cohorts, rejected cases, challenges and failed
+attempts. New source/control hypotheses are separate unqualified revisions.
+Read-only upstream edit-history inspection recovered creation entries for two
+selected requests; the third has no recorded body edit. Exact retrieved revisions
+stay private, alongside the unchanged earlier captures. Activity `updatedAt`
+timestamps alone are not evidence that a request body changed.
+Zero source-qualified tasks, registered study assignments, calibrated judges,
+planning attempts or scored outputs exist. Planning usefulness/cost advantage
+are unmeasured; human independence and native-model usage/billing are unverified
+or unknown. No inference runner or product repair is justified by this evidence.
+
+The next execution remains conditional on source and complete-control resolution,
+native role-specific host witnesses, enforced limits and an explicit bounded
+provider/model/source/host grant. A proposal is not a grant. Publication, merge,
+version/tag/package release and formal evaluation remain separate effects.
+
+### Final execution-gate follow-up, 12 October 2026
+
+The [dated sanitized receipt](../evaluation/results/ai-development-06-execution-gates.json)
+records the next offline stage without rewriting previous observations. Exact
+creation-boundary sources, corrected ledger candidates and historical dependency
+mechanics are preserved privately. There are now 22 full authored control
+candidates across 30 required slots; eight lack defensible source support and
+criticality remains incomplete. The original cohort and its blockers are retained.
+No ten-control task population or source-qualified task is claimed.
+
+A new credential-free, network-disabled, unmounted Docker preflight used only
+synthetic canaries and the pinned Codex 0.162.1 binary. Actual native administrative
+file reads allowed the visible canary and denied existing operator/other-arm
+canaries with `EACCES`; an operator-directory listing was also denied. Native
+search returned an empty result rather than a permission error. Empty session/MCP
+inventories and administrative APIs do not qualify model-role tool, app, session
+or provider boundaries. No thread or model turn was started; temporary Docker
+resources were removed after preserving witnesses.
+
+Pinned runtime source confirms native weighted rollout budgeting, but its
+post-response accounting does not establish hard dollar/request/time limits.
+The bounded proposal therefore remains unapproved and non-executable. Under
+PR-04's explicit fallback, the engineering-prepared `not_run` decision stands;
+the empirical acceptance-planning question remains open. No product repair,
+new runner, release or measured advantage follows from this preparation.
+
+### Source-history completion and native-limit audit, 12 October 2026
+
+A further [dated sanitized receipt](../evaluation/results/ai-development-06-source-completion.json)
+records the unchanged, source-only frozen replacement screen: ten historical
+requests from each of three repositories. All thirty creation texts are now
+documentarily available: fourteen unedited bodies and sixteen explicit creation
+revisions. Fifty-three revision strings and thirty-seven adjacent diffs are
+retained privately. API history does not authenticate human authorship. A restored
+creation body changes one earlier rejection to blocked; the revised screen has
+thirteen rejected, seventeen blocked, zero passing and zero selected cases.
+
+Pre-task documentation can establish applicable accepted contracts without
+acceptance of a proposed repair strategy. Deeper review found scoped-contract
+and limited-context evidence-gap hypotheses; those remain unqualified preparation,
+with source relevance, criticality and independent critique outstanding. No local
+missing file is treated as proof of an unavailable harness. Original cohorts,
+controls, disagreements and rejected retrievals remain immutable.
+
+The pinned native runtime audit distinguishes per-operation retry limits from
+successful tool continuations, authentication recovery, prewarm and compaction.
+Its post-response usage budgets can overshoot and skip accounting when usage is
+absent. No existing hard provider-call/spend facility or full model-role host was
+qualified. No experiment inference was dispatched. Source qualification also
+requires actual isolated preparation-role records and a bounded grant; shared
+research cannot be promoted by completing documentary acquisition alone.
+
+Engineering work is complete under the plan's prepared `not_run` fallback.
+The measured comparison is still incomplete: source/control qualification,
+role-host and enforced-limit witnesses, explicit inference authority, calibration,
+then the first-task smoke gate and nine planning attempts remain. Formal human
+independence remains unverified; release and new publication remain separate.
+
+The sections below retain earlier dated preparation observations, including
+their original main, draft-publication and pending-validation states.
+
 12 October 2026. This is engineering-prepared AI-only development evaluation,
 not a planning-efficacy release. Starting/current verified remote main is
 `8c17d093ae77e2b1588f9671fc586aa733a0a801`. Work is isolated in a local checkout
