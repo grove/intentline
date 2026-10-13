@@ -22,14 +22,13 @@ and structurally_validated/semantics unverified. Gaps remain explicit; they do n
 turn this advisory package into a ready standalone agreement. Optional private
 reports and raw adoption/approval material are omitted.
 
-The existing Proofline direct and native paths remain standalone-only. This bundle
-has no shortened source.md, direct brief or native-manifest.json. Supplying it to
-those paths refuses before dispatch. A future adapter needs a separate reviewed
-consumer change, actual exact caller adoption of child scope and inherited parent
-constraints, prerequisite admission, host qualification and live receipts. It must
-retain complete original parent source and independently judge the assembled
-parent; child successes cannot prove parent success. That adapter is not shipped
-or qualified by 0.4, and no live consumer/model invocation is authorized here.
+Proofline's current optional JSON adapter accepts only one original request and
+an initial schema-1 contract; child bundles are unsupported. Its former direct
+and native controllers are historical. This bundle has no shortened source.md,
+direct brief or native-manifest.json. A future child adapter needs a separately
+tested consumer change preserving complete parent source, inherited constraints,
+prerequisites and integration obligations. Child successes cannot prove parent
+success. No child adapter or live consumer/model invocation is supplied here.
 
 Intentline remains independent of Lore, Proofline and P2P. Humans and existing
 agents can consume advisory data without any of them installed. No issue tree,

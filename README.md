@@ -65,15 +65,18 @@ original request and chronological exact amendments, freshly selected context,
 explicit per-obligation continuity and a new exact adoption boundary. Context
 refresh needs no invented user amendment. Old approval assertions stay historical.
 
-`proofline-native` exports a portable, versioned full contract/source/lineage
-bundle with standalone inspection. The separately owned experimental Proofline
-adapter requires its own caller adoption for exact contract/source-chain/bundle
-hashes before dispatch. Native export is not execution permission. Direct brief
-export remains supported for original work; successors require native/JSON/
-Markdown rather than a misleading concatenated direct request.
+Intentline can optionally produce structured promise data for Proofline's
+`check`/`status` evidence mapping using the existing `export --format json`.
+Ordinary coding and Proofline check-only use need no Intentline contract, audit
+or second model. The optional consumer adapter accepts one original request and
+an initial schema-1 contract; amended/native/child lineage is unsupported there.
+`proofline-direct` and `proofline-native` remain producer formats with retained
+offline tests/inspection, but their old Proofline controller is historical.
+Exports, DRAFT and ADOPTED_ASSERTED records never establish external user authority
+or permission to run tests/models, publish a PR, merge or deploy.
 
 Optional: [advisory Lore reports](docs/LORE_CONTEXT.md),
-[direct Proofline handoff](docs/INTEGRATIONS.md), and the source-distribution
+[optional Proofline evidence handoff](docs/INTEGRATIONS.md), and the source-distribution
 [evaluation protocol](evaluation/README.md). All peers remain optional. The
 acceptance/result schema 1 and existing CLI behavior remain compatible.
 
