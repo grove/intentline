@@ -106,4 +106,3 @@ class AdvisoryJSONExports(WorkCase):
         self.assertEqual(complete, export(self.work, 'json', out))
         for name, data in partial.items():
             self.assertEqual((out / name).read_bytes(), data)
-

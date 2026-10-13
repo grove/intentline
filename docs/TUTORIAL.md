@@ -93,9 +93,9 @@ unnecessary when no contract is wanted. See [integration limits](INTEGRATIONS.md
 Try negative examples in a separate work directory: no-harness produces an
 honest evidence gap; unclear-outcome remains BLOCKED; tampering's bad template
 fails duplicate-ID validation. Semantic bad drafts can pass structural checks;
-inspect their meaning against the full source. Changing/removing the original source makes status
-STALE and adopt/export exit 2, retaining historical records. Never patch saved
-snapshots or mutate an old revision to bypass freshness.
+inspect their meaning against the full source. Changing/removing the original
+source makes status STALE and adopt/export exit 2, retaining historical records.
+Never patch saved snapshots or mutate an old revision to bypass freshness.
 
 For a wheel-only install, locate share/intentline with the command in the agent
 guide. Use its absolute examples/username-validation/request.md/template paths,
