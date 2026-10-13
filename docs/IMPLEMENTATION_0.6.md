@@ -1,5 +1,16 @@
 # Intentline 0.6 implementation handoff
 
+## Narrower diagnostic route, 13 October 2026
+
+The user requested a pragmatic comparison without P2P. The new
+[small pilot](../evaluation/PILOT_06.md) uses three fixed historical tasks, two
+text-only Sol 6.1 planning arms and one fresh Luna 6 critique per pair. It tests
+existing Intentline semantic instructions, preserves the original blocked study,
+and makes no qualified or human-independent claim. Both native no-tool mock
+preflights failed; the prepared direct API alternative needs separate API access,
+bounded authority and transport accounting. No pilot planning outputs or observed
+usefulness are claimed by this document.
+
 ## Current post-merge handoff, 12 October 2026
 
 Current remote main was rechecked at

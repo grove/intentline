@@ -1,5 +1,16 @@
 # Intentline 0.6 engineering and evidence scorecard
 
+## Narrower diagnostic route, 13 October 2026
+
+A separately declared [small pilot](../evaluation/PILOT_06.md) replaces the
+practical next step with ordinary versus Intentline semantic instructions on three
+fixed tasks. P2P and full CLI execution are outside this pilot. Six Sol 6.1 plans
+and three Luna 6 pair critiques are proposed, not observed. Both native mock
+preflights failed the clean-context/tool gate. A prepared direct API alternative
+requires API access and separate bounded authority before dispatch. The original
+qualified study remains `not_run`; authored checklists and preparation do not
+measure usefulness. Formal human independence remains unverified.
+
 ## Current post-merge decision, 12 October 2026
 
 Remote main rechecked: `21633c5256e62637793a499eb097001b5073bf83`.
