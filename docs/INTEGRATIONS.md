@@ -1,109 +1,138 @@
 # Optional peers
 
-Normal commands never execute Git, a model, Proofline, Lore, P2P, tests, or a
-shell. All peers can be absent. Export creates files only when requested.
+Normal Intentline commands never execute Git, a model, Proofline, Lore, P2P,
+tests or a shell. All peers can be absent. Export creates private files only
+when requested; no new export schema, command or runtime dependency is needed.
 
-`export --format proofline-direct --out HANDOFF` produces exact `source.md`,
-stable-ID table `brief.md`, canonical `contract.json`, original source manifest,
-individual captures and a final completion marker with every output hash.
-It is always a preview/advisory direct brief; an operator assertion does not
-become Proofline approved-contract authority. Proofline uses `--source`/`--brief`
-on its independently authorized delivery path. Intentline does not run it.
+## Current Proofline support
 
-The boundary is one original request. Additional binding contexts require an
-explicit `--product-root /exact/downstream/checkout`; their relative paths must
-be readable nonsymlink regular files with exact saved hashes. The downstream
-checkout must also be clean and contain those references as tracked files:
-Proofline independently enforces its clean tracked checkout gate. Intentline
-checks file accessibility/hashes, not Git trackedness, without running Git.
-Missing/mismatched references fail as unsupported shape. Multiple original
-requests, transitive parent chains and runtime prerequisite imports are unsupported.
-Evidence gaps remain visibly qualified; material outcome/authority decisions,
-adverse audits, stale sources or approval references block export.
+Proofline supports `check`, `run` and `status`. **Check-only is available without
+Intentline:** an existing agent supplies the full original request and selected
+executable commands. It requires no acceptance contract, planning audit,
+independent AI reviewer/prover or extra model call. `run` is a separate optional
+coding attempt, not a required handoff stage.
 
-`markdown` and `json` formats preserve full canonical contract and all captured
-sources too. A directory is complete only with matching `export-manifest.json`;
-partial interrupted outputs can be retried with the same identity. Changed exports
-need a new output directory; existing files are never overwritten. Output is private
-on supported POSIX filesystems. Export only reviewed data to a handoff location.
+The optional consumer adapter originally proposed in
+[Proofline #23](https://github.com/grove/proofline/issues/23) is now merged in
+[PR #27](https://github.com/grove/proofline/pull/27), revision
+`32b08893b71eed64e73199d1314f09d56a8a895d` (13 October 2026).
+Its [pinned guide](https://github.com/grove/proofline/blob/32b08893b71eed64e73199d1314f09d56a8a895d/README.md#optional-intentline--proofline-handoff)
+describes explicit `check --intentline-export` import into the generic
+[#13 evidence mapping](https://github.com/grove/proofline/issues/13).
+Consumer offline tests passed; this producer change does not claim a live
+end-to-end round trip or measured delivery benefit. Native execution qualification
+and receipts remain Proofline-owned. The retired `deliver`/`inspect-intentline`
+controller is historical, not current support.
 
-Proofline compatibility includes exact pinned direct parser and clean tracked
-checkout admission controls, complete exported-input identities and downstream
-context race rejection. It is not live delivery or model evaluation. See the
-source distribution/checkout evaluation/PROOFLINE_HANDOFF.md for read-only
-inspection, an operator-run bounded smoke and immutable evidence recording.
-No paid execution occurs in normal commands or CI. Live qualification is not_run.
-The optional P2P approved-contract exporter is deferred: Intentline assertions
-are not authenticated P2P approval and the real approved-contract path has not
-been qualified end to end for Intentline.
+## One optional flow
 
-An experimental read-only [Lore report adapter](LORE_CONTEXT.md) recognizes the
-pinned bootstrap schema 1 and initialized schema 5 envelopes. Explicit reports
-use existing --context capture, unchanged bytes and unverified authority; no
-new prepare flag, peer installation, inference or registry access. The small
-inspector reports envelope/identity limits, never binding constraints. Use actual
-captured originals for applicable policy and preserve all report qualifications.
-No-Lore planning works unchanged; planning benefit is unmeasured.
+1. If a contract is useful, ask the **existing** agent to use the
+   [planning skill](../skills/intentline-plan/SKILL.md), or author a source-grounded
+   draft using the [manual tutorial](TUTORIAL.md). Inspect the full captured source,
+   contract, constraints/exclusions and gaps. A second agent or audit is optional.
+   A fresh DRAFT can be exported without adoption:
 
-Native handoff (experimental, offline-qualified): `export --work WORK --format
-proofline-native --out BUNDLE [--product-root PRODUCT]` exports a ready input,
-never authority. Complete fresh planned evidence, settled decisions and undisputed
-current assertions are required, but adoption may be absent. The final
-native-manifest.json binds every file, the full current history, original/amended
-sources, all necessary ancestors and continuity. Current binding context needs
-an exact selected product root. Successors cannot silently fall back to direct
-briefs; markdown/JSON exports preserve their archives too.
+   ```sh
+   python -B -m intentline check --work /private/work
+   python -B -m intentline review --work /private/work --json
+   python -B -m intentline export --work /private/work --format json \
+     --out /private/json-export --json
+   ```
 
-`inspect-native --bundle BUNDLE --json` validates captured identities without
-following historical private origins, writing or executing anything. The exported
-`python -I -B BUNDLE/inspect_bundle.py BUNDLE` inspector uses only the standard
-library and needs no installed Intentline. POSIX no-follow capability is required.
-It reports authorization not_established and consumer_execution not_observed.
-The native brief is a deterministic unapproved display of complete canonical JSON.
-All file/metadata records are bounded to 2 MiB; total portable payload is bounded
-at 44 MiB. Excess refuses without truncation.
+2. Continue ordinary coding and repairs within actual user authorization. Written
+   `oracle` and `planned_evidence` are proposed expectations, never executable
+   commands or independently established answers. Choose the checks explicitly.
 
-Raw audit/approval payloads, actor names, approval paths and references do not
-enter native model-visible contexts. Only unauthenticated record/hash qualifications
-are included. A separately authorized consumer must validate its own exact
-contract/source-chain adoption, current clean product documents, permissions and
-candidate receipts. Export/inspection never invokes Proofline or paid inference.
+3. Pass the original request and selected checks to Proofline on its supported
+   host, using an explicit supported Python interpreter (3.11+). For example:
 
-The separate [Proofline native consumer PR #6](https://github.com/grove/proofline/pull/6)
-is merged. Current remote consumer main is
-`023a3d5a380f4659b4459e585f1910604374d2a7` (12 October 2026); its native validator
-is byte-identical to the retained test snapshot at
-`2285a434c1c33e73f8d89a6c3267abcaa37e9b95`. Offline compatibility does not qualify
-live delivery. Its `inspect-intentline BUNDLE` command reads native
-inputs; `deliver --intentline-bundle BUNDLE --adopt-contract-sha256 CONTRACT_HASH
---adopt-source-chain-sha256 CHAIN_HASH --adopt-bundle-sha256 BUNDLE_HASH
---approval-reference ACTUAL_REFERENCE` requires the independently authorized
-caller's exact adoption. Never generate that caller assertion from Intentline's
-recorded actor, marker, hashes, approved label or exported template alone.
-Current binding documents must be regular tracked files matching the clean
-product HEAD; deleted, dirty or changed documents stop dispatch. The existing
-candidate isolation, review/proof, permission-map and final receipt controls remain
-Proofline-owned. Offline fixture roles/receipts do not establish live delivery.
+   ```sh
+   python -B /absolute/proofline/proofline.py check \
+     --repo /absolute/product --source /private/request.md \
+     --command 'python -B -m unittest discover -s tests' \
+     --output /private/check-record
+   python -B /absolute/proofline/proofline.py status /private/check-record/report.json
+   ```
 
-Intentline keeps native original/amendment files separate and declares indexed
-combined source displays non-verbatim. No predecessor adoption raw bytes or
-private approval-reference text enter native bundles or worker metadata. Its
-optional product-root check runs only when explicitly selected. Lore and P2P
-remain advisory optional peers; none is a required install or runtime import.
+   The output must be new and outside the product. Inspect Proofline's current
+   host/command limits before execution. This example grants no execution
+   permission. **Without a wanted contract, skip step 1 entirely:** this command
+   works without Intentline installed or any export/mapping.
 
-Proofline's current S6 report records a trust gate failure, including one false
-acceptance by Proofline. Green consumer CI and the earlier P2P S2 gate do not
-resolve that finding or qualify native Intentline delivery. A real native run
-requires separately established trust remediation or scoped requalification,
-exact trusted-caller adoption, isolation/egress evidence and bounded model/cost
-authorization. See the source distribution's evaluation/PROOFLINE_HANDOFF.md.
-Intentline does not run or repair the separately owned consumer here.
+   If using the supported JSON export, the same check can optionally use
+   `--source /private/json-export/source-S1.txt` and add
+   `--intentline-export /private/json-export`. The supplied source must match the
+   complete original request byte for byte. For explicit R-to-check associations,
+   optionally add `--intentline-links /private/links.json`; each R ID maps to a
+   list of zero-based selected check `index` and complete matching `argv` pairs,
+   as documented in the pinned consumer guide. No links are inferred from prose.
 
-## Optional 0.4 advisory children
+With no links, every imported R is **NOT DEMONSTRATED**, even if selected commands
+pass. Linked checks provide limited evidence against the frozen candidate;
+green commands do not establish full satisfaction or inventory completeness.
+Completeness stays **UNKNOWN**. `status` checks retained identities and receipts
+for drift. The existing agent owns omitted obligations, fixes and final handoff.
 
-[Portable slice handoffs](SLICING_INTEGRATIONS.md) carry the complete parent and
-source chain, whole allocation and integration obligations. They are data for
-humans/existing agents. Existing Proofline standalone direct/native paths reject
-these bundles; no child adoption adapter or live qualification is supplied.
-Neither parent adoption nor a structural plan permits implementation or dispatch.
-Lore, Proofline and P2P remain optional, with no runtime dependency or controller.
+## Minimal existing producer contract
+
+The current optional consumer supports **one unamended original request, S1 only,
+acceptance schema 1 / initial revision 1**, exported with `--format json`.
+It imports the following files as **untrusted advisory data**, never scripts:
+
+| File / field | Meaning and required identity |
+|---|---|
+| `source-S1.txt` | Exact original UTF-8 bytes, including CRLF/final newline; never a summary or concatenated amendment |
+| `source-manifest.json` | Canonical `intentline.sources`, schema 1, one `request` S1; byte length and SHA-256 bind the capture; root/path/inode fields remain provenance labels |
+| `contract.json` | Canonical `intentline.acceptance`, schema 1, contract ID/revision and `source_bundle_sha256`; SHA-256 binds the whole contract |
+| `requirements` | Stable unique R IDs, statement/basis, exact `source_refs` (`source_id`, one-based inclusive lines, verbatim quote), boundaries, seam, proposed oracle, `planned_evidence`, `plan_state` |
+| `constraints`, `out_of_scope` | Complete source-cited constraints and exclusions, with constraint scope/basis; never silently dropped |
+| `evidence_gaps` | Explicit R IDs and reasons; a `gap` row must retain its reason, not become a passing check |
+| `export-manifest.json` | Canonical `intentline.export`, schema 1, format `json`, contract ID/revision, `contract_sha256`, `source_bundle_sha256`, `advisory: true`, authority label and every output file SHA-256; completion marker written last |
+
+`source_bundle_sha256` hashes the canonical source-manifest bytes;
+`contract_sha256` hashes canonical contract bytes. SHA-256 of the completion
+marker identifies the export itself. Quotes may omit only the final line
+terminator of their cited range; interior bytes remain exact. Origins are not
+consumer file-read instructions. The consumer validates canonical records,
+all listed hashes, exact full S1 bytes against its supplied request, citations
+and explicit check links. Partial, tampered, extra-file or symlinked inputs refuse.
+
+Revised contracts, S2/project contexts, multiple requests, amended/schema-2 source
+lineage, native/Markdown/direct formats and child bundles are **unsupported by
+this consumer adapter**. Unresolved decisions also refuse. Do not remove context,
+flatten amendments, discard history or fall back to the retired controller to
+make an unsupported export fit. Intentline's JSON/Markdown exports still preserve
+successor archives; native exports retain full lineage and standalone inspection.
+Those producer capabilities do not imply current consumer support.
+
+## Authority and storage
+
+**DRAFT** is an unadopted proposal (fresh status may be STRUCTURALLY_VALID).
+**ADOPTED_ASSERTED** records an operator assertion with unverified authentication.
+Export reports `unapproved` or `operator_asserted_unverified` respectively.
+Actual external user/project authority must be established outside these records.
+Exports, structural validity, audit labels, hashes and check results do not approve
+work or authorize tests, model calls, PR publication, merge or deployment. Raw
+approval records are not exported as authority. Source text outranks incomplete
+advisory rows.
+
+Storage and provenance rules are unchanged: secure no-follow POSIX reads/writes,
+owner-only output, exact source captures and a final hash-bound completion marker.
+Interrupted copies can be retried with identical inputs; changed exports need a
+new output directory and existing files are never overwritten. Export only
+reviewed data to a private handoff location; source and provenance can be sensitive.
+Windows record storage remains unqualified and refuses with exit 3.
+
+## Retained research and other peers
+
+`proofline-direct`/`proofline-native`, their test-only pinned consumer snapshots,
+and older qualification findings remain historical offline evidence. See
+[the handoff research archive](../evaluation/PROOFLINE_HANDOFF.md) for pinned
+original instructions and not-run/trust-stop records. They are not prerequisites
+for current check-only use. No S0–S6 certification or evaluation restart is implied.
+
+[Advisory Lore reports](LORE_CONTEXT.md) remain optional exact-byte, unverified
+context inputs; use captured originals for applicable policy. The optional P2P
+approved-contract exporter remains deferred: Intentline assertions are not
+P2P approval. [Portable child handoffs](SLICING_INTEGRATIONS.md) remain data for
+humans/existing agents; no current Proofline child adapter is supplied.

@@ -37,8 +37,10 @@ subject identities. Full protocol, rubric and failure ledger are under evaluatio
 Installed-host smoke can use the current agent via direct-file entry without
 creating a new model process. Label it self-context/unblinded and separate it from
 eligible real pilots. No automatic host discovery/slash-command qualification.
-Live Proofline qualification requires its independently authorized native host,
-model budget and actual receipts; the operator recipe never runs in CI.
+Current optional Proofline use is check-only with separately authorized commands
+and its qualified native host; no extra model/reviewer is required. See
+[integration limits](INTEGRATIONS.md). Historical controller qualification and
+model-budget recipes remain archived and never run in CI.
 
 ## 0.3 integration
 
@@ -47,8 +49,9 @@ export → separate Proofline adapter → Windows feasibility → integration.
 The historical 0.3 and 0.4 stacks are merged. Their dated handoff reports retain
 the state observed when written. Current starting main is
 `587ef061287f02d4d7328f7c291bf57b85892603`; its six offline CI cells passed in
-run 38258294929. Proofline's native consumer PR #6 is also merged; live native
-qualification remains separate and blocked by its subsequent S6 trust findings.
+run 38258294929. Historical Proofline native consumer PR #6 was also merged;
+its controller and subsequent S6 trust findings are retained research, linked
+from [the handoff archive](../evaluation/PROOFLINE_HANDOFF.md).
 
 The final package smoke also exercises installed original review, explicit
 amendment, continuity reconciliation, native export and isolated standalone

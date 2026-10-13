@@ -66,6 +66,10 @@ contract and strict continuity schema 1, publishing current.json last under one
 writer lock. `propose` still handles later same-source revisions. Successors need
 new external adoption; old assertions never transfer, including A→B→A reversion.
 
+For current optional Proofline check-only mapping, prefer the existing
+`export --format json`; see [supported producer shape](INTEGRATIONS.md).
+The direct/native consumer controller is historical, not a recommended command.
+
 `export --format proofline-native` creates an experimental ready native input with
 full contract/source/continuity history and protected provenance hashes. It is
 inspectable without adoption; its authorization is always not_established.
