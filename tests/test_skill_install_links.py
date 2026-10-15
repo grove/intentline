@@ -40,6 +40,18 @@ class StandaloneSkillInstall(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
 
+    def test_issue_review_is_read_only_including_local_records(self):
+        root = Path(__file__).resolve().parents[1]
+        portable = (root / 'intentline-issue/SKILL.md').read_text(encoding='utf-8').casefold()
+        packaged = (root / 'skills/intentline-issue/SKILL.md').read_text(encoding='utf-8').casefold()
+        guide = (root / 'docs/ISSUE_WORKFLOW.md').read_text(encoding='utf-8').casefold()
+        self.assertEqual(portable, packaged)
+        for phrase in ('including local storage', 'do not write local files',
+                       'separately requests', 'alone does not authorize'):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, portable)
+        self.assertIn('review never runs record-producing commands', guide)
+
     def test_issue_skill_is_tracker_agnostic_and_preserves_native_fields(self):
         """Provider choices stay host-driven; no exclusive GitHub dependency."""
         root = Path(__file__).resolve().parents[1]
