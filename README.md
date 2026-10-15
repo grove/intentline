@@ -57,7 +57,7 @@ Choose `intentline-plan` for routine acceptance planning, `intentline-audit` for
 npx skills@latest add grove/intentline --skill intentline-plan -a codex -y
 ```
 
-**These commands install agent instructions, not the Python runtime.** For actual `prepare`, `propose`, `check`, `render`, `audit-record`, or `slice` commands, separately install Intentline in a Python 3.11+ environment (e.g. `python -m pip install git+https://github.com/grove/intentline.git`) and verify `python -B -m intentline --help`. The installed skill folders alone do not include `docs/` or `schema/`; each skill links to the canonical public references and can use a full checkout or the packaged `share/intentline` tree when offline. No automatic download of dependencies, Python package, or extra models is implied.
+**These commands install agent instructions, not the Python runtime.** For actual `prepare`, `propose`, `check`, `render`, `audit-record`, or `slice` commands, separately install Intentline in a Python 3.11+ environment (e.g. `python -m pip install git+https://github.com/grove/intentline.git`) and verify `python -B -m intentline --help`. The existing `SKILL.md` files keep their historical checkout-relative `../../docs` and `../../schema` links. Those linked directories **are not copied by `npx skills`**, so the links will not resolve from a standalone installed skill folder. Give the agent access to the complete checkout or to the separately installed package's `share/intentline` documentation and schemas. The installation smoke test verifies skill discovery and copying, not a complete CLI workflow. No automatic dependency installation or additional model is implied.
 
 ## Quick start
 
