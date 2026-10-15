@@ -84,6 +84,8 @@ automatically connect to every service or install a missing integration.
 The skill produces source-grounded criteria and *planned* verification;
 publishing is not approval or proof. The separate Intentline Python runtime
 is optional for issue-only work, but required for saved acceptance records.
+REVIEW creates no local files or tracker changes. Saving a formal agreement
+is a separate, explicitly requested operation.
 See the [tracker-independent issue workflow](docs/ISSUE_WORKFLOW.md).
 
 ## Quick start
@@ -211,7 +213,7 @@ Read [trust and authority](docs/TRUST_AND_AUTHORITY.md) for the complete model a
 
 ## Project status
 
-**Experimental.** The source package currently declares `0.5.0rc1`; this README does not imply a published PyPI package, GitHub release, or a versioned 0.6 product release. The core CLI, three original skills, and optional GitHub issue skill remain the user-facing workflow.
+**Experimental.** The source package currently declares `0.5.0rc1`; this README does not imply a published PyPI package, GitHub release, or a versioned 0.6 product release. The core CLI, three original skills, and optional tracker-agnostic issue skill remain the user-facing workflow.
 
 Engineering tests and packaging checks are documented separately from claims about usefulness. The bounded 0.6 planning pilot found **no verified overall planning advantage**, and the strict study remained unrun; observed overhead and critique limitations are reported rather than hidden. See the [0.6 scorecard](docs/SCORECARD_0.6.md), [0.5 scorecard](docs/SCORECARD_0.5.md), and [evaluation protocol](evaluation/README.md).
 
