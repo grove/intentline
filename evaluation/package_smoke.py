@@ -33,7 +33,16 @@ def validate_skill_links(skill, data):
     """Validate skill references against a full source or installed distribution."""
     root = data.resolve()
     markdown = skill.read_text(encoding='utf-8')
-    definitions = re.findall(r'^\[([a-z0-9-]+)\]:[ \t]+(\S+)[ \t]*
+    definitions = re.findall(r'^\[([a-z0-9-]+)\]:[ \t]+(\S+)[ \t]*$', markdown, re.M)
+    reference_map = dict(definitions)
+    used = re.findall(r'\[[^\]\n]+\]\[([a-z0-9-]+)\]', markdown)
+    assert used, f'Skill has no linked supporting documentation: {skill}'
+    assert len(definitions) == len(reference_map), f'Duplicate skill link definitions: {skill}'
+    assert set(used) == set(reference_map), f'Broken or unused skill reference label: {skill}'
+    # Allow portable Markdown reference links, plus traditional inline links.
+    links = re.findall(r'\]\(([^)]+)\)', markdown) + list(reference_map.values())
+    for link in links:
+        if link.startswith(_SKILL_DOCS_PREFIX):
             suffix = link[len(_SKILL_DOCS_PREFIX):]
             parts = PurePosixPath(suffix).parts
             assert (len(parts) == 2 and parts[0] in ('docs', 'schema')
