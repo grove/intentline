@@ -51,7 +51,7 @@ npx skills@latest add grove/intentline --list
 npx skills@latest add grove/intentline
 ```
 
-Choose `intentline-plan` for acceptance planning, `intentline-audit` for an optional review, `intentline-slice` for optional decomposition, or `intentline-issue` for GitHub issue review, creation and updates. The installer discovers four **portable root-level skills** (`intentline-plan/`, `intentline-audit/`, `intentline-slice/`, `intentline-issue/`). The original three `skills/` entries remain frozen for historical baselines and a new packaged `intentline-issue` copy stays in sync with its standalone version. For unattended Codex installation of the planning skill:
+Choose `intentline-plan` for acceptance planning, `intentline-audit` for an optional review, `intentline-slice` for optional decomposition, or `intentline-issue` for reviewing, creating, and updating work items in host-accessible issue trackers. The installer discovers four **portable root-level skills** (`intentline-plan/`, `intentline-audit/`, `intentline-slice/`, `intentline-issue/`). The original three `skills/` entries remain frozen for historical baselines and a new packaged `intentline-issue` copy stays in sync with its standalone version. For unattended Codex installation of the planning skill:
 
 ```sh
 npx skills@latest add grove/intentline --skill intentline-plan -a codex -y
@@ -59,26 +59,32 @@ npx skills@latest add grove/intentline --skill intentline-plan -a codex -y
 
 **These commands install agent instructions, not the Python runtime.** For actual `prepare`, `propose`, `check`, `render`, `audit-record`, or `slice` commands, separately install Intentline in a Python 3.11+ environment (e.g. `python -m pip install git+https://github.com/grove/intentline.git`) and verify `python -B -m intentline --help`. The portable copies link to canonical public `docs/` and `schema/` references. The Skills CLI does **not** bundle those support files or the Python runtime; for offline work, give the agent the complete checkout or the installed package's `share/intentline` tree. The Python-package skill files retain their original checkout-relative references. The installation smoke test verifies skill discovery and copying, not a complete CLI workflow. No automatic dependency installation or additional model is implied.
 
-### Use intentline-issue with GitHub
+### Use intentline-issue with your issue tracker
 
-Install just the issue skill (Codex example):
+Install the optional issue skill (Codex example):
 
 ```sh
 npx skills@latest add grove/intentline --skill intentline-issue -a codex -y
 ```
 
-Then ask your GitHub-connected agent to **review** an existing issue
-(read-only), **create** one, or **improve and update** it:
+Ask an agent with access to your issue tracker to **review** an issue
+(read-only), **create** a new one, or **improve and update** an existing
+one. For example:
 
 > Use `intentline-issue` to improve the acceptance criteria in
-> `grove/my-repo#123` and update the existing issue. Preserve its original
-> intent, decisions and unrelated description. Do not implement it.
+> GitHub issue `grove/my-repo#123` and update that existing issue.
+> Preserve its original intent and unrelated fields; don't implement it.
 
-The skill uses source-grounded, observable outcomes and *planned* verification.
-It only publishes with a user-requested write and the host's GitHub permissions;
-it does not run tests, open PRs, or approve acceptance. The separate Intentline
-Python runtime is optional for issue-only tasks but still required for saved
-acceptance records. See the [GitHub issue workflow](docs/ISSUE_WORKFLOW.md).
+The same request pattern works for a Jira issue key or Linear issue URL
+**when the agent already has the corresponding issue-tracker tools and
+permissions**. It uses native description/acceptance fields and formatting,
+rather than assuming every tracker supports GitHub Markdown. It cannot
+automatically connect to every service or install a missing integration.
+
+The skill produces source-grounded criteria and *planned* verification;
+publishing is not approval or proof. The separate Intentline Python runtime
+is optional for issue-only work, but required for saved acceptance records.
+See the [tracker-independent issue workflow](docs/ISSUE_WORKFLOW.md).
 
 ## Quick start
 
@@ -213,7 +219,7 @@ Engineering tests and packaging checks are documented separately from claims abo
 
 - **Start using it:** [Agent guide](docs/AGENT_GUIDE.md) · [Manual tutorial](docs/TUTORIAL.md)
 - **Understand the records:** [CLI](docs/CLI.md) · [Acceptance contract](docs/CONTRACT.md) · [Trust boundaries](docs/TRUST_AND_AUTHORITY.md)
-- **Extend the workflow:** [GitHub issues](docs/ISSUE_WORKFLOW.md) · [Slicing](docs/SLICING.md) · [Integrations](docs/INTEGRATIONS.md) · [Packaged planning skill](skills/intentline-plan/SKILL.md)
+- **Extend the workflow:** [Issue trackers](docs/ISSUE_WORKFLOW.md) · [Slicing](docs/SLICING.md) · [Integrations](docs/INTEGRATIONS.md) · [Packaged planning skill](skills/intentline-plan/SKILL.md)
 - **Develop or evaluate:** [Development and tests](docs/DEVELOPMENT.md) · [Evaluation](evaluation/README.md) · [Implementation history](docs/IMPLEMENTATION_0.6.md)
 
 ## Contributing

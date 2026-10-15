@@ -39,3 +39,32 @@ class StandaloneSkillInstall(unittest.TestCase):
                        'not published', 'one request, one useful issue'):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
+
+    def test_issue_skill_is_tracker_agnostic_and_preserves_native_fields(self):
+        """Provider choices stay host-driven; no exclusive GitHub dependency."""
+        root = Path(__file__).resolve().parents[1]
+        skill = (root / 'intentline-issue/SKILL.md').read_text(encoding='utf-8')
+        guide = (root / 'docs/ISSUE_WORKFLOW.md').read_text(encoding='utf-8')
+        frontmatter = skill.split('---', 2)[1].casefold()
+        self.assertIn('host-accessible issue tracker', frontmatter)
+        self.assertNotIn('github', frontmatter)
+        for phrase in (
+            "host agent's existing issue-tracker",
+            'tracker\'s native representation',
+            'rich text',
+            'custom fields',
+            'project/workspace',
+            'version/etag/compare-and-swap',
+            'not an atomic',
+            'without the cli',
+            'read-only',
+            'not published',
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase.replace('\\', '').casefold(), skill.casefold())
+        for name in ('GitHub', 'Jira', 'Linear'):
+            with self.subTest(tracker=name):
+                self.assertIn(name, guide)
+        self.assertIn('illustrative requests, not verified jira/linear integrations',
+                      guide.casefold())
+        self.assertIn('not automatically', guide.casefold())
