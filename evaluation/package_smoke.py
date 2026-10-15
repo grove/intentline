@@ -22,6 +22,9 @@ def run(*args, cwd, env):
     return result.stdout
 
 
+_SKILL_DOCS_PREFIX = 'https://github.com/grove/intentline/blob/main/'
+
+
 def validate_skill_links(skill, data):
     """Validate skill references against a full source or installed distribution."""
     root = data.resolve()
