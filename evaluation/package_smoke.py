@@ -22,6 +22,32 @@ def run(*args, cwd, env):
     return result.stdout
 
 
+# The Skills CLI copies only the selected skill directory; its docs and schema
+# links therefore use public repository URLs. A Python wheel/sdist still bundles
+# those references locally. Verify that all such links have installed targets
+# without permitting arbitrary hosts, URL paths or network dependence.
+_SKILL_DOCS_PREFIX = 'https://github.com/grove/intentline/blob/main/'
+
+
+def validate_skill_links(skill, data):
+    """Validate skill references against a full source or installed distribution."""
+    root = data.resolve()
+    for link in re.findall(r'\]\(([^)]+)\)', skill.read_text(encoding='utf-8')):
+        if link.startswith(_SKILL_DOCS_PREFIX):
+            suffix = link[len(_SKILL_DOCS_PREFIX):]
+            parts = PurePosixPath(suffix).parts
+            assert (len(parts) == 2 and parts[0] in ('docs', 'schema')
+                    and all(re.fullmatch(r'[A-Za-z0-9_.-]+', part) for part in parts)
+                    and parts[1] not in ('.', '..')), f'Unsupported skill documentation link: {link}'
+            target = root.joinpath(*parts)
+        else:
+            assert ('://' not in link and not link.startswith(('/', '\\'))
+                    and not Path(link).is_absolute()), f'Unsupported skill link: {link}'
+            target = skill.parent / link
+        assert target.resolve().is_relative_to(root), f'Skill link leaves installation: {link}'
+        assert target.is_file(), f'Broken installed skill link: {link}'
+
+
 def ai_receipt(python, data, root, env):
     """Operator copies public empty data; the installed evaluator only reads it."""
     source = data/'evaluation/cases/ai_06/not-run-packet'
@@ -65,9 +91,7 @@ def main(argv=None):
             data=Path(run(python,'-B','-c','import sysconfig; print(sysconfig.get_path("data"))',cwd=root,env=env).strip())/'share/intentline'
             for name in ('intentline-plan','intentline-audit','intentline-slice'):
                 skill=data/'skills'/name/'SKILL.md'
-                text=skill.read_text(encoding='utf-8')
-                for link in re.findall(r'\]\(([^)]+)\)',text):
-                    assert (skill.parent/link).is_file(),f'Broken installed skill link: {link}'
+                validate_skill_links(skill, data)
             assert (data/'docs/SCORECARD_0.2.md').is_file()
             assert (data/'docs/SCORECARD_0.3.md').is_file()
             assert (data/'docs/SCORECARD_0.4.md').is_file()
