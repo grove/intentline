@@ -27,12 +27,12 @@ qualified entry style; automatic skill discovery or a literal slash command is
 host-specific and not claimed. Claude Code and other command-capable agents may
 use the same neutral instruction; their automatic discovery is unqualified.
 
-The Skills CLI can discover and copy all three existing skills using
-`npx skills@latest add grove/intentline`. It copies each skill directory, **not**
-its checkout-relative `../../docs` and `../../schema` targets. Those links will
-not resolve in a standalone `npx` skill installation. To follow them, give the
-agent the full source checkout or the installed Python distribution's
-`share/intentline` documentation and schemas explicitly. The Python runtime
+The Skills CLI discovers three portable **root-level copies** using
+`npx skills@latest add grove/intentline`. These link to canonical public
+documentation and schemas, which are not copied by the skill installer. For
+offline reference, give the agent the complete checkout or the installed
+Python distribution's `share/intentline` tree. The original `skills/` files
+remain unchanged for historical baselines and Python package installation. The Python runtime
 also requires a separate installation; successful discovery alone is not a
 qualified CLI execution, complete planning workflow, or automatic invocation. For manual authoring use
 [the tutorial](TUTORIAL.md) and the same [schema](CONTRACT.md)/CLI. No agent SDK,

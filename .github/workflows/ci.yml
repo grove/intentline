@@ -56,4 +56,5 @@ jobs:
           for skill in intentline-plan intentline-audit intentline-slice; do
             test -f ".agents/skills/$skill/SKILL.md"
             grep -Fq "name: $skill" ".agents/skills/$skill/SKILL.md"
+            cmp "$GITHUB_WORKSPACE/$skill/SKILL.md" ".agents/skills/$skill/SKILL.md"
           done
