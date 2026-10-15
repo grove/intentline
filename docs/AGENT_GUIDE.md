@@ -81,6 +81,21 @@ must disclose non-verbatim provenance and incomplete persistence. Planning/revie
 never grants adoption or delivery authority. Only explicitly requested recording
 of an actual external adoption uses adopt. Independent audits remain optional.
 
+## Optional GitHub issue workflow
+
+Use `intentline-issue` to REVIEW, CREATE, or UPDATE a GitHub issue.
+It uses the host agent's existing authorized GitHub tools, not a new
+Intentline Python subcommand or service. REVIEW is strictly read-only.
+CREATE and UPDATE require an explicit user request; they must preserve
+still-binding requirements, decisions, and unrelated issue metadata.
+Re-fetch existing issue content immediately before updating, and do
+not claim that this gives atomic concurrency protection. Return a clear
+draft/diff if the GitHub host cannot publish; never fabricate a URL.
+A saved source-bound Intentline record is optional for issue-only tasks,
+and neither an issue draft nor GitHub publication establishes proof or
+authenticated adoption. See [the workflow](ISSUE_WORKFLOW.md) and
+[the new skill](../skills/intentline-issue/SKILL.md).
+
 ## One-request optional slicing
 
 Invoke the packaged intentline-slice skill for a current parent. It handles JSON,
