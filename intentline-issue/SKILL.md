@@ -21,9 +21,10 @@ are not bundled into the standalone skill installation.
 
 ## Choose the operation
 
-- **REVIEW** (review, assess, suggest improvements): read-only. Return
-  proposed improvements or a concise patch. Do not create, edit, comment,
-  transition, or otherwise mutate any work item.
+- **REVIEW** (review, assess, suggest improvements): strictly read-only,
+  including local storage. Return proposed improvements or a concise patch
+  in the response. Do not mutate any work item, create files, or save a local
+  Intentline record.
 - **CREATE** (explicitly create/publish a new issue): write **one** issue
   in the requested tracker and project/workspace if the host has suitable
   write access and the user's authorization.
@@ -65,12 +66,17 @@ the earlier promise. Preserve every material positive/negative outcome
 without inventing features or exclusions. Do not publish secrets or
 private source captures.
 
-When the Intentline CLI and a safe private storage location already exist,
-optionally use the existing `intentline-plan` workflow
-(`prepare → propose → check → render`) for a source-bound **DRAFT**.
+The `intentline-plan` workflow (`prepare → propose → check → render`)
+creates local records; it is **not** a side effect of REVIEW, CREATE or
+UPDATE. Only when the user **separately requests** a saved source-bound
+agreement may the agent follow that distinct workflow, using an authorized
+private storage location and an available Intentline CLI. REVIEW must not
+invoke record-producing CLI commands or write local files. An issue CREATE
+or UPDATE request alone does not authorize saving a separate record.
 Never fabricate verbatim source bytes, hashes, approvals, or saved records.
-Without the CLI, produce a clearly identified **provisional issue draft**.
-There is no mandatory Python install, second model, audit, or slice plan.
+Without the CLI, or without separate record authorization, provide a clearly
+identified **provisional issue draft**. There is no mandatory Python install,
+second model, audit, or slice plan.
 
 ## Draft the smallest complete acceptance content
 
@@ -102,7 +108,8 @@ If an existing issue already communicates the promise well, prefer
 
 ## Respect each operation's mutation boundary
 
-**REVIEW:** provide a suggested patch without calling any write tool.
+**REVIEW:** provide a suggested patch without calling any write tool,
+including local-file writers or record-producing CLI commands.
 
 **CREATE:** confirm the tracker and destination project/workspace. Check
 for obvious duplicates when the host can do so. Use only its authenticated
