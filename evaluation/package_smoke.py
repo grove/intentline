@@ -63,11 +63,25 @@ def main(argv=None):
             python=prefix/('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
             run(python,'-m','pip','install','--no-deps',artifact,cwd=root,env=env)
             data=Path(run(python,'-B','-c','import sysconfig; print(sysconfig.get_path("data"))',cwd=root,env=env).strip())/'share/intentline'
-            for name in ('intentline-plan','intentline-audit','intentline-slice'):
+            for name in ('intentline-plan','intentline-audit','intentline-slice','intentline-issue'):
                 skill=data/'skills'/name/'SKILL.md'
                 text=skill.read_text(encoding='utf-8')
                 for link in re.findall(r'\]\(([^)]+)\)',text):
                     assert (skill.parent/link).is_file(),f'Broken installed skill link: {link}'
+            # Resolve the new reference-style skill URLs strictly to files
+            # inside each installed wheel/sdist. This performs no network I/O.
+            issue_text=(data/'skills/intentline-issue/SKILL.md').read_text(encoding='utf-8')
+            refs=re.findall(r'\[[^\]\n]+\]\[([a-z0-9-]+)\]',issue_text)
+            definitions=re.findall(r'^\[([a-z0-9-]+)\]:[ \t]+(\S+)[ \t]*$',issue_text,re.M)
+            assert refs and len(definitions)==len(set(key for key,_ in definitions))
+            assert set(refs)==set(key for key,_ in definitions), 'Broken issue-skill references'
+            prefix_url='https://github.com/grove/intentline/blob/main/'
+            for _,url in definitions:
+                assert url.startswith(prefix_url), 'Untrusted issue-skill URL: '+url
+                parts=PurePosixPath(url[len(prefix_url):]).parts
+                assert len(parts)==2 and parts[0] in ('docs','schema')
+                assert all(re.fullmatch(r'[A-Za-z0-9_.-]+',part) for part in parts)
+                assert (data.joinpath(*parts)).is_file(), 'Missing packaged issue-skill reference: '+url
             assert (data/'docs/SCORECARD_0.2.md').is_file()
             assert (data/'docs/SCORECARD_0.3.md').is_file()
             assert (data/'docs/SCORECARD_0.4.md').is_file()
