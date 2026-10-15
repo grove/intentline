@@ -14,9 +14,9 @@ for offline reference, use the matching complete Intentline source checkout or
 Python distribution's `share/intentline` files. A copied skill directory
 alone does not contain those supporting files.
 
-Read the [slicing contract](https://github.com/grove/intentline/blob/main/docs/SLICING.md),
-[allocation schema](https://github.com/grove/intentline/blob/main/schema/slicing-v1.schema.json), and
-[authority boundary](https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md).
+Read the [slicing contract][intentline-docs-slicing],
+[allocation schema][intentline-schema-slicing-v1-schema], and
+[authority boundary][intentline-docs-trust-and-authority].
 Use the installed command host convention: `python -B -m intentline` (or the
 installed `intentline` entry point). One ordinary user request is enough;
 handle JSON and exact digests internally. No mandatory extra agent/model/audit.
@@ -83,3 +83,7 @@ unchanged text or A→B→A reversion never transfers allocation/adoption/author
 Re-size only for genuinely new material source or delivery evidence. Leave external
 tasks/candidates/PRs untouched. `slice export` requires an explicit child/output
 request; it produces advisory data with child_acceptance not_established.
+
+[intentline-docs-slicing]: https://github.com/grove/intentline/blob/main/docs/SLICING.md
+[intentline-schema-slicing-v1-schema]: https://github.com/grove/intentline/blob/main/schema/slicing-v1.schema.json
+[intentline-docs-trust-and-authority]: https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md
