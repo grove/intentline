@@ -102,8 +102,8 @@ never duplicate it on repeat runs. Do not change title, labels, assignees,
 milestone, state or comments unless specifically requested. **Immediately
 before writing**, re-read the issue and compare its current body/relevant
 decisions with the version used to draft. If changed, reconcile first
-instead of overwriting another contributor's work. This check is **not
-an atomic** GitHub compare-and-swap; don't promise a race-free update.
+instead of overwriting another contributor's work. This check is not an atomic GitHub compare-and-swap; don't promise
+race-free updates.
 Skip a byte-identical edit.
 
 For any write, verify the exact repository/issue returned by the host.
