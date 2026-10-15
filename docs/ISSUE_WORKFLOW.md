@@ -5,6 +5,8 @@ It helps an existing agent review, create, or improve a work item with
 source-grounded acceptance criteria. It uses the **issue-tracker tools
 already available to that host**, rather than adding a provider SDK or a
 new network service to Intentline's offline Python CLI.
+Installing the skill does **not automatically** connect any tracker;
+access depends on the host's already-authorized provider tools.
 
 ## Three operations, one workflow
 
