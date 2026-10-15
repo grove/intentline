@@ -42,6 +42,23 @@ Original request (+ selected project context)
         Optional next steps   Audit, external adoption, advisory export, or slicing
 ```
 
+## Install agent skills with npx
+
+From your target project:
+
+```sh
+npx skills@latest add grove/intentline --list
+npx skills@latest add grove/intentline
+```
+
+Choose `intentline-plan` for routine acceptance planning, `intentline-audit` for an optional review, or `intentline-slice` for optional decomposition. The installer discovers three **portable root-level copies** (`intentline-plan/`, `intentline-audit/`, `intentline-slice/`). The original `skills/` files remain frozen for historical baselines and Python packaging. For unattended Codex installation of the planning skill:
+
+```sh
+npx skills@latest add grove/intentline --skill intentline-plan -a codex -y
+```
+
+**These commands install agent instructions, not the Python runtime.** For actual `prepare`, `propose`, `check`, `render`, `audit-record`, or `slice` commands, separately install Intentline in a Python 3.11+ environment (e.g. `python -m pip install git+https://github.com/grove/intentline.git`) and verify `python -B -m intentline --help`. The portable copies link to canonical public `docs/` and `schema/` references. The Skills CLI does **not** bundle those support files or the Python runtime; for offline work, give the agent the complete checkout or the installed package's `share/intentline` tree. The Python-package skill files retain their original checkout-relative references. The installation smoke test verifies skill discovery and copying, not a complete CLI workflow. No automatic dependency installation or additional model is implied.
+
 ## Quick start
 
 ### 1. Install from source

@@ -34,3 +34,27 @@ jobs:
           python -B -m evaluation.slicing_04 report evaluation/results/slicing-05-not-run.json --private-root evaluation
       - run: intentline --help
       - run: python -B -m intentline --help
+  skills-install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Discover and install all three standalone skills
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/skill-consumer"
+          cd "$RUNNER_TEMP/skill-consumer"
+          npx --yes skills@latest add "$GITHUB_WORKSPACE" --list > found.txt
+          for skill in intentline-plan intentline-audit intentline-slice; do
+            grep -Fq "$skill" found.txt
+          done
+          npx --yes skills@latest add "$GITHUB_WORKSPACE" -a codex --copy -y
+          for skill in intentline-plan intentline-audit intentline-slice; do
+            test -f ".agents/skills/$skill/SKILL.md"
+            grep -Fq "name: $skill" ".agents/skills/$skill/SKILL.md"
+            cmp "$GITHUB_WORKSPACE/$skill/SKILL.md" ".agents/skills/$skill/SKILL.md"
+          done
