@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from intentline.cli import main
+from evaluation.package_smoke import validate_skill_links
 from intentline.records import sha
 from tests.support import WorkCase
 
@@ -46,6 +47,4 @@ class OneRequest(WorkCase):
                        'persistence incomplete','Do not change .gitignore','No extra approval step',
                        'No automatic adopt','independently expected oracle'):
             self.assertIn(phrase," ".join(skill.split()))
-        import re
-        for target in re.findall(r'\]\(([^)]+)\)',skill):
-            self.assertTrue((root/'skills/intentline-plan'/target).is_file(),target)
+        validate_skill_links(root/'skills/intentline-plan/SKILL.md', root)
