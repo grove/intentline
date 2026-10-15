@@ -3,7 +3,18 @@ name: intentline-audit
 description: Audit exact frozen Intentline acceptance and original sources without editing or approving them.
 ---
 
-Read [contract](../../docs/CONTRACT.md) and [authority](../../docs/TRUST_AND_AUTHORITY.md).
+**Skills CLI installation:** `npx skills@latest add grove/intentline` installs
+this agent instruction only. It does **not** install the Intentline Python
+package. For executable commands, first install the runtime into the selected
+Python 3.11+ environment (`python -m pip install git+https://github.com/grove/intentline.git`,
+or install a locally built wheel); verify with `python -B -m intentline --help`.
+Do not silently install dependencies or claim a saved agreement if the runtime
+is unavailable. Links to the contract/docs/schema point to the public repository;
+for offline reference, use the matching complete Intentline source checkout or
+Python distribution's `share/intentline` files. A copied skill directory
+alone does not contain those supporting files.
+
+Read [contract](https://github.com/grove/intentline/blob/main/docs/CONTRACT.md) and [authority](https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md).
 Use a fresh independent host agent context when the host can provide one.
 Otherwise report self_check (author context) or unverified_independence.
 Actor names, processes, hashes and agent claims do not prove independence.
@@ -24,8 +35,7 @@ checklist or one preferred test method; alternative credible observation paths
 are acceptable. Missing harness is an evidence gap; an unsettled outcome or
 conflicting authority is an open decision. Do not edit or approve the proposal.
 
-Author a report matching schema/audit-v1.schema.json (relative to the installation
-root): record intentline.audit, schema_version 1, exact contract_sha256 and
+Author a report matching the public [audit schema](https://github.com/grove/intentline/blob/main/schema/audit-v1.schema.json): record intentline.audit, schema_version 1, exact contract_sha256 and
 source_bundle_sha256, actor, offset timestamp, reported_independence,
 authentication unverified, outcome, coverage, findings. Each finding has A ID,
 requirement_ids, exact source_refs, evidence, consequence and smallest correction.
@@ -76,7 +86,7 @@ revision; a later ready report cannot erase a retained adverse report.
 
 ## Optional slicing audit
 
-Read the [slicing guide](../../docs/SLICING.md) and exact current parent plus
+Read the [slicing guide](https://github.com/grove/intentline/blob/main/docs/SLICING.md) and exact current parent plus
 recorded slice plan; NO SPLIT needs no mandatory audit. Check original promise →
 complete parent → qualified children/parent checks, and every child criterion →
 source-bound promise/necessary enabling condition. Challenge false split triggers,
@@ -86,7 +96,7 @@ parent integration owner and candidate-derived oracles. Missing harness is a gap
 not automatically a product blocker. Name the smallest correction for each material
 finding and distinguish structural coverage from semantic assessment.
 
-An optional retained report uses the [slice audit schema](../../schema/slice-audit-v1.schema.json)
+An optional retained report uses the [slice audit schema](https://github.com/grove/intentline/blob/main/schema/slice-audit-v1.schema.json)
 and `slice audit-record --work WORK --report PRIVATE_JSON --json`. Bind the exact
 parent contract/source and slice-plan hashes, reported actor, offset timestamp and
 source-cited findings. Outcomes are NO_MATERIAL_FINDINGS, CHANGES_NEEDED or BLOCKED;
