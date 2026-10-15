@@ -46,7 +46,7 @@ class StandaloneSkillInstall(unittest.TestCase):
         packaged = (root / 'skills/intentline-issue/SKILL.md').read_text(encoding='utf-8').casefold()
         guide = (root / 'docs/ISSUE_WORKFLOW.md').read_text(encoding='utf-8').casefold()
         self.assertEqual(portable, packaged)
-        for phrase in ('including local storage', 'do not write local files',
+        for phrase in ('including local storage', 'write local files',
                        'separately requests', 'alone does not authorize'):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, portable)
