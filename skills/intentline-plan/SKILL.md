@@ -3,26 +3,16 @@ name: intentline-plan
 description: From one request, save and return a concise source-bound acceptance draft using your existing host and Intentline's offline CLI.
 ---
 
-**Skills CLI installation:** `npx skills@latest add grove/intentline` installs
-this agent instruction only. It does **not** install the Intentline Python
-package. For executable commands, first install the runtime into the selected
-Python 3.11+ environment (`python -m pip install git+https://github.com/grove/intentline.git`,
-or install a locally built wheel); verify with `python -B -m intentline --help`.
-Do not silently install dependencies or claim a saved agreement if the runtime
-is unavailable. Links to the contract/docs/schema point to the public repository;
-for offline reference, use the matching complete Intentline source checkout or
-Python distribution's `share/intentline` files. A copied skill directory
-alone does not contain those supporting files.
-
 Return a useful **DRAFT** acceptance plan: its R obligations, decisive boundaries,
 material decisions/evidence gaps, exact saved location and source/contract hashes,
 and one next action. You handle capture, JSON and commands internally. One normal
 user instruction, one semantic planning pass, zero mandatory separate audits.
 Never implement, run tests/proof, approve, adopt, publish or invoke downstream tools.
 
-Read [schema and identity][intentline-docs-contract] and
-[authority][intentline-docs-trust-and-authority] when authoring. The standalone skill install does not include linked repository documentation. [Agent guide][intentline-docs-agent-guide] covers host
-entry and [tutorial][intentline-docs-tutorial] covers the manual fallback.
+Read [schema and identity](../../docs/CONTRACT.md) and
+[authority](../../docs/TRUST_AND_AUTHORITY.md) when authoring. The installed tree
+has the same relative links. [Agent guide](../../docs/AGENT_GUIDE.md) covers host
+entry and [tutorial](../../docs/TUTORIAL.md) covers the manual fallback.
 
 ## Preserve and prepare
 
@@ -73,7 +63,7 @@ are suggestions unless source-mandated. Missing harness is an evidence_gaps entr
 and gap plan_state if no credible path exists, not an invented product blocker.
 Unsettled outcomes become specific outcome open_decisions; keep unaffected work.
 
-Write draft.json yourself, using [schema 1][intentline-schema-acceptance-v1-schema]:
+Write draft.json yourself, using [schema 1](../../schema/acceptance-v1.schema.json):
 contract, schema_version, contract_id, revision, source_bundle_sha256,
 intended_outcome, requirements, constraints, out_of_scope, open_decisions,
 evidence_gaps, change_notes. Exact line quotes come from frozen captures.
@@ -127,7 +117,7 @@ gap, not an outcome question. These are the authored probes in the release's
 failure ledger, not a claim of measured prompt improvement.
 
 For an explicitly supplied Lore report, follow the optional
-[Lore context guide][intentline-docs-lore-context]. Envelope inspection and ordinary
+[Lore context guide](../../docs/LORE_CONTEXT.md). Envelope inspection and ordinary
 --context capture need no peer installation. Keep the full report advisory and
 bind actual constraints to separately captured originals; never invoke Lore or
 let a report grant effects. Absent/stale/unsupported context does not stop the
@@ -150,7 +140,7 @@ explicitly. Use `--refresh-context` without an amendment only for actual changed
 replacement documentary context. Historical context is evidence, not current policy.
 
 Author a complete initial schema-1 successor with a distinct contract_id and a
-[continuity record][intentline-schema-continuity-v1-schema]. Account for every prior
+[continuity record](../../schema/continuity-v1.schema.json). Account for every prior
 R ID as preserved/changed/retired/split/merged and list genuinely added IDs. Keep
 unchanged IDs; never reuse a retired ID or alias an unrelated obligation. Explain
 why every change follows the exact new amendment, or current documentary evidence
@@ -166,11 +156,3 @@ and the saved successor path. A preserved mapping asserts mechanical continuity,
 not semantic equivalence. No automatic adopt. Only a separately supplied actual
 external adoption reference may be recorded through existing adopt, when the user
 has expressly requested that recording. Never write that approval on their behalf.
-
-[intentline-docs-contract]: https://github.com/grove/intentline/blob/main/docs/CONTRACT.md
-[intentline-docs-trust-and-authority]: https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md
-[intentline-docs-agent-guide]: https://github.com/grove/intentline/blob/main/docs/AGENT_GUIDE.md
-[intentline-docs-tutorial]: https://github.com/grove/intentline/blob/main/docs/TUTORIAL.md
-[intentline-schema-acceptance-v1-schema]: https://github.com/grove/intentline/blob/main/schema/acceptance-v1.schema.json
-[intentline-docs-lore-context]: https://github.com/grove/intentline/blob/main/docs/LORE_CONTEXT.md
-[intentline-schema-continuity-v1-schema]: https://github.com/grove/intentline/blob/main/schema/continuity-v1.schema.json

@@ -3,20 +3,9 @@ name: intentline-slice
 description: Prefer NO SPLIT, or propose the smallest source-bound allocation of an existing Intentline parent without approving or delivering it.
 ---
 
-**Skills CLI installation:** `npx skills@latest add grove/intentline` installs
-this agent instruction only. It does **not** install the Intentline Python
-package. For executable commands, first install the runtime into the selected
-Python 3.11+ environment (`python -m pip install git+https://github.com/grove/intentline.git`,
-or install a locally built wheel); verify with `python -B -m intentline --help`.
-Do not silently install dependencies or claim a saved agreement if the runtime
-is unavailable. Links to the contract/docs/schema point to the public repository;
-for offline reference, use the matching complete Intentline source checkout or
-Python distribution's `share/intentline` files. A copied skill directory
-alone does not contain those supporting files.
-
-Read the [slicing contract][intentline-docs-slicing],
-[allocation schema][intentline-schema-slicing-v1-schema], and
-[authority boundary][intentline-docs-trust-and-authority].
+Read the [slicing contract](../../docs/SLICING.md),
+[allocation schema](../../schema/slicing-v1.schema.json), and
+[authority boundary](../../docs/TRUST_AND_AUTHORITY.md).
 Use the installed command host convention: `python -B -m intentline` (or the
 installed `intentline` entry point). One ordinary user request is enough;
 handle JSON and exact digests internally. No mandatory extra agent/model/audit.
@@ -83,7 +72,3 @@ unchanged text or A→B→A reversion never transfers allocation/adoption/author
 Re-size only for genuinely new material source or delivery evidence. Leave external
 tasks/candidates/PRs untouched. `slice export` requires an explicit child/output
 request; it produces advisory data with child_acceptance not_established.
-
-[intentline-docs-slicing]: https://github.com/grove/intentline/blob/main/docs/SLICING.md
-[intentline-schema-slicing-v1-schema]: https://github.com/grove/intentline/blob/main/schema/slicing-v1.schema.json
-[intentline-docs-trust-and-authority]: https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md
