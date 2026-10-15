@@ -23,7 +23,9 @@ provider credentials, or agent success with any tracker.
 
 An explicit create/update request authorizes **only the specified issue
 operation**, not status transitions, assignment, new child issues, PRs,
-or implementation. REVIEW is strictly read-only. No mandatory second
+or implementation. REVIEW is strictly read-only, including local record storage. Neither
+CREATE nor UPDATE implicitly authorizes a separate saved Intentline record.
+No mandatory second
 agent, extra approval ceremony, audit, or Intentline Python runtime.
 
 ## Common issue concepts
@@ -97,7 +99,9 @@ do not ask for credentials or fall back to arbitrary external APIs.
 
 For formal saved agreements, an *optional* separately installed
 Python 3.11+ Intentline CLI can prepare and validate a source-bound
-**DRAFT**. This is not needed merely to write an issue. Keep exact private
+**DRAFT**, but only if the user separately requests that local record.
+REVIEW never runs record-producing commands or creates local files. A tracker
+CREATE/UPDATE request does not authorize an additional local record. Keep exact private
 source captures untracked; identifiers/hashes prove bytes, not authority.
 
 The portable `intentline-issue/SKILL.md` and Python-package copy
