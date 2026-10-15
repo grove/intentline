@@ -27,8 +27,11 @@ qualified entry style; automatic skill discovery or a literal slash command is
 host-specific and not claimed. Claude Code and other command-capable agents may
 use the same neutral instruction; their automatic discovery is unqualified.
 
-Installed skills keep their relative docs/schema references. Do not copy only
-SKILL.md into a discovery folder and leave broken links. For manual authoring use
+The Skills CLI can install each self-contained SKILL.md using
+`npx skills@latest add grove/intentline`; the instructions link to public
+repository docs/schema rather than assuming the parent source checkout exists.
+The Python runtime is a separate install; for offline references use the
+matching full checkout or the installed share/intentline distribution. For manual authoring use
 [the tutorial](TUTORIAL.md) and the same [schema](CONTRACT.md)/CLI. No agent SDK,
 model-provider configuration, peer project or extra model process is required.
 
