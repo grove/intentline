@@ -60,12 +60,12 @@ class IssueBodyExamples(unittest.TestCase):
         case = self.examples['concise']
         self.assertEqual(case['result'], 'UNCHANGED')
         self.assertEqual(case['before'].encode(), case['after'].encode())
-        self.assertIn(case['after'], (ROOT / 'docs/ISSUE_BODY_EXAMPLES.md').read_text())
+        self.assertIn(case['after'], (ROOT / 'docs/ISSUE_BODY_EXAMPLES.md').read_text(encoding='utf-8'))
 
     def test_guidance_preserves_evidence_identity_and_existing_update_safeguards(self):
         for name in ('intentline-issue/SKILL.md', 'skills/intentline-issue/SKILL.md',
                      'docs/ISSUE_WORKFLOW.md'):
-            text = ' '.join((ROOT / name).read_text().split()).casefold()
+            text = ' '.join((ROOT / name).read_text(encoding='utf-8').split()).casefold()
             for phrase in ('condense repeated', 'once when useful', 'evidence level',
                            'snapshot limits', 'execution status', 'uncertainty',
                            'non-verbatim/incomplete-source', 'PROPOSED — NOT RUN',
@@ -75,7 +75,7 @@ class IssueBodyExamples(unittest.TestCase):
                            'word count', 'ISSUE_BODY_EXAMPLES.md'):
                 with self.subTest(file=name, phrase=phrase):
                     self.assertIn(phrase.casefold(), text)
-        skill = ' '.join((ROOT / 'intentline-issue/SKILL.md').read_text().split())
+        skill = ' '.join((ROOT / 'intentline-issue/SKILL.md').read_text(encoding='utf-8').split())
         for phrase in ('Immediately before writing', 're-read', 'relevant decisions',
                        'not an atomic', 'Skip byte-equivalent or semantically identical',
                        'verify the exact tracker', 'result after the host write'):
