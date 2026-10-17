@@ -62,6 +62,56 @@ class StandaloneSkillInstall(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
 
+    def test_confirmation_before_repair_is_conditional_and_preserves_boundaries(self):
+        """Text/distribution regression only, not evidence of improved agent behavior."""
+        root = Path(__file__).resolve().parents[1]
+        for name in ('intentline-issue/SKILL.md', 'skills/intentline-issue/SKILL.md',
+                     'docs/ISSUE_WORKFLOW.md'):
+            text = ' '.join((root / name).read_text(encoding='utf-8').split()).casefold()
+            for phrase in (
+                'suspected runtime defect without applicable runtime evidence',
+                '**confirm before fixing** instruction immediately after the introduction',
+                "next action follow that order", 'evidence level, counterevidence',
+                'smallest proposed discriminating check', 'independent oracle',
+                'tested revision and relevant local changes', 'material environment/settings',
+                'reproduction steps, expected versus actual result, and actual execution path',
+                'test-only observation instrumentation',
+                'do not build the proposed repair into the reproducer', 'PROPOSED — NOT RUN',
+                '**confirmed:** record the runtime evidence, then repair and retain the regression',
+                '**refuted/already fixed:** record counterevidence',
+                'recommend correcting or closing the issue',
+                '**inconclusive:** identify the evidence gap and retain unconfirmed status',
+                'a skipped check or masking fallback is inconclusive',
+                'existing runtime receipt keeps its candidate/scope limits',
+                'directly demonstrated documentation contradiction needs no runtime-reproduction gate',
+                'ordinary feature requests need no bug-confirmation ceremony',
+                'does not execute tests, authorize a repair or closure, add an approval stage, '
+                'or create a separate intentline record',
+                'preserve existing acceptance, evidence, and mutation boundaries',
+            ):
+                with self.subTest(file=name, phrase=phrase):
+                    self.assertIn(phrase.casefold(), text)
+
+    def test_confirmation_handoff_examples_include_evidence_controls(self):
+        """Authored examples guard instruction coverage, not model output quality."""
+        root = Path(__file__).resolve().parents[1]
+        guide = (root / 'docs/ISSUE_WORKFLOW.md').read_text(encoding='utf-8')
+        guide = guide.split('### Contrasting handoff examples', 1)[1]
+        for heading, phrases in (
+            ('Unexecuted audit finding.', ('**Confirm before fixing:**', 'Next action: run',
+                                          'Independently expect 2', '**confirmed**',
+                                          '**refuted/already fixed**', '**inconclusive**')),
+            ('Applicable runtime receipt.', ('Next action: use that evidence',
+                                            'No redundant reproduction', 'different revision')),
+            ('Source-demonstrated documentation contradiction.',
+             ('Next action: reconcile', 'no runtime-reproduction gate')),
+            ('Ordinary feature request.', ('Next action: implement', 'no bug-confirmation ceremony')),
+        ):
+            example = guide.split(f'**{heading}**', 1)[1].split('\n\n**', 1)[0]
+            for phrase in phrases:
+                with self.subTest(example=heading, phrase=phrase):
+                    self.assertIn(phrase, example)
+
     def test_material_boundaries_have_feasible_planned_observations(self):
         """Instruction regression only; this cannot assess agent behavior."""
         root = Path(__file__).resolve().parents[1]

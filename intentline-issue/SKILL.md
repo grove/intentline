@@ -109,9 +109,10 @@ and internal function names in the opening; explain necessary technical
 terms on first use. Put detailed mechanisms, code links, acceptance IDs,
 hashes, and test instructions afterward. Use a small concrete example when
 it helps, without a template, fixed word count, or extra report section.
-Where applicable, put confirmation-before-repair guidance immediately after
-the introduction: confirm or refute a suspected runtime defect on current
-code before changing production behavior.
+For a suspected runtime defect without applicable runtime evidence, put a
+prominent **Confirm before fixing** instruction immediately after the
+introduction: confirm or refute it on current code before changing production
+behavior. Make the issue's next action follow that order.
 
 Apply this guidance during an authorized description UPDATE when needed,
 preserving material promises, evidence, and unrelated fields. Leave an
@@ -119,6 +120,31 @@ already clear introduction unchanged. Read the opening on its own: can
 someone unfamiliar with the subsystem explain the problem/change, expected
 behavior, affected workflow, and supported consequence without the later
 technical sections? Check that any rewrite preserves meaning and uncertainty.
+
+**Confirm before fixing, when runtime evidence is missing.**
+
+Preserve the report's evidence level, counterevidence, and smallest proposed
+discriminating check with its independent oracle (expected result). Request
+the tested revision and relevant local changes, material environment/settings,
+reproduction steps, expected versus actual result, and actual execution path.
+Permit necessary test-only observation instrumentation, but do not build the
+proposed repair into the reproducer. A proposed check remains **PROPOSED — NOT RUN**.
+
+Make all three outcomes actionable in the same issue:
+
+- **Confirmed:** record the runtime evidence, then repair and retain the regression.
+- **Refuted/already fixed:** record counterevidence and recommend correcting or
+  closing the issue.
+- **Inconclusive:** identify the evidence gap and retain unconfirmed status.
+  A skipped check or masking fallback is inconclusive, not confirmation or refutation.
+
+An applicable existing runtime receipt keeps its candidate/scope limits; do not
+demand a redundant reproduction or generalize it to untested code or paths.
+A directly demonstrated documentation contradiction needs no runtime-reproduction
+gate. Ordinary feature requests need no bug-confirmation ceremony.
+Creating/updating the issue does not execute tests, authorize a repair or closure,
+add an approval stage, or create a separate Intentline record. Preserve existing
+acceptance, evidence, and mutation boundaries.
 
 Keep the original purpose and useful context. After the introduction, prioritize
 source evidence, acceptance, planned verification, and material decisions/gaps.
