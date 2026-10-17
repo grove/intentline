@@ -58,7 +58,7 @@ Acceptance criteria (proposed)
 R1. Exported rows match the visible table's order.
 R2. Fields containing commas or quotes can be parsed as CSV.
 
-Verification (planned)
+Verification (advisory; PROPOSED — NOT RUN)
 R1. Export a known table and independently compare its row order.
 R2. Export quoted/comma-containing fields and parse them independently.
 ```
@@ -68,6 +68,19 @@ or an acceptance field. Don't add R2 automatically to unrelated requests,
 invent a preferred library, require a test quota, or present planned
 verification as something already tested. Missing test infrastructure
 is an **evidence gap**, not permission to alter the original promise.
+
+In that same pass, trace each material outcome and risk-relevant boundary to a
+feasible planned observation, an existing covering scenario, or an explicit
+evidence gap. Check fixture constraints, transaction/session ordering and the
+selected execution path. A shared-state preservation check must leave another
+consumer's work pending, perform the first consumer's operation, then observe
+the protected consumer against independently expected state. Keep equivalent
+variations in one criterion/R row; use a separate stable ID for a distinct
+preservation outcome only when independent acceptance needs it. Unsettled product
+semantics remain an outcome decision (**UNKNOWN**), not a fabricated expectation.
+The [authored examples](PLANNED_CHECK_EXAMPLES.md) illustrate this guidance;
+scenarios stay advisory **PROPOSED — NOT RUN**. Routine low-risk work needs no
+extra scenario list, artifact or mandatory audit.
 
 ## Safely improving an existing issue
 

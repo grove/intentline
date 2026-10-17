@@ -59,6 +59,9 @@ Preserve the lower completeness bound (all material positive/negative promises)
 and upper scope bound (no invented requirements/exclusions). One falsifiable
 outcome per stable R ID, related boundaries in that row. No test quota, framework,
 algorithm preference, overlapping checklist or speculative feature.
+Keep equivalent variations together; a distinct preservation outcome may have
+its own stable R ID when needed for independent acceptance. Added detail alone
+does not create another requirement.
 
 Distinguish necessary inferred invariants (cite requested outcomes), applicable
 accepted constraints, proposals, rejected approaches, reports and nonbinding
@@ -73,6 +76,13 @@ are suggestions unless source-mandated. Missing harness is an evidence_gaps entr
 and gap plan_state if no credible path exists, not an invented product blocker.
 Unsettled outcomes become specific outcome open_decisions; keep unaffected work.
 
+In this same semantic pass, trace each material promised outcome and risk-relevant
+boundary to a feasible observation in `planned_evidence`, a reference to an
+existing covering scenario, or an explicit `evidence_gaps` entry. Equivalent
+variations may share one scenario; naming a boundary alone is not coverage.
+Check that fixture constraints, transaction/session ordering and the selected
+execution path actually allow the named situation to reach the observation seam.
+
 ### Optional test-design handoff, same planning pass
 
 For **risk-relevant** negative, boundary, security or compatibility behavior, reuse
@@ -83,6 +93,12 @@ For each, name an observable input/situation, the expected behavior derived
 would catch, and the observation seam/evidence method when known. Cite the R ID
 and exact source line/quote. If a useful case is already explicit in the row,
 refer to it rather than duplicating the requirement or generating a new artifact.
+
+For shared-state preservation, specify the setup and order that leave another
+consumer's work pending, the repair/operation on the first consumer, then the
+protected consumer's observation. State its independently expected result so a
+repair that loses pending work would be distinguishable; merely adding a sibling
+consumer or checking only the repaired consumer is insufficient.
 
 If the source does not settle the expected behavior, label it **UNKNOWN** and
 retain a genuine outcome `open_decisions` item, **not** a fabricated assertion.
@@ -125,7 +141,7 @@ Status: DRAFT <structural/blocked qualification>; not approved, executed or prov
 ```
 
 Only if a consequential case adds value, append brief **Suggested tests
-(advisory; NOT RUN)** lines: `R ID + exact source ref/quote → situation →
+(advisory; PROPOSED — NOT RUN)** lines: `R ID + exact source ref/quote → situation →
 independent expected result → incorrect behavior caught → observation seam`.
 Keep the normal concise response unchanged for low-risk work. These suggestions
 are plans, not assertions that a test exists or passed.
@@ -158,6 +174,9 @@ Related empty/spaces/tabs variations belong in one outcome's boundaries rather
 than overlapping R rows. A settled outcome without an observation harness is a
 gap, not an outcome question. These are the authored probes in the release's
 failure ledger, not a claim of measured prompt improvement.
+For authored feasible-check examples, see the
+[planned-check examples][intentline-docs-planned-check-examples]; they are
+development material, not another planning stage or efficacy evidence.
 
 For an explicitly supplied Lore report, follow the optional
 [Lore context guide][intentline-docs-lore-context]. Envelope inspection and ordinary
@@ -207,3 +226,4 @@ has expressly requested that recording. Never write that approval on their behal
 [intentline-schema-acceptance-v1-schema]: https://github.com/grove/intentline/blob/main/schema/acceptance-v1.schema.json
 [intentline-docs-lore-context]: https://github.com/grove/intentline/blob/main/docs/LORE_CONTEXT.md
 [intentline-schema-continuity-v1-schema]: https://github.com/grove/intentline/blob/main/schema/continuity-v1.schema.json
+[intentline-docs-planned-check-examples]: https://github.com/grove/intentline/blob/main/docs/PLANNED_CHECK_EXAMPLES.md

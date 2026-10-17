@@ -87,12 +87,29 @@ Keep the original purpose and useful context. Suggest only what is needed:
   row; include material negative cases, applicable constraints, and scoped
   exceptions. New obligations require source support, an explicit user
   change, or an identified necessary preservation invariant.
-- **Verification (planned):** an observable public seam, an independently
+- **Verification (PROPOSED — NOT RUN):** an observable public seam, an independently
   expected result, and a plausible falsifying check for each material
-  outcome. Planned checks are **not** run tests or proof.
+  outcome and risk-relevant boundary, a reference to an existing covering
+  scenario, or an explicit evidence gap. Planned checks are advisory,
+  **not** run tests or proof.
 - **Open decisions / evidence gaps:** separate genuine unresolved product/
   authority choices from missing observation infrastructure. An evidence
   gap by itself is not a blocker to describing the intended result.
+
+Keep related variations in one criterion/R row; equivalent boundaries may share
+one scenario. Preserve existing stable R IDs; a distinct preservation outcome
+may have its own ID when needed for independent acceptance. Added detail alone
+does not multiply requirements. Check fixture constraints, transaction/session
+ordering and the selected execution path against the named boundary. For shared
+state, specify how another consumer's work remains pending, the first consumer's
+operation, then the protected consumer's observation and independently expected
+state. This must distinguish a repair that loses the other consumer's work.
+If the expected behavior is unsettled, mark it **UNKNOWN** and retain an outcome
+decision; settled behavior without a feasible harness is an evidence gap.
+Use the existing acceptance/verification fields in this same pass; no new
+artifact, mandatory audit or scenario list for routine low-risk work. See the
+[authored planned-check examples][intentline-docs-planned-check-examples] for
+development illustrations, not efficacy evidence.
 
 Write in the **tracker's native representation**. GitHub may use Markdown
 sections and checkboxes; Jira, Linear, and other trackers may use rich-text
@@ -146,3 +163,4 @@ test result, PR, or provider integration that did not occur.
 [intentline-docs-issue-workflow]: https://github.com/grove/intentline/blob/main/docs/ISSUE_WORKFLOW.md
 [intentline-docs-contract]: https://github.com/grove/intentline/blob/main/docs/CONTRACT.md
 [intentline-docs-trust-and-authority]: https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md
+[intentline-docs-planned-check-examples]: https://github.com/grove/intentline/blob/main/docs/PLANNED_CHECK_EXAMPLES.md

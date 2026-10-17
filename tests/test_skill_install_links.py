@@ -62,6 +62,24 @@ class StandaloneSkillInstall(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
 
+    def test_material_boundaries_have_feasible_planned_observations(self):
+        """Instruction regression only; this cannot assess agent behavior."""
+        root = Path(__file__).resolve().parents[1]
+        for name in ('intentline-plan/SKILL.md', 'intentline-issue/SKILL.md',
+                     'skills/intentline-issue/SKILL.md'):
+            text = ' '.join((root / name).read_text(encoding='utf-8').split()).casefold()
+            for phrase in (
+                'risk-relevant boundary', 'feasible', 'observation',
+                'existing covering scenario', 'equivalent', 'stable r id',
+                'fixture constraints', 'transaction/session ordering', 'execution path',
+                'pending', 'protected consumer', 'independently expected',
+                'unknown', 'gap',
+                'routine low-risk work', 'PROPOSED — NOT RUN',
+                'intentline-docs-planned-check-examples',
+            ):
+                with self.subTest(skill=name, phrase=phrase):
+                    self.assertIn(phrase.casefold(), text)
+
     def test_issue_review_is_read_only_including_local_records(self):
         root = Path(__file__).resolve().parents[1]
         portable = (root / 'intentline-issue/SKILL.md').read_text(encoding='utf-8').casefold()
