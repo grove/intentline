@@ -47,6 +47,14 @@ behavior**. It reuses each existing R row's source references, boundaries,
 seam, independent oracle and planned evidence. An unspecified expected result
 stays **UNKNOWN**; ordinary low-risk requests need no extra scenarios.
 These are advisory test-design suggestions, **not test execution or proof**.
+During the same semantic pass, each material outcome and risk-relevant boundary
+needs a feasible planned observation, an existing covering scenario reference,
+or an explicit evidence gap. Check fixture constraints, ordering and execution
+paths; shared-state checks must observe the protected consumer after the repair
+against independently expected state. Equivalent variations can share one
+scenario and R row; distinct preservation outcomes may need their own stable ID.
+See the [authored development examples](PLANNED_CHECK_EXAMPLES.md). Suggestions
+remain **PROPOSED — NOT RUN**, with no extra scenario list for routine work.
 
 This guidance is deliberately in the portable root-level skill used by the
 Skills CLI. The original Python-packaged `skills/intentline-plan/SKILL.md`

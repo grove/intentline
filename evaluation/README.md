@@ -201,3 +201,14 @@ too much, **SIMPLIFY / STOP**. Choose **KEEP MINIMAL CHANGE** only if its extra
 benefit and cost justify doing so; treat underpowered, unqualified or ceiling
 results as **INCONCLUSIVE**. Even a positive pilot does not establish general
 efficacy or justify a new schema, CLI, runner, or mandatory testing phase.
+
+## Issue #43 — feasible planned-check development examples
+
+The [authored examples](../docs/PLANNED_CHECK_EXAMPLES.md) cover transient versus
+replacement history, ordered shared-shadow preservation, a nullable comparison
+operand separate from its primary key, an unspecified outcome, grouped equivalent
+boundaries and a routine low-risk control. They are advisory **PROPOSED — NOT RUN**,
+not observed agent outputs or runtime findings. Instruction/link/packaging checks
+do not measure improved agent behavior. No efficacy comparison was run for #43;
+any such comparison needs its own actual evidence and all-in cost accounting.
+The #41 **NOT_RUN** status and historical study records remain unchanged.
