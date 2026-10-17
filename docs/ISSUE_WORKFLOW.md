@@ -56,7 +56,7 @@ findings; do not invent affected users, severity, or impact to make an opening
 sound compelling. Avoid unexplained acronyms and internal function names;
 explain necessary technical terms on first use. Put detailed mechanisms, code
 links, acceptance IDs, hashes, and test instructions afterward. A small concrete
-example can help; no template, fixed word count, or extra report section is needed.
+example can help; no fixed word count or extra report section is needed.
 
 For a suspected runtime defect without applicable runtime evidence, place a
 prominent **Confirm before fixing** instruction immediately after the introduction:
@@ -130,6 +130,39 @@ meaning and uncertainty. Text and packaging checks protect instruction presence
 and distribution consistency; they do not demonstrate human comprehension or
 improved agent behavior. This review needs no additional model or reviewer stage.
 
+## Default layout for new GitHub issues
+
+Follow an applicable repository issue template first. Otherwise, start with the
+plain-language introduction without a heading, followed by the conditional
+**Confirm before fixing:** instruction. Use `##` headings with these names and
+order, omitting sections with no useful content:
+
+1. **Evidence** — original sources, the suspected or observed mechanism,
+   counterevidence, and uncertainty.
+2. **Acceptance criteria (proposed)** — checkboxes with stable R IDs; keep
+   constraints and scoped exceptions beside the outcomes they qualify.
+3. **Verification — PROPOSED — NOT RUN** — ordered checks with independently
+   expected results; identify which R IDs each check covers.
+4. **Open decisions and evidence gaps** — separate unsettled outcomes from
+   missing observations. Omit empty or "none identified" accounts.
+
+Keep the confirmation instruction brief and point to Verification. Put the
+reproduction details and confirmed/refuted/inconclusive handling there once;
+do not repeat a separate next-action account. Keep evidence level, runtime
+execution status, and material uncertainty visible outside collapsed content.
+Put lengthy audit methods and saved draft identities once at the end in GitHub
+`<details>` with a descriptive `<summary>`, preserving snapshot limits and
+non-verbatim/incomplete-source disclosures. Include identities only when they
+exist; do not manufacture a saved record for the layout. Short source/scope notes
+can stay inline. Historical hashes still identify the saved draft, not revised
+issue text.
+
+This is a creation default, not a reason to rewrite clear existing issues.
+During UPDATE, preserve an already clear structure and unrelated content.
+Other trackers keep their native fields and formatting. The [complete issue
+examples](ISSUE_BODY_EXAMPLES.md#complete-github-issue-examples) show a small bug,
+an unconfirmed finding, and a feature request using the same heading names.
+
 ## Confirm before fixing, when runtime evidence is missing
 
 Preserve the report's evidence level, counterevidence, and smallest proposed
@@ -166,8 +199,11 @@ The report proposes a two-row check; a suspected duplicate application is its
 mechanism, while a later full refresh might mask the error.
 
 > **Confirm before fixing:** Confirm or refute the suspected duplicate count on
-> current code before changing production behavior. Next action: run the smallest
-> proposed check (**PROPOSED — NOT RUN**): start with one source row and count 1,
+> current code before changing production behavior; start with Verification below.
+
+Under **Verification — PROPOSED — NOT RUN**:
+
+> Next action: run the smallest proposed check: start with one source row and count 1,
 > pause incremental refresh, insert and commit a second row, rebuild the count,
 > then resume incremental refresh and observe the count before any full refresh.
 > Independently expect 2 from the committed source rows. Record the tested revision
@@ -219,14 +255,16 @@ verification, and material decisions/gaps. Condense repeated audit/process detai
 and include provenance/identity once when useful, while preserving evidence level,
 snapshot limits, execution status, relevant uncertainty, and non-verbatim/incomplete-source
 disclosures. Retain **PROPOSED — NOT RUN** labels; concision cannot turn proposals
-into proof or approval. These priorities impose no mandatory section, word count,
+into proof or approval. The default layout adds no mandatory empty section, word count,
 report artifact, CLI invocation, or extra approval stage. The [before/after
 examples](ISSUE_BODY_EXAMPLES.md) include an already concise issue left unchanged
 and offline preservation checks; they do not establish provider writes or agent
 efficacy.
 
-After the feature-request introduction above, the acceptance content could follow
-as below. These outcomes are illustrative only; the actual source must justify them.
+For a tracker with plain-text fields, the feature request's acceptance content
+could follow as below. These outcomes are illustrative only; the actual source
+must justify them. Complete GitHub bodies use the default layout shown in the
+[issue examples](ISSUE_BODY_EXAMPLES.md#complete-github-issue-examples).
 
 ```text
 Goal

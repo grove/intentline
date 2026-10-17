@@ -108,7 +108,7 @@ or invent affected users, severity, or impact. Avoid unexplained acronyms
 and internal function names in the opening; explain necessary technical
 terms on first use. Put detailed mechanisms, code links, acceptance IDs,
 hashes, and test instructions afterward. Use a small concrete example when
-it helps, without a template, fixed word count, or extra report section.
+it helps, without a fixed word count or extra report section.
 For a suspected runtime defect without applicable runtime evidence, put a
 prominent **Confirm before fixing** instruction immediately after the
 introduction: confirm or refute it on current code before changing production
@@ -120,6 +120,29 @@ already clear introduction unchanged. Read the opening on its own: can
 someone unfamiliar with the subsystem explain the problem/change, expected
 behavior, affected workflow, and supported consequence without the later
 technical sections? Check that any rewrite preserves meaning and uncertainty.
+
+**Default layout for new GitHub issues.** Follow an applicable repository issue
+template first. Otherwise, start with the introduction without a heading, then
+the conditional **Confirm before fixing:** instruction. Use `##` headings with
+these names and order, omitting sections with no useful content:
+
+1. **Evidence** — sources, mechanism, counterevidence, and uncertainty.
+2. **Acceptance criteria (proposed)** — stable R IDs and observable checkboxes.
+3. **Verification — PROPOSED — NOT RUN** — ordered checks and expected results.
+4. **Open decisions and evidence gaps** — distinguish unsettled outcomes from
+   missing observations; omit empty or "none identified" accounts.
+
+Keep the confirmation instruction brief and point to Verification. Put the
+reproduction details and confirmed/refuted/inconclusive handling there once;
+do not repeat a separate next-action account. Keep evidence level, runtime
+execution status, and material uncertainty visible outside collapsed content.
+Put lengthy audit methods and saved draft identities once at the end in GitHub
+`<details>` with a descriptive `<summary>`, preserving snapshot limits and
+non-verbatim/incomplete-source disclosures. Include identities only when they
+exist; do not manufacture a saved record for the layout. Other trackers keep
+their native fields and formatting. During UPDATE, preserve an already clear
+structure; do not reformat an issue solely to match this default. See the
+[complete issue examples][intentline-docs-issue-body-examples].
 
 **Confirm before fixing, when runtime evidence is missing.**
 
@@ -152,7 +175,7 @@ Condense repeated audit/process accounts; include provenance/identity once when
 useful. Preserve evidence level, snapshot limits, execution status, relevant
 uncertainty, and non-verbatim/incomplete-source disclosures. Keep **PROPOSED —
 NOT RUN** labels; shortening text must not turn a proposal into proof or approval.
-These are content priorities, not mandatory sections or a word count. See the
+The default layout adds no mandatory empty section or word count. See the
 [concise issue examples][intentline-docs-issue-body-examples]. Suggest only what is needed:
 
 - **Goal:** the promised outcome, not a speculative implementation design.

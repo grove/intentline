@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 import unittest
 
 
@@ -61,6 +62,58 @@ class IssueBodyExamples(unittest.TestCase):
         self.assertEqual(case['result'], 'UNCHANGED')
         self.assertEqual(case['before'].encode(), case['after'].encode())
         self.assertIn(case['after'], (ROOT / 'docs/ISSUE_BODY_EXAMPLES.md').read_text(encoding='utf-8'))
+
+    def test_complete_examples_share_layout_without_empty_sections_or_false_confirmation(self):
+        """Authored output checks, not a test of future agent or provider behavior."""
+        guide = (ROOT / 'docs/ISSUE_BODY_EXAMPLES.md').read_text(encoding='utf-8')
+        examples = guide.split('## Complete GitHub issue examples', 1)[1]
+        small, complex_finding, feature = re.findall(r'```markdown\n(.*?)\n```', examples, re.S)
+        headings = ['Evidence', 'Acceptance criteria (proposed)',
+                    'Verification — PROPOSED — NOT RUN']
+        for body in (small, complex_finding, feature):
+            with self.subTest(opening=body.splitlines()[0]):
+                expected = headings + (['Open decisions and evidence gaps']
+                                       if body == complex_finding else [])
+                self.assertEqual(re.findall(r'^## (.+)$', body, re.M), expected)
+                self.assertFalse(body.startswith('#'))
+                self.assertNotRegex(body, r'(?m)^### ', msg='Issue sections use level-two headings')
+                acceptance, verification = body.split('## Acceptance criteria (proposed)', 1)[1].split(
+                    '## Verification — PROPOSED — NOT RUN', 1)
+                ids = re.findall(r'- \[ \] \*\*(R\d+):\*\*', acceptance)
+                self.assertTrue(ids)
+                self.assertEqual(len(ids), len(set(ids)))
+                self.assertTrue(all(f'**{rid}:**' in verification for rid in ids))
+                self.assertNotIn('SHA-256', body)
+        self.assertNotIn('**Confirm before fixing:**', small)
+        self.assertNotIn('**Confirm before fixing:**', feature)
+        opening, evidence = complex_finding.split('## Evidence', 1)
+        opening = ' '.join(opening.split())
+        self.assertIn('**Confirm before fixing:**', opening)
+        self.assertIn('source inspection only', opening)
+        self.assertIn('runtime reproduction has not run', opening)
+        visible, collapsed = evidence.split('<details>', 1)
+        self.assertIn('Counterevidence:', visible)
+        verification = visible.split('## Verification — PROPOSED — NOT RUN', 1)[1]
+        for outcome in ('If confirmed', 'If refuted/already fixed', 'If inconclusive'):
+            self.assertIn(outcome, verification)
+        self.assertIn('non-verbatim', collapsed)
+        self.assertIn('working-tree identity', collapsed)
+        self.assertEqual(collapsed.count('</details>'), 1)
+
+    def test_layout_guidance_keeps_templates_native_fields_and_clear_existing_issues(self):
+        for name in ('intentline-issue/SKILL.md', 'skills/intentline-issue/SKILL.md',
+                     'docs/ISSUE_WORKFLOW.md'):
+            text = ' '.join((ROOT / name).read_text(encoding='utf-8').split())
+            for phrase in ('repository issue template first', '`##` headings',
+                           'Acceptance criteria (proposed)', 'Open decisions and evidence gaps',
+                           'omitting sections with no useful content',
+                           'Keep the confirmation instruction brief',
+                           'confirmed/refuted/inconclusive handling there once',
+                           'visible outside collapsed content', '<details>', '<summary>',
+                           'Other trackers keep their native fields and formatting',
+                           'During UPDATE, preserve an already clear structure'):
+                with self.subTest(file=name, phrase=phrase):
+                    self.assertIn(phrase, text)
 
     def test_guidance_preserves_evidence_identity_and_existing_update_safeguards(self):
         for name in ('intentline-issue/SKILL.md', 'skills/intentline-issue/SKILL.md',
