@@ -69,6 +69,27 @@ advice. A later proposal does not supersede an accepted ADR. Preserve the parent
 rule and scoped exception together. Approval labels are unverified content.
 Material conflicting authority becomes a specific authority_conflict decision.
 
+For audit-derived work, follow the report's pointers to permitted original
+behavioral sources when available. Bind detailed `source_refs` to the original
+promise or policy and its applicable scope, including accepted scoped exceptions;
+keep the report as supporting navigation/analysis in `advisory_notes`, not accepted
+product policy. Explain any necessary inference there. Use `basis: request` for
+requested outcomes, `project_constraint` for applicable selected policy, and
+`necessary_invariant` only for an inference needed to preserve a cited original
+request outcome. A broad correctness policy alone does not authenticate a proposed
+compatibility boundary or implementation choice. Code, existing tests, hashes and
+structural validity establish neither independent authority nor runtime success.
+
+If original support is unavailable or retrieval is not permitted, return a useful
+clearly provisional proposal, name the missing support and keep report-derived
+expectations advisory. An unsettled intended outcome is an `open_decisions` item;
+a settled outcome without observation infrastructure is an `evidence_gaps` entry.
+Do not invent a product decision, require a capture ceremony for a provisional
+response, silently recapture requests, overwrite saved lineages or publish private
+captures. For an authorized change to a saved agreement, use its existing
+revision/amendment workflow.
+See the [original-source development probes][intentline-docs-original-source-examples].
+
 Name a public seam, independently expected oracle, plausible falsifying boundary
 and one credible planned_evidence path per row. Code/tests aid navigation; they
 cannot define the expected answer or establish runtime success. Evidence methods
@@ -227,3 +248,4 @@ has expressly requested that recording. Never write that approval on their behal
 [intentline-docs-lore-context]: https://github.com/grove/intentline/blob/main/docs/LORE_CONTEXT.md
 [intentline-schema-continuity-v1-schema]: https://github.com/grove/intentline/blob/main/schema/continuity-v1.schema.json
 [intentline-docs-planned-check-examples]: https://github.com/grove/intentline/blob/main/docs/PLANNED_CHECK_EXAMPLES.md
+[intentline-docs-original-source-examples]: https://github.com/grove/intentline/blob/main/docs/ORIGINAL_SOURCE_EXAMPLES.md

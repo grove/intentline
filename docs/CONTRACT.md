@@ -21,6 +21,18 @@ Invariants must point to supporting original-request outcomes. Project
 constraints must cite selected context, whose authority remains unverified.
 Semantic applicability is for the planner/auditor, not a structural check.
 
+For audit-derived acceptance, cite available permitted original behavioral sources
+for the detailed expectation and scope. A report may help locate or interpret
+them; its restatement is not accepted product policy. Explain necessary inference
+in `advisory_notes` and select the basis above according to actual support. A broad
+correctness policy alone does not settle a compatibility boundary or mandate a
+repair algorithm. Retain accepted rules with their scoped exceptions even when a
+later report recommends otherwise. If original support is missing, keep a useful
+provisional proposal, disclose that limit and distinguish unresolved outcomes
+(`open_decisions`) from missing observation infrastructure (`evidence_gaps`).
+See the [authored original-source probes](ORIGINAL_SOURCE_EXAMPLES.md); no new
+fields, automatic retrieval or mandatory capture stage is implied.
+
 Source references contain `source_id`, 1-based inclusive `line_start`/`line_end`,
 and the exact quoted lines (optionally omitting only the final CR/LF terminator).
 Constraints contain statement, basis, source_refs, scope. Exclusions contain

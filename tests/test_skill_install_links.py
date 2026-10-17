@@ -92,6 +92,26 @@ class StandaloneSkillInstall(unittest.TestCase):
                 self.assertIn(phrase, portable)
         self.assertIn('review never runs record-producing commands', guide)
 
+    def test_audit_derived_acceptance_keeps_original_support_and_provisional_work(self):
+        """Instruction delivery only, not a semantic model evaluation."""
+        root = Path(__file__).resolve().parents[1]
+        for name in ('intentline-plan/SKILL.md', 'intentline-issue/SKILL.md',
+                     'skills/intentline-issue/SKILL.md'):
+            text = ' '.join((root / name).read_text(encoding='utf-8').split()).casefold()
+            for phrase in (
+                'audit-derived', 'permitted original', 'applicable scope',
+                'supporting navigation/analysis', 'not accepted product policy',
+                'necessary inference', 'broad correctness policy alone',
+                'scoped exceptions', 'clearly provisional proposal',
+                'missing support', 'unsettled intended outcome',
+                'observation infrastructure', 'capture ceremony',
+                'silently recapture requests', 'overwrite saved lineages',
+                'private', 'structural validity', 'runtime success',
+                'intentline-docs-original-source-examples',
+            ):
+                with self.subTest(skill=name, phrase=phrase):
+                    self.assertIn(phrase.casefold(), text)
+
     def test_issue_skill_is_tracker_agnostic_and_preserves_native_fields(self):
         """Provider choices stay host-driven; no exclusive GitHub dependency."""
         root = Path(__file__).resolve().parents[1]

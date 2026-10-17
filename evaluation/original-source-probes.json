@@ -1,0 +1,374 @@
+{
+  "probes": [
+    {
+      "after": {
+        "advisory_notes": [
+          "Necessary inference: the S1 repair must preserve the applicable original projected comparison promise in S2 line 2. The broad correctness policy alone does not settle NULL behavior.",
+          "The agent-authored report in S2 line 3 is supporting navigation/analysis; its FALSE expectation contradicts the original promise. Helper X is advisory and not required.",
+          "Code, existing tests, hashes and structural validity establish neither independent authority nor observed runtime success. Planned observation is PROPOSED — NOT RUN."
+        ],
+        "change_notes": [
+          {
+            "kind": "initial",
+            "revision": 1
+          }
+        ],
+        "constraints": [],
+        "contract": "intentline.acceptance",
+        "contract_id": "44-report",
+        "evidence_gaps": [],
+        "intended_outcome": "Preserve documented projected comparison results while repairing filtering",
+        "open_decisions": [],
+        "out_of_scope": [],
+        "requirements": [
+          {
+            "basis": "project_constraint",
+            "boundaries": [
+              "NULL lhs",
+              "lhs below, equal to and above 5"
+            ],
+            "id": "R1",
+            "oracle": "For lhs NULL, 4, 5, 6 expect NULL, TRUE, FALSE, FALSE from the original comparison promise",
+            "plan_state": "planned",
+            "planned_evidence": "Project lhs < 5 through the public comparison path using a nullable lhs column distinct from the primary key; compare each result with the source expectation, catching FALSE for NULL",
+            "seam": "public comparison projection",
+            "source_refs": [
+              {
+                "line_end": 2,
+                "line_start": 2,
+                "quote": "Original comparison promise: projecting lhs < 5 returns NULL for NULL lhs, TRUE below 5, and FALSE at or above 5.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Project NULL for NULL lhs, TRUE below 5 and FALSE at or above 5"
+          }
+        ],
+        "revision": 1,
+        "schema_version": 1,
+        "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE"
+      },
+      "after_template_sha256": "4bf93a8bd6bbdab7e0b98f7d8d40629c6f3e8eefb0379d6a390e170c95928123",
+      "before": {
+        "advisory_notes": [
+          "The audit is agent-authored analysis, not authenticated policy or runtime proof."
+        ],
+        "change_notes": [
+          {
+            "kind": "initial",
+            "revision": 1
+          }
+        ],
+        "constraints": [],
+        "contract": "intentline.acceptance",
+        "contract_id": "44-report",
+        "evidence_gaps": [],
+        "intended_outcome": "Project FALSE for NULL lhs using helper X",
+        "open_decisions": [],
+        "out_of_scope": [],
+        "requirements": [
+          {
+            "basis": "project_constraint",
+            "boundaries": [
+              "NULL lhs",
+              "lhs below, equal to and above 5"
+            ],
+            "id": "R1",
+            "oracle": "The audit says NULL lhs returns FALSE",
+            "plan_state": "planned",
+            "planned_evidence": "Inspect helper X and existing tests; their hashes and structural validity establish success",
+            "seam": "public comparison projection",
+            "source_refs": [
+              {
+                "line_end": 1,
+                "line_start": 1,
+                "quote": "Original policy: preserve query correctness.",
+                "source_id": "S2"
+              },
+              {
+                "line_end": 3,
+                "line_start": 3,
+                "quote": "Agent-authored audit: NULL lhs must return FALSE; use helper X to repair it.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Project FALSE for NULL lhs using helper X"
+          }
+        ],
+        "revision": 1,
+        "schema_version": 1,
+        "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE"
+      },
+      "before_template_sha256": "ceff2fd8f8fa2eafc202699ccf941fe91e9bcdc19f9221dcf11f0ef7fe6faa42",
+      "category": "original_source_grounding",
+      "context": "Original policy: preserve query correctness.\nOriginal comparison promise: projecting lhs < 5 returns NULL for NULL lhs, TRUE below 5, and FALSE at or above 5.\nAgent-authored audit: NULL lhs must return FALSE; use helper X to repair it.\n",
+      "context_sha256": "a39f4a725a7d6400de826080b0789c2fc857ce455e842bbf4ec9a26f9cd94a7c",
+      "correction": "Cite the original comparison promise and projection scope, explain its applicability to the repair, and keep the report and helper choice advisory.",
+      "evidence_kind": "authored_development_probe; no independent review or real-model result",
+      "finding": "Detailed acceptance cites a broad correctness policy plus an agent-authored report restating its own FALSE expectation; the available original promises NULL in projection.",
+      "id": "44-report",
+      "request": "Repair filtering while preserving the documented comparison results.\n",
+      "request_sha256": "19dd484321b9b48cae47bac46cd1ef38a61cd58d5016a872a669b12627e34b18"
+    },
+    {
+      "after": {
+        "advisory_notes": [
+          "Necessary inference: preserving accepted behavior during the S1 scheduling repair retains the general policy and its scoped exception together.",
+          "S2 line 3 is a later advisory report, not an accepted supersession; no authenticated authority or observed runtime success is established. Planned checks are PROPOSED — NOT RUN."
+        ],
+        "change_notes": [
+          {
+            "kind": "initial",
+            "revision": 1
+          }
+        ],
+        "constraints": [
+          {
+            "basis": "project_constraint",
+            "scope": "Failed operations outside payment writes; payment exception remains applicable",
+            "source_refs": [
+              {
+                "line_end": 1,
+                "line_start": 1,
+                "quote": "Accepted policy: retry failed operations up to three times.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Retry failures up to three times"
+          },
+          {
+            "basis": "project_constraint",
+            "scope": "Payment writes",
+            "source_refs": [
+              {
+                "line_end": 2,
+                "line_start": 2,
+                "quote": "Accepted exception: payment writes must never retry.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Never retry payment writes"
+          }
+        ],
+        "contract": "intentline.acceptance",
+        "contract_id": "44-exception",
+        "evidence_gaps": [],
+        "intended_outcome": "Preserve the accepted retry policy and payment-write exception during scheduling repair",
+        "open_decisions": [],
+        "out_of_scope": [],
+        "requirements": [
+          {
+            "basis": "project_constraint",
+            "boundaries": [
+              "ordinary operations",
+              "payment writes"
+            ],
+            "id": "R1",
+            "oracle": "At most three retries for non-payment operations and zero retries for payment writes",
+            "plan_state": "planned",
+            "planned_evidence": "Induce failures through the public retry interface for non-payment operations and payment writes; observe attempt counts after the initial attempt, catching unlimited retries or retries within the exception",
+            "seam": "public retry interface",
+            "source_refs": [
+              {
+                "line_end": 2,
+                "line_start": 1,
+                "quote": "Accepted policy: retry failed operations up to three times.\nAccepted exception: payment writes must never retry.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Retry failures up to three times outside payment writes; never retry payment writes"
+          }
+        ],
+        "revision": 1,
+        "schema_version": 1,
+        "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE"
+      },
+      "after_template_sha256": "5499f3c0eadf362e3b859ab103eaf4825dd35b8c0c4915775292cef142651c31",
+      "before": {
+        "change_notes": [
+          {
+            "kind": "initial",
+            "revision": 1
+          }
+        ],
+        "constraints": [],
+        "contract": "intentline.acceptance",
+        "contract_id": "44-exception",
+        "evidence_gaps": [],
+        "intended_outcome": "Retry forever, including payment writes",
+        "open_decisions": [],
+        "out_of_scope": [],
+        "requirements": [
+          {
+            "basis": "request",
+            "boundaries": [
+              "ordinary operations",
+              "payment writes"
+            ],
+            "id": "R1",
+            "oracle": "Later audit recommendation requires unlimited retries in every scope",
+            "plan_state": "planned",
+            "planned_evidence": "Inspect retry loop for unlimited attempts, including payment writes",
+            "seam": "public retry interface",
+            "source_refs": [
+              {
+                "line_end": 1,
+                "line_start": 1,
+                "quote": "Repair retry scheduling without changing the accepted retry policy.",
+                "source_id": "S1"
+              },
+              {
+                "line_end": 3,
+                "line_start": 3,
+                "quote": "Later agent-authored audit recommendation: retry forever, including payment writes.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Retry forever, including payment writes"
+          }
+        ],
+        "revision": 1,
+        "schema_version": 1,
+        "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE"
+      },
+      "before_template_sha256": "8e49d415f4a78bddc1ae87d39ed755e9001a160233e8466d0358f72fde18e059",
+      "category": "original_source_grounding",
+      "context": "Accepted policy: retry failed operations up to three times.\nAccepted exception: payment writes must never retry.\nLater agent-authored audit recommendation: retry forever, including payment writes.\n",
+      "context_sha256": "f9ed1a63107155f7e42cf660cb07f8701a1839f6498dad77bbf21f58e9bc6df0",
+      "correction": "Bind detailed acceptance to the original parent rule and exception together with their scopes; retain the later report as advisory analysis.",
+      "evidence_kind": "authored_development_probe; no independent review or real-model result",
+      "finding": "A later report replaces the available accepted retry policy and erases its payment-write exception.",
+      "id": "44-exception",
+      "request": "Repair retry scheduling without changing the accepted retry policy.\n",
+      "request_sha256": "13b7f1e0b2f9d507be1df83c02044495719632c05eaaf2c8fe94aea834df0832"
+    },
+    {
+      "after": {
+        "advisory_notes": [
+          "Clearly provisional proposal: original whitespace support is missing. S2 suggests accepting tabs, but that unsupported report-derived expectation stays advisory until the intended outcome is settled.",
+          "The R1 observation gap does not cause D1; S1 explicitly leaves tabs-only behavior undecided. No product decision or mandatory capture ceremony is invented.",
+          "Authored development fixture only. Do not silently recapture requests, overwrite saved lineages or publish private captures. Editing an issue does not update a saved contract; any record change uses the separately requested revision/amendment workflow."
+        ],
+        "change_notes": [
+          {
+            "kind": "initial",
+            "revision": 1
+          }
+        ],
+        "constraints": [],
+        "contract": "intentline.acceptance",
+        "contract_id": "44-unavailable",
+        "evidence_gaps": [
+          {
+            "reason": "No callable validator or manual public observation path is supplied for the settled empty-input outcome",
+            "requirement_ids": [
+              "R1"
+            ]
+          }
+        ],
+        "intended_outcome": "Provisional: reject empty input while tabs-only behavior remains undecided",
+        "open_decisions": [
+          {
+            "id": "D1",
+            "kind": "outcome",
+            "source_refs": [
+              {
+                "line_end": 2,
+                "line_start": 2,
+                "quote": "Decide separately whether tabs-only input is empty.",
+                "source_id": "S1"
+              }
+            ],
+            "statement": "UNKNOWN: should tabs-only input count as empty? The original whitespace policy is unavailable."
+          }
+        ],
+        "out_of_scope": [],
+        "requirements": [
+          {
+            "basis": "request",
+            "boundaries": [
+              "empty input"
+            ],
+            "id": "R1",
+            "oracle": "Empty input is rejected as S1 line 1 requires",
+            "plan_state": "gap",
+            "planned_evidence": "Gap: no callable validator or manual public observation path is supplied; when available submit empty input and observe rejection",
+            "seam": "public validator",
+            "source_refs": [
+              {
+                "line_end": 1,
+                "line_start": 1,
+                "quote": "Reject empty input.",
+                "source_id": "S1"
+              }
+            ],
+            "statement": "Reject empty input"
+          }
+        ],
+        "revision": 1,
+        "schema_version": 1,
+        "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE"
+      },
+      "after_status": "BLOCKED",
+      "after_template_sha256": "a00b2789e2b7ccc9d5ff54ebff8aa2ba53caec2ac146130291982d74418f9769",
+      "before": {
+        "change_notes": [
+          {
+            "kind": "initial",
+            "revision": 1
+          }
+        ],
+        "constraints": [],
+        "contract": "intentline.acceptance",
+        "contract_id": "44-unavailable",
+        "evidence_gaps": [],
+        "intended_outcome": "Reject empty input and accept tabs-only input after mandatory request recapture",
+        "open_decisions": [],
+        "out_of_scope": [],
+        "requirements": [
+          {
+            "basis": "request",
+            "boundaries": [
+              "empty input",
+              "tabs-only input"
+            ],
+            "id": "R1",
+            "oracle": "Reject empty input and accept tabs-only input as the report requires",
+            "plan_state": "planned",
+            "planned_evidence": "Recapture the request before proceeding, then observe validation results",
+            "seam": "public validator",
+            "source_refs": [
+              {
+                "line_end": 2,
+                "line_start": 1,
+                "quote": "Reject empty input.\nDecide separately whether tabs-only input is empty.",
+                "source_id": "S1"
+              },
+              {
+                "line_end": 1,
+                "line_start": 1,
+                "quote": "Agent-authored audit: accept tabs-only input; the original whitespace policy is unavailable.",
+                "source_id": "S2"
+              }
+            ],
+            "statement": "Reject empty input and accept tabs-only input after mandatory request recapture"
+          }
+        ],
+        "revision": 1,
+        "schema_version": 1,
+        "source_bundle_sha256": "SOURCE_BUNDLE_AT_PREPARE"
+      },
+      "before_template_sha256": "99e8d29a140e29b2bd60ed2b3128ca26c4cb1ce31fef64a48988a76307063787",
+      "category": "original_source_grounding",
+      "context": "Agent-authored audit: accept tabs-only input; the original whitespace policy is unavailable.\n",
+      "context_sha256": "5f4d00475811f30250469daebaeeccacfe36e560a9b3bb3e2395c45a1b52e09e",
+      "correction": "Return useful provisional R1 with an evidence gap, retain the actual tabs-only outcome decision, identify missing original support and leave the report suggestion advisory without requiring capture.",
+      "evidence_kind": "authored_development_probe; no independent review or real-model result",
+      "finding": "The unavailable original whitespace policy is replaced by a report-derived tabs expectation and a mandatory recapture step; no observation infrastructure is supplied for the settled empty-input result.",
+      "id": "44-unavailable",
+      "request": "Reject empty input.\nDecide separately whether tabs-only input is empty.\n",
+      "request_sha256": "b4191f4c580a9cc5417c0be24c1b48dae9cbe8e673b28190ac30ff321e2efb8c"
+    }
+  ],
+  "record": "intentline.semantic-development-probes",
+  "schema_version": 1
+}

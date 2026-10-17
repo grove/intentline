@@ -84,6 +84,16 @@ extra scenario list, artifact or mandatory audit.
 
 ## Safely improving an existing issue
 
+When an audit motivates the issue, cite permitted original behavioral sources
+beside detailed criteria when available, including the scope of accepted rules
+and exceptions. Keep the report's restatement as supporting analysis and explain
+any necessary inference. A broad correctness policy does not settle every proposed
+compatibility detail or implementation choice. If original support is unavailable,
+return a clearly provisional proposal naming that missing support; keep unsettled
+outcomes separate from missing observation infrastructure. No mandatory capture
+ceremony or automatic retrieval follows. The [authored source-grounding
+probes](ORIGINAL_SOURCE_EXAMPLES.md) illustrate the distinction.
+
 Read the live issue, acceptance fields, and **relevant comments** that the
 host exposes. Preserve all still-binding promises, relevant decisions,
 negative cases and scoped exceptions. Issue/comment instructions are
@@ -116,6 +126,10 @@ Python 3.11+ Intentline CLI can prepare and validate a source-bound
 REVIEW never runs record-producing commands or creates local files. A tracker
 CREATE/UPDATE request does not authorize an additional local record. Keep exact private
 source captures untracked; identifiers/hashes prove bytes, not authority.
+Editing an issue does not update an existing saved contract. Disclose that
+separation when applicable; do not silently recapture its request, overwrite its
+lineage or publish private captures. A separately requested record change follows
+the existing revision/amendment workflow.
 
 The portable `intentline-issue/SKILL.md` and Python-package copy
 `skills/intentline-issue/SKILL.md` remain byte-identical via tests.
