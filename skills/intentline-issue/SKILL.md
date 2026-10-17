@@ -80,6 +80,27 @@ second model, audit, or slice plan.
 
 ## Draft the smallest complete acceptance content
 
+Begin created issue descriptions with a short, plain-language introduction:
+the problem or requested change, the affected user/workflow/system behavior,
+and the practical consequence or benefit supported by the source. Explain
+expected versus observed or suspected behavior when relevant. Qualify
+unconfirmed findings; do not turn a hypothesis into an established failure
+or invent affected users, severity, or impact. Avoid unexplained acronyms
+and internal function names in the opening; explain necessary technical
+terms on first use. Put detailed mechanisms, code links, acceptance IDs,
+hashes, and test instructions afterward. Use a small concrete example when
+it helps, without a template, fixed word count, or extra report section.
+Where applicable, put confirmation-before-repair guidance immediately after
+the introduction: confirm or refute a suspected runtime defect on current
+code before changing production behavior.
+
+Apply this guidance during an authorized description UPDATE when needed,
+preserving material promises, evidence, and unrelated fields. Leave an
+already clear introduction unchanged. Read the opening on its own: can
+someone unfamiliar with the subsystem explain the problem/change, expected
+behavior, affected workflow, and supported consequence without the later
+technical sections? Check that any rewrite preserves meaning and uncertainty.
+
 Keep the original purpose and useful context. Suggest only what is needed:
 
 - **Goal:** the promised outcome, not a speculative implementation design.
