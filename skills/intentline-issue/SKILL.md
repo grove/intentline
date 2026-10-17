@@ -146,7 +146,14 @@ Creating/updating the issue does not execute tests, authorize a repair or closur
 add an approval stage, or create a separate Intentline record. Preserve existing
 acceptance, evidence, and mutation boundaries.
 
-Keep the original purpose and useful context. Suggest only what is needed:
+Keep the original purpose and useful context. After the introduction, prioritize
+source evidence, acceptance, planned verification, and material decisions/gaps.
+Condense repeated audit/process accounts; include provenance/identity once when
+useful. Preserve evidence level, snapshot limits, execution status, relevant
+uncertainty, and non-verbatim/incomplete-source disclosures. Keep **PROPOSED —
+NOT RUN** labels; shortening text must not turn a proposal into proof or approval.
+These are content priorities, not mandatory sections or a word count. See the
+[concise issue examples][intentline-docs-issue-body-examples]. Suggest only what is needed:
 
 - **Goal:** the promised outcome, not a speculative implementation design.
 - **Acceptance criteria (proposed):** one observable obligation per brief
@@ -212,6 +219,13 @@ is **not an atomic** guard; never claim race-free updates. If fields cannot
 be safely preserved or a conflict remains, return a patch, not a write.
 Skip byte-equivalent or semantically identical updates.
 
+If the issue description changes but its saved draft does not, explicitly label
+the retained hashes as **historical**: they identify the original saved draft and
+source bundle, **not the revised issue text**. State that the edit did not create
+or validate a new saved revision. Do not fabricate a revision, validation, hash,
+or source capture; changing the saved agreement remains a separate requested
+workflow.
+
 For CREATE/UPDATE, verify the exact tracker, project, issue identifier and
 result after the host write. A failed or uncertain response is **not**
 confirmation; read before retrying to prevent duplicates or overwrites.
@@ -231,3 +245,4 @@ test result, PR, or provider integration that did not occur.
 [intentline-docs-trust-and-authority]: https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md
 [intentline-docs-planned-check-examples]: https://github.com/grove/intentline/blob/main/docs/PLANNED_CHECK_EXAMPLES.md
 [intentline-docs-original-source-examples]: https://github.com/grove/intentline/blob/main/docs/ORIGINAL_SOURCE_EXAMPLES.md
+[intentline-docs-issue-body-examples]: https://github.com/grove/intentline/blob/main/docs/ISSUE_BODY_EXAMPLES.md
