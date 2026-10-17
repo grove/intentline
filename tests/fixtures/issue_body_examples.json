@@ -1,0 +1,75 @@
+{
+  "audit": {
+    "before": "Downloading a table may lose its visible order or corrupt fields containing commas. Both concerns need runtime confirmation.\n\nG1 \u2014 Order: S1:1 promises visible row order; S2:10 appears to export storage order.\nR1 (proposed): Exported rows retain visible order.\nR1 verification (PROPOSED \u2014 NOT RUN): Sort rows [2,1] to [1,2], download, independently parse and require [1,2].\nCounterevidence: a caller may already sort; the complete caller path was not inspected.\n\nEvidence limits: source inspection only at authored snapshot fixture-v1; working-tree identity unknown; bounded export-path sample, not a whole-repository audit. Tests/builds executed: NONE; runtime effects unconfirmed. Request capture is non-verbatim and incomplete; private captures are not attached. Structural checks alone would not establish semantic approval or runtime proof.\n\nG2 \u2014 Escaping: S1:2 promises parseable comma-containing fields; S2:20 appears to join raw fields.\nR2 (proposed): A field containing a comma round-trips as one field.\nR2 verification (PROPOSED \u2014 NOT RUN): Download one field \"a,b\" and independently parse it as one value.\nEvidence gap: no runnable download harness was available; escaping by a caller remains unconfirmed.\n\nEvidence limits: source inspection only at authored snapshot fixture-v1; working-tree identity unknown; bounded export-path sample, not a whole-repository audit. Tests/builds executed: NONE; runtime effects unconfirmed. Request capture is non-verbatim and incomplete; private captures are not attached. Structural checks alone would not establish semantic approval or runtime proof.\n\nOpen decision: header naming is UNKNOWN; do not infer it from the audit.",
+    "after": "Downloading a table may lose its visible order or corrupt fields containing commas. Both concerns need runtime confirmation.\n\nG1 \u2014 Order: S1:1 promises visible row order; S2:10 appears to export storage order.\nR1 (proposed): Exported rows retain visible order.\nR1 verification (PROPOSED \u2014 NOT RUN): Sort rows [2,1] to [1,2], download, independently parse and require [1,2].\nCounterevidence: a caller may already sort; the complete caller path was not inspected.\n\nG2 \u2014 Escaping: S1:2 promises parseable comma-containing fields; S2:20 appears to join raw fields.\nR2 (proposed): A field containing a comma round-trips as one field.\nR2 verification (PROPOSED \u2014 NOT RUN): Download one field \"a,b\" and independently parse it as one value.\nEvidence gap: no runnable download harness was available; escaping by a caller remains unconfirmed.\n\nOpen decision: header naming is UNKNOWN; do not infer it from the audit.\n\nEvidence limits: source inspection only at authored snapshot fixture-v1; working-tree identity unknown; bounded export-path sample, not a whole-repository audit. Tests/builds executed: NONE; runtime effects unconfirmed. Request capture is non-verbatim and incomplete; private captures are not attached. Structural checks alone would not establish semantic approval or runtime proof."
+  },
+  "refinement": {
+    "before": {
+      "title": "Download visible rows",
+      "comments": [
+        {
+          "id": "C1",
+          "body": "Keep hidden rows excluded."
+        }
+      ],
+      "labels": [
+        "export"
+      ],
+      "assignees": [
+        "fixture-owner"
+      ],
+      "state": "open",
+      "custom_fields": {
+        "sprint": "existing-sprint"
+      },
+      "attachments": [
+        "existing-design"
+      ],
+      "links": [
+        "existing-parent"
+      ],
+      "milestone": "existing-milestone",
+      "body": "Download the visible table rows in their displayed order.\n\nR1 (proposed): Downloaded rows retain visible order; hidden rows are excluded.\n\nR1 verification (PROPOSED \u2014 NOT RUN): Compare the downloaded row order with the visible table.\n\nRollout note: coordinate the existing documentation translation; no release-date change.\n\nContract SHA-256: e0ca56c0280dc093169d7bf05c344f66ae98516fabb755bd371f19c50f2faccc\nSource bundle SHA-256: 04d0a9ede892ce71a770f4575fb317e302d7660e00e2ea6b8d1ada3e811d8ef1\n\nThe saved request capture is non-verbatim and incomplete. No runtime tests ran."
+    },
+    "after": {
+      "title": "Download visible rows",
+      "comments": [
+        {
+          "id": "C1",
+          "body": "Keep hidden rows excluded."
+        }
+      ],
+      "labels": [
+        "export"
+      ],
+      "assignees": [
+        "fixture-owner"
+      ],
+      "state": "open",
+      "custom_fields": {
+        "sprint": "existing-sprint"
+      },
+      "attachments": [
+        "existing-design"
+      ],
+      "links": [
+        "existing-parent"
+      ],
+      "milestone": "existing-milestone",
+      "body": "Download the visible table rows in their displayed order.\n\nR1 (proposed): Downloaded rows retain visible order; hidden rows are excluded.\n\nR1 verification (PROPOSED \u2014 NOT RUN): Display [1,2] with row 3 hidden; independently parse the download and require exactly [1,2], excluding row 3.\n\nRollout note: coordinate the existing documentation translation; no release-date change.\n\nHistorical draft identity \u2014 the hashes identify the original saved draft and source bundle, not the revised issue text. This edit did not create or validate a new saved revision.\n\nContract SHA-256: e0ca56c0280dc093169d7bf05c344f66ae98516fabb755bd371f19c50f2faccc\nSource bundle SHA-256: 04d0a9ede892ce71a770f4575fb317e302d7660e00e2ea6b8d1ada3e811d8ef1\n\nThe saved request capture is non-verbatim and incomplete. No runtime tests ran."
+    },
+    "saved_before": {
+      "draft": "Authored fixture draft revision 1: export visible rows in order. Not an Intentline record.",
+      "source_capture": "Non-verbatim authored request: download the visible rows."
+    },
+    "saved_after": {
+      "draft": "Authored fixture draft revision 1: export visible rows in order. Not an Intentline record.",
+      "source_capture": "Non-verbatim authored request: download the visible rows."
+    }
+  },
+  "concise": {
+    "before": "Download visible rows in displayed order. Source: authored request S1:1.\nR1 (proposed): Keep visible order and exclude hidden rows.\nVerification (PROPOSED \u2014 NOT RUN): Parse a download and compare with visible rows.\nEvidence gap: the download harness is unavailable.",
+    "after": "Download visible rows in displayed order. Source: authored request S1:1.\nR1 (proposed): Keep visible order and exclude hidden rows.\nVerification (PROPOSED \u2014 NOT RUN): Parse a download and compare with visible rows.\nEvidence gap: the download harness is unavailable.",
+    "result": "UNCHANGED"
+  }
+}

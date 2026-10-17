@@ -131,6 +131,17 @@ improved agent behavior. This review needs no additional model or reviewer stage
 
 ## Example acceptance content
 
+After the introduction, prioritize source evidence, acceptance, planned
+verification, and material decisions/gaps. Condense repeated audit/process details
+and include provenance/identity once when useful, while preserving evidence level,
+snapshot limits, execution status, relevant uncertainty, and non-verbatim/incomplete-source
+disclosures. Retain **PROPOSED — NOT RUN** labels; concision cannot turn proposals
+into proof or approval. These priorities impose no mandatory section, word count,
+report artifact, CLI invocation, or extra approval stage. The [before/after
+examples](ISSUE_BODY_EXAMPLES.md) include an already concise issue left unchanged
+and offline preservation checks; they do not establish provider writes or agent
+efficacy.
+
 After the feature-request introduction above, the acceptance content could follow
 as below. These outcomes are illustrative only; the actual source must justify them.
 
@@ -214,6 +225,12 @@ Editing an issue does not update an existing saved contract. Disclose that
 separation when applicable; do not silently recapture its request, overwrite its
 lineage or publish private captures. A separately requested record change follows
 the existing revision/amendment workflow.
+
+When the description changes but the saved draft does not, label retained hashes
+as **historical** and explicitly state that they identify the original saved draft
+and source bundle, **not the revised issue text**. State that the edit did not
+create or validate a new saved revision. Do not fabricate a revision, validation,
+hash, or source capture to make the footer look current.
 
 The portable `intentline-issue/SKILL.md` and Python-package copy
 `skills/intentline-issue/SKILL.md` remain byte-identical via tests.
