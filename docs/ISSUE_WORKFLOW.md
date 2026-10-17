@@ -46,9 +46,93 @@ preserve existing formatting, attachments, custom fields, or unrelated
 description, return a proposed field-level patch instead of overwriting
 the issue. Do not silently claim that a particular provider is supported.
 
+## Start with an introduction people can understand
+
+Begin created issue descriptions with a short, plain-language explanation of
+the problem or requested change, the affected user/workflow/system behavior,
+and the practical consequence or benefit supported by the source. Explain
+expected versus observed or suspected behavior when relevant. Qualify unconfirmed
+findings; do not invent affected users, severity, or impact to make an opening
+sound compelling. Avoid unexplained acronyms and internal function names;
+explain necessary technical terms on first use. Put detailed mechanisms, code
+links, acceptance IDs, hashes, and test instructions afterward. A small concrete
+example can help; no template, fixed word count, or extra report section is needed.
+
+Where applicable, place confirmation-before-repair guidance immediately after
+the introduction: confirm or refute a suspected runtime defect on current code
+before changing production behavior. Ordinary feature requests need no such gate.
+During an authorized description update, apply the same introduction guidance
+only where needed, preserving material promises, evidence, and unrelated fields.
+Leave an already clear introduction unchanged.
+
+### Contrasting opening examples
+
+These are authored illustrations, not reproduced bugs or measured agent results.
+Each source premise supplies the evidence and impact the opening may claim.
+
+**Jargon-heavy bug report rewritten clearly.** Suppose a report includes an
+observed download of a sorted table whose rows revert to their original order.
+The expected download keeps the visible order.
+
+Before: "`serialize_rows()` ignores the view permutation and emits backing-store
+order through the export path."
+
+After:
+
+> Downloading a sorted table puts its rows back in their original order instead
+> of keeping the order shown on screen. Someone using the downloaded file must
+> sort it again to match the table.
+
+The mechanism and code links follow later; the opening keeps the observed
+mismatch and its practical consequence.
+
+**Unconfirmed finding that retains uncertainty.** Suppose code inspection
+suggests that rebuilding a running row count may apply the same source change
+twice, but no runtime check has run. The intended count matches the source rows.
+
+> A table that keeps a running row count may count the same source change twice
+> after rebuilding its data. The count should match the source rows, but it could
+> stay too high even after the source stops changing. This is suspected from code
+> inspection and still needs reproduction.
+
+Immediately afterward: "Confirm or refute this concern on current code before
+changing production behavior." The proposed reproducer and independent expected
+count belong in the later verification content. This example establishes no
+confirmed failure, affected customer, or severity.
+
+**Ordinary feature request.** Suppose the request says people currently copy
+visible table rows by hand and want a comma-separated values (CSV) download
+that keeps the visible order.
+
+> People currently copy table rows by hand to use them in a spreadsheet. Add a
+> download as a comma-separated values (CSV) file that keeps the order shown
+> on screen, so they can transfer the visible rows without manual copying.
+
+The acceptance example below can follow this opening. No bug-confirmation
+instruction is needed.
+
+**Already clear introduction stays unchanged.** Suppose an authorized update
+adds acceptance detail to an issue that already begins:
+
+> When a connection drops during a file upload, the upload starts over from
+> the beginning. Let it resume where it stopped so people on unreliable
+> connections do not have to send the whole file again.
+
+Keep that opening verbatim while updating only the authorized acceptance content.
+Preserve the existing evidence, promises, unrelated description, title, comments,
+and metadata. If there is no other material change, report **UNCHANGED**.
+
+Review each opening without its later technical sections: can someone unfamiliar
+with the subsystem explain the problem/change, expected behavior, affected
+workflow, and supported consequence? Compare with its source premise to check
+meaning and uncertainty. Text and packaging checks protect instruction presence
+and distribution consistency; they do not demonstrate human comprehension or
+improved agent behavior. This review needs no additional model or reviewer stage.
+
 ## Example acceptance content
 
-These outcomes are illustrative only; the actual source must justify them.
+After the feature-request introduction above, the acceptance content could follow
+as below. These outcomes are illustrative only; the actual source must justify them.
 
 ```text
 Goal
