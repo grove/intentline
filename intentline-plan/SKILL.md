@@ -73,6 +73,24 @@ are suggestions unless source-mandated. Missing harness is an evidence_gaps entr
 and gap plan_state if no credible path exists, not an invented product blocker.
 Unsettled outcomes become specific outcome open_decisions; keep unaffected work.
 
+### Optional test-design handoff, same planning pass
+
+For **risk-relevant** negative, boundary, security or compatibility behavior, reuse
+each selected R row's `source_refs`, `boundaries`, `seam`, `oracle`, and
+`planned_evidence` to suggest only the most discriminating test scenarios.
+For each, name an observable input/situation, the expected behavior derived
+**independently from exact captured source**, a plausible incorrect behavior it
+would catch, and the observation seam/evidence method when known. Cite the R ID
+and exact source line/quote. If a useful case is already explicit in the row,
+refer to it rather than duplicating the requirement or generating a new artifact.
+
+If the source does not settle the expected behavior, label it **UNKNOWN** and
+retain a genuine outcome `open_decisions` item, **not** a fabricated assertion.
+If the expectation is settled but the harness is missing, retain `evidence_gaps`
+instead. Do not derive expected values by running or trusting the implementation.
+For routine low-risk work, **skip extra scenarios**. No test quota, mandatory
+table, new model, test execution, automatic test writing or approval stage.
+
 Write draft.json yourself, using [schema 1][intentline-schema-acceptance-v1-schema]:
 contract, schema_version, contract_id, revision, source_bundle_sha256,
 intended_outcome, requirements, constraints, out_of_scope, open_decisions,
@@ -105,6 +123,21 @@ Saved draft: <exact path, revision, contract/source SHA-256>
 Next action: <one useful supported action>
 Status: DRAFT <structural/blocked qualification>; not approved, executed or proven
 ```
+
+Only if a consequential case adds value, append brief **Suggested tests
+(advisory; NOT RUN)** lines: `R ID + exact source ref/quote → situation →
+independent expected result → incorrect behavior caught → observation seam`.
+Keep the normal concise response unchanged for low-risk work. These suggestions
+are plans, **not** assertions that a test exists or passed.
+
+**Authored illustration, not evidence:** Suppose S1 line 1 states: "Lock the
+account on the fifth consecutive failed login, never before."
+- R1 [S1 line 1, exact quote above]: **four** consecutive failures → not
+  locked by this rule; catches premature lock. Observe account lock status.
+- R1 [same source]: **five** consecutive failures → locked; catches the
+  `> 5` off-by-one defect. Observe account lock status.
+- Behavior of a **subsequent login after lock: UNKNOWN**; the quoted source
+  does not define it, so do not create a pass/fail test for that behavior.
 
 Complete routine planning autonomously. Ask only for an essential unresolved
 outcome/authority choice; never manufacture questions merely to fill a checklist.
