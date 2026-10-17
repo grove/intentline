@@ -58,9 +58,10 @@ explain necessary technical terms on first use. Put detailed mechanisms, code
 links, acceptance IDs, hashes, and test instructions afterward. A small concrete
 example can help; no template, fixed word count, or extra report section is needed.
 
-Where applicable, place confirmation-before-repair guidance immediately after
-the introduction: confirm or refute a suspected runtime defect on current code
-before changing production behavior. Ordinary feature requests need no such gate.
+For a suspected runtime defect without applicable runtime evidence, place a
+prominent **Confirm before fixing** instruction immediately after the introduction:
+confirm or refute it on current code before changing production behavior. Make
+the issue's next action follow that order. Ordinary feature requests need no such gate.
 During an authorized description update, apply the same introduction guidance
 only where needed, preserving material promises, evidence, and unrelated fields.
 Leave an already clear introduction unchanged.
@@ -128,6 +129,88 @@ workflow, and supported consequence? Compare with its source premise to check
 meaning and uncertainty. Text and packaging checks protect instruction presence
 and distribution consistency; they do not demonstrate human comprehension or
 improved agent behavior. This review needs no additional model or reviewer stage.
+
+## Confirm before fixing, when runtime evidence is missing
+
+Preserve the report's evidence level, counterevidence, and smallest proposed
+discriminating check with its independent oracle (expected result). Request
+the tested revision and relevant local changes, material environment/settings,
+reproduction steps, expected versus actual result, and actual execution path.
+Permit necessary test-only observation instrumentation, but do not build the
+proposed repair into the reproducer. A proposed check remains **PROPOSED — NOT RUN**.
+
+Keep all three outcomes actionable in the same issue:
+
+- **Confirmed:** record the runtime evidence, then repair and retain the regression.
+- **Refuted/already fixed:** record counterevidence and recommend correcting or
+  closing the issue.
+- **Inconclusive:** identify the evidence gap and retain unconfirmed status.
+  A skipped check or masking fallback is inconclusive, not confirmation or refutation.
+
+An applicable existing runtime receipt keeps its candidate/scope limits; do not
+demand a redundant reproduction or generalize it to untested code or paths.
+A directly demonstrated documentation contradiction needs no runtime-reproduction
+gate. Ordinary feature requests need no bug-confirmation ceremony.
+Creating/updating the issue does not execute tests, authorize a repair or closure,
+add an approval stage, or create a separate Intentline record. Preserve existing
+acceptance, evidence, and mutation boundaries.
+
+### Contrasting handoff examples
+
+These are authored output illustrations, not observed agent outputs or executed
+checks. Even the receipt in the second premise is fictional. Text/packaging checks
+protect instruction delivery; they do not establish improved agent behavior.
+
+**Unexecuted audit finding.** Continue the suspected running-count example above.
+The report proposes a two-row check; a suspected duplicate application is its
+mechanism, while a later full refresh might mask the error.
+
+> **Confirm before fixing:** Confirm or refute the suspected duplicate count on
+> current code before changing production behavior. Next action: run the smallest
+> proposed check (**PROPOSED — NOT RUN**): start with one source row and count 1,
+> pause incremental refresh, insert and commit a second row, rebuild the count,
+> then resume incremental refresh and observe the count before any full refresh.
+> Independently expect 2 from the committed source rows. Record the tested revision
+> and relevant local changes, material environment/settings, reproduction steps,
+> expected versus actual result, and actual execution path. Use test-only
+> observation instrumentation if needed to verify the path; do not incorporate
+> the proposed repair. Preserve the possible masking full-refresh counterevidence.
+>
+> If **confirmed**, record the evidence, then repair and retain the regression.
+> If **refuted/already fixed**, record counterevidence and recommend correcting or
+> closing the issue. If **inconclusive**, identify the gap and keep it unconfirmed;
+> a skipped check or masking fallback is inconclusive.
+
+If that ordering cannot reach the suspected path, identify the missing harness
+instead of asserting that the scenario can confirm or refute the concern.
+
+**Applicable runtime receipt.** Suppose an existing receipt records revision A,
+no local changes, environment/settings, steps, expected count 2 versus actual 3,
+and observation of the incremental path without a full-refresh fallback.
+
+> The receipt confirms a count of 3 instead of 2 on revision A under its recorded
+> settings and path. Next action: use that evidence to repair and retain the
+> regression within the authorized implementation scope. No redundant reproduction
+> is required for that candidate/scope; the receipt does not confirm the concern
+> on a different revision or an untested path.
+
+**Source-demonstrated documentation contradiction.** Suppose two current setup
+instructions for the same supported release and configuration prescribe different
+values for the same setting, with both passages cited beside the criterion.
+
+> The cited setup passages contradict each other for the same release and
+> configuration. Next action: reconcile them against the accepted setting and
+> verify the revised passages agree. The contradiction is directly demonstrated
+> in source; no runtime-reproduction gate is needed. No runtime failure is claimed.
+
+**Ordinary feature request.** Continue the requested CSV download above.
+
+> Next action: implement the requested CSV download, preserving the visible row
+> order, within the authorized implementation scope. Verify it against the
+> proposed acceptance content below; no bug-confirmation ceremony is needed.
+
+These next actions describe the handoff. Publishing any example as an issue
+does not itself execute the check or authorize implementation or closure.
 
 ## Example acceptance content
 
