@@ -224,6 +224,19 @@ Engineering tests and packaging checks are documented separately from claims abo
 - **Extend the workflow:** [Issue trackers](docs/ISSUE_WORKFLOW.md) · [Slicing](docs/SLICING.md) · [Integrations](docs/INTEGRATIONS.md) · [Packaged planning skill](skills/intentline-plan/SKILL.md)
 - **Develop or evaluate:** [Development and tests](docs/DEVELOPMENT.md) · [Evaluation](evaluation/README.md) · [Implementation history](docs/IMPLEMENTATION_0.6.md)
 
+## Neighboring projects
+
+Intentline works independently. No sibling is required or automatically invoked.
+
+| Project | Question it owns |
+| --- | --- |
+| **Intentline** | What was requested, and what acceptance draft follows? |
+| [Proofline](https://github.com/grove/proofline) | What did selected checks establish about an identified candidate? |
+| [Faultline](https://github.com/grove/faultline) | Would selected tests detect particular plausible wrong behaviors? |
+| [Gapline](https://github.com/grove/gapline) | Which consequential weaknesses can this investigation substantiate? |
+
+An optional exchange must retain source identity, scope, and uncertainty. A generated plan remains advisory; a passing check establishes only its limited claim; a surviving mutation does not establish a defect in the original candidate. No shared schema or runtime is required.
+
 ## Contributing
 
 Questions, bug reports, documentation improvements, and carefully scoped pull requests are welcome. If you're new here, a useful first contribution is a clearer example, an edge case reproduced with an exact input, or a correction to a confusing first-use step.
