@@ -66,6 +66,25 @@ the earlier promise. Preserve every material positive/negative outcome
 without inventing features or exclusions. Do not publish secrets or
 private source captures.
 
+For audit-derived criteria, follow report pointers to permitted original
+behavioral sources when available. Cite the original promise/policy and its
+applicable scope beside the detailed criterion; keep audit text as supporting
+navigation/analysis, not accepted product policy. Explain necessary inference and
+distinguish requested outcomes, project constraints and necessary preservation
+invariants. A broad correctness policy alone does not authenticate every proposed
+compatibility boundary or implementation choice. Preserve accepted rules and
+scoped exceptions when a later report recommends otherwise. Code, existing tests,
+hashes and structural validity establish neither independent authority nor runtime
+success. See the [original-source development probes][intentline-docs-original-source-examples].
+
+If original support is unavailable or retrieval is not permitted, return a useful
+clearly provisional proposal and name the missing support. Keep unsupported
+expectations advisory and distinguish an unsettled intended outcome from missing
+observation infrastructure. Do not invent a product decision or mandatory capture
+ceremony. Never silently recapture requests or overwrite saved lineages. Editing
+an issue does not update its saved contract; disclose that separation when one
+exists and use the separate saved-agreement workflow only when requested.
+
 The `intentline-plan` workflow (`prepare → propose → check → render`)
 creates local records; it is **not** a side effect of REVIEW, CREATE or
 UPDATE. Only when the user **separately requests** a saved source-bound
@@ -164,3 +183,4 @@ test result, PR, or provider integration that did not occur.
 [intentline-docs-contract]: https://github.com/grove/intentline/blob/main/docs/CONTRACT.md
 [intentline-docs-trust-and-authority]: https://github.com/grove/intentline/blob/main/docs/TRUST_AND_AUTHORITY.md
 [intentline-docs-planned-check-examples]: https://github.com/grove/intentline/blob/main/docs/PLANNED_CHECK_EXAMPLES.md
+[intentline-docs-original-source-examples]: https://github.com/grove/intentline/blob/main/docs/ORIGINAL_SOURCE_EXAMPLES.md

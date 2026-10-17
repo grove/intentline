@@ -13,6 +13,18 @@ Immutable history is retained locally, not cryptographically protected against
 an owner who can rewrite the entire directory. No proof runner, controller,
 daemon, network client, or peer runtime is part of Intentline.
 
+An agent-authored audit's proposed expectation is analysis, even when its
+provenance is disclosed. For acceptance, follow available permitted original
+behavioral sources and check their scope; citing a broad correctness policy next
+to a report does not independently support every detail the report proposes.
+Explain inference, retain accepted scoped exceptions, and keep unsupported
+recommendations provisional. Code and existing tests can aid investigation but
+cannot supply independent product authority or observed runtime success.
+Unavailable originals do not require a capture ceremony for a useful provisional
+response. Never silently replace original requests, overwrite saved lineages or
+publish private captures. A tracker edit does not update a saved acceptance
+contract or its lineage; that remains a separately requested record operation.
+
 A successor is a new source generation and distinct contract, never a transferred
 approval. Amendments are caller-asserted intent, not adoption references. Archived
 sources retain exact history with frozen_historical provenance; only current

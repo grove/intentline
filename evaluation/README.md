@@ -212,3 +212,14 @@ not observed agent outputs or runtime findings. Instruction/link/packaging check
 do not measure improved agent behavior. No efficacy comparison was run for #43;
 any such comparison needs its own actual evidence and all-in cost accounting.
 The #41 **NOT_RUN** status and historical study records remain unchanged.
+
+## Issue #44 — original-source grounding development probes
+
+The [authored probes](../docs/ORIGINAL_SOURCE_EXAMPLES.md) in
+`original-source-probes.json` extend the existing semantic probes with a
+self-supporting audit expectation, an accepted policy and scoped exception
+contradicted by a later report, and unavailable
+original support. Corrections distinguish original scope, planner inference,
+advisory recommendations, outcome decisions and observation gaps. The offline
+tests exercise record/citation mechanics and instruction consistency only;
+no model evaluation, runtime efficacy or authenticated authority is claimed.
