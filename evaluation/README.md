@@ -156,3 +156,48 @@ reproducible dated empty receipt are separate from private source/AI-ledger work
 Actual planning comparison/calibration remain not_run; see
 [scorecard](../docs/SCORECARD_0.6.md). Complete private inputs cannot be mounted to
 shared agents and called isolated. No human-independent evidence was produced.
+
+## Issue #41 — optional test-design handoff feasibility (NOT_RUN)
+
+**Status as of 17 October 2026: NOT_RUN.** Zero independently qualified
+tasks, zero randomized/matched assignments, zero agent executions, zero
+independent scores, and no measured impact on implementation quality, elapsed
+time or token cost. The example in the portable planning skill is **authored
+instructional material**, not an observed model result. This proposal does not
+reopen the historical 0.6 study or authorize spending, source access or tests.
+
+Before any experiment, independently select and freeze a **small pilot** of
+fresh real requests (suggest four to six) with negative/compatibility boundaries,
+a low-risk control and an unresolved expected-behavior control. Retain exact
+source, project version, source permission, private withheld behavioral oracles,
+model/agent version, host/tools, total time/token budgets, and stop thresholds.
+Qualify genuinely independent task/answer reviewers and keep grader/control
+information out of agent context. This planning note is **not a registration**
+for a qualified external study.
+
+Predeclare matched comparisons with no extra budget for the treatment:
+
+- **A:** ordinary agent planning.
+- **B:** the current baseline portable Intentline planning skill, pinned to its
+  pre-change revision.
+- **C:** the changed portable planning skill with selective test-design hints.
+- Separately consider the inexpensive direct prompt *"identify the most important
+  missing negative/boundary tests"* before claiming C adds value over simpler
+  prompting; register it as a comparator if resources permit, not as an
+  uncounted advantage for C.
+
+For all assigned attempts, retain initial/final outputs, completed and
+blocked/refused/interrupted/NOT_RUN outcomes, timing and token use including
+setup, and any unknown costs. Have blinded, independent reviewers assess
+**source support**, **independent expected results**, **ability to distinguish
+plausible defects**, **feasibility of the suggested check**, **appropriate
+UNKNOWN rather than invented outcomes**, and **unnecessary low-risk noise**.
+Count full-request implementation correctness only if separate authorized,
+qualified implementation runs with withheld oracles actually occur.
+
+**Predeclare a useful-gain and acceptable-overhead threshold before any run.**
+If C adds no independently confirmed value over B and cheap review, or costs
+too much, **SIMPLIFY / STOP**. Choose **KEEP MINIMAL CHANGE** only if its extra
+benefit and cost justify doing so; treat underpowered, unqualified or ceiling
+results as **INCONCLUSIVE**. Even a positive pilot does not establish general
+efficacy or justify a new schema, CLI, runner, or mandatory testing phase.
