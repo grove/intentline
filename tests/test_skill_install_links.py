@@ -30,6 +30,28 @@ class StandaloneSkillInstall(unittest.TestCase):
                     self.assertTrue(all(re.fullmatch(r'[A-Za-z0-9_.-]+', p) for p in parts), url)
                     self.assertTrue(root.joinpath(*parts).is_file(), url)
 
+    def test_portable_plan_test_design_handoff_is_optional_and_source_bound(self):
+        """Guard the instruction change, not the quality of a future model response."""
+        root = Path(__file__).resolve().parents[1]
+        portable = (root / 'intentline-plan/SKILL.md').read_text(encoding='utf-8')
+        historical = (root / 'skills/intentline-plan/SKILL.md').read_text(encoding='utf-8')
+        self.assertIn('Optional test-design handoff, same planning pass', portable)
+        self.assertNotIn('Optional test-design handoff, same planning pass', historical)
+        for phrase in (
+            'source_refs', 'boundaries', 'seam', 'oracle', 'planned_evidence',
+            'exact captured source', 'plausible incorrect behavior',
+            'independent expected result', 'UNKNOWN', 'open_decisions',
+            'evidence_gaps', 'skip extra scenarios', 'NOT RUN',
+            'No test quota', 'no new model', 'test execution',
+            'not assertions that a test exists or passed',
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase.casefold(), portable.casefold())
+        # Authored positive/negative/unknown example; not a model-quality test.
+        for phrase in ('four', 'five', '> 5', 'subsequent login after lock: UNKNOWN'):
+            with self.subTest(example=phrase):
+                self.assertIn(phrase.casefold(), portable.casefold())
+
     def test_issue_skill_modes_and_write_boundaries_are_documented(self):
         root = Path(__file__).resolve().parents[1]
         text = (root / 'intentline-issue/SKILL.md').read_text(encoding='utf-8').lower()

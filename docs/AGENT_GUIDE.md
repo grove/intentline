@@ -38,6 +38,24 @@ qualified CLI execution, complete planning workflow, or automatic invocation. Fo
 [the tutorial](TUTORIAL.md) and the same [schema](CONTRACT.md)/CLI. No agent SDK,
 model-provider configuration, peer project or extra model process is required.
 
+### Experimental test-design handoff (portable planning skill)
+
+The **root-level** `intentline-plan/SKILL.md` now asks the same agent, during its
+existing planning pass, to highlight a *few* source-linked, discriminating
+test scenarios **only for consequential boundary, negative or compatibility
+behavior**. It reuses each existing R row's source references, boundaries,
+seam, independent oracle and planned evidence. An unspecified expected result
+stays **UNKNOWN**; ordinary low-risk requests need no extra scenarios.
+These are advisory test-design suggestions, **not test execution or proof**.
+
+This guidance is deliberately in the portable root-level skill used by the
+Skills CLI. The original Python-packaged `skills/intentline-plan/SKILL.md`
+remains a frozen historical baseline; its direct-file entry **does not yet
+include** this experiment. Use the portable skill to try the refinement.
+No schema, CLI command, extra model or mandatory review is introduced.
+See the separate **NOT_RUN** evaluation plan in `evaluation/README.md`;
+neither additional test quality nor speed improvements have been demonstrated.
+
 Prefer an exact original-source file. When chat bytes are unavailable, disclose
 non-verbatim capture; an unsaved provisional plan must not claim exact original
 preservation. Choose private/ignored output and confirm exclusion before saving;
