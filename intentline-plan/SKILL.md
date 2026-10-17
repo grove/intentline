@@ -89,7 +89,7 @@ retain a genuine outcome `open_decisions` item, **not** a fabricated assertion.
 If the expectation is settled but the harness is missing, retain `evidence_gaps`
 instead. Do not derive expected values by running or trusting the implementation.
 For routine low-risk work, **skip extra scenarios**. No test quota, mandatory
-table, new model, test execution, automatic test writing or approval stage.
+table, no new model, test execution, automatic test writing or approval stage.
 
 Write draft.json yourself, using [schema 1][intentline-schema-acceptance-v1-schema]:
 contract, schema_version, contract_id, revision, source_bundle_sha256,
@@ -128,7 +128,7 @@ Only if a consequential case adds value, append brief **Suggested tests
 (advisory; NOT RUN)** lines: `R ID + exact source ref/quote → situation →
 independent expected result → incorrect behavior caught → observation seam`.
 Keep the normal concise response unchanged for low-risk work. These suggestions
-are plans, **not** assertions that a test exists or passed.
+are plans, not assertions that a test exists or passed.
 
 **Authored illustration, not evidence:** Suppose S1 line 1 states: "Lock the
 account on the fifth consecutive failed login, never before."
