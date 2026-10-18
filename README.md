@@ -8,7 +8,42 @@ Bring your own coding assistant—or write the JSON yourself. Intentline's offli
 
 **At a glance:** Python 3.11+ · no runtime dependencies · local/offline CLI · POSIX storage support · [Apache-2.0](LICENSE)
 
-[Quick start](#quick-start) · [Try it without an agent](#try-it-without-an-agent) · [CLI reference](docs/CLI.md) · [Trust and authority](docs/TRUST_AND_AUTHORITY.md)
+[Choose a task](#start-here-choose-a-task) · [Copy/paste prompt guide](docs/AGENT_PROMPTS.md) · [Quick start](#quick-start) · [Try it without an agent](#try-it-without-an-agent) · [CLI reference](docs/CLI.md) · [Trust and authority](docs/TRUST_AND_AUTHORITY.md)
+
+## Start here: choose a task
+
+You can use Intentline through an **existing coding agent**. You do not need to learn the JSON schema or CLI commands before asking for help. Choose the outcome you want:
+
+| What you want | Skill to ask for | What happens |
+| --- | --- | --- |
+| Turn a feature request into clear acceptance criteria | `intentline-plan` | Produces a source-grounded **DRAFT**; a saved draft requires the separate Python CLI |
+| Check a saved acceptance draft against the original request | `intentline-audit` | Reviews omissions and unsupported promises; may record an advisory audit locally, but does not approve the draft |
+| Decide if a feature needs smaller delivery pieces | `intentline-slice` | Recommends **NO SPLIT** or a proposed allocation; does **not** create child issues |
+| Review a GitHub/Jira/Linear issue without changes | `intentline-issue` (**REVIEW**) | Returns suggested acceptance improvements; **no writes** |
+| Create or improve one tracker issue | `intentline-issue` (**CREATE / UPDATE**) | Publishes only the specifically requested issue change, when the host has permission |
+
+**For example, to plan a feature:**
+
+```text
+Use intentline-plan for the original request at /absolute/project/request.md.
+Draft observable acceptance criteria, boundaries and planned evidence.
+If the Intentline Python CLI is available, save to an approved private
+work directory and return the DRAFT and exact identity. Otherwise
+return a clearly provisional unsaved plan. Do not implement or approve.
+```
+
+**Or, to improve a GitHub issue without changing it:**
+
+```text
+Use intentline-issue in REVIEW mode on
+https://github.com/ORG/REPO/issues/123.
+Suggest clearer source-grounded acceptance criteria and verification.
+Do not change the issue or create any local records.
+```
+
+See the **[copy-and-paste agent prompt cookbook](docs/AGENT_PROMPTS.md)** for nine concrete scenarios, including planning without saving, reviewing a draft, splitting work, handling changed requests, creating/updating issues, and converting an audit finding into a proposed issue.
+
+**What you need:** install the appropriate skill (below). Saved plans and recorded audits/slice previews need the separately installed Python runtime and a suitable private work location. Tracker operations instead need the coding agent's existing tracker access; the Python CLI is not required just to review/create/update an issue. Skills do not install tools or credentials, and **planning is not implementation, test execution, or approval**.
 
 ## Why use Intentline?
 
@@ -219,7 +254,7 @@ Engineering tests and packaging checks are documented separately from claims abo
 
 ## Documentation map
 
-- **Start using it:** [Agent guide](docs/AGENT_GUIDE.md) · [Manual tutorial](docs/TUTORIAL.md)
+- **Start using it:** [Copy/paste prompt guide](docs/AGENT_PROMPTS.md) · [Agent guide](docs/AGENT_GUIDE.md) · [Manual tutorial](docs/TUTORIAL.md)
 - **Understand the records:** [CLI](docs/CLI.md) · [Acceptance contract](docs/CONTRACT.md) · [Trust boundaries](docs/TRUST_AND_AUTHORITY.md)
 - **Extend the workflow:** [Issue trackers](docs/ISSUE_WORKFLOW.md) · [Slicing](docs/SLICING.md) · [Integrations](docs/INTEGRATIONS.md) · [Packaged planning skill](skills/intentline-plan/SKILL.md)
 - **Develop or evaluate:** [Development and tests](docs/DEVELOPMENT.md) · [Evaluation](evaluation/README.md) · [Implementation history](docs/IMPLEMENTATION_0.6.md)
