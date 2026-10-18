@@ -49,6 +49,21 @@ Give the assistant the original request as a UTF-8 file when possible, and ask i
 
 The [step-by-step setup and manual example](ADVANCED.md#quick-start) and [agent guide](AGENT_GUIDE.md) explain the full workflow. Secure record storage is currently supported on POSIX systems; **Windows record storage is not supported**.
 
+
+## What might the first plan look like?
+
+Here is a **made-up illustration**, not a saved or approved plan.
+
+**Original request:** “Let people download the table they're viewing, keeping the same row order.”
+
+**Draft checklist:** When the table is sorted, the downloaded rows appear in that same order.
+
+**Suggested check:** Sort a small sample table, download it, and compare the order (proposed, **NOT RUN**).
+
+**Open question:** Does “the table they're viewing” exclude hidden rows? The request may need to settle that; the assistant should not silently invent an answer.
+
+**Status:** **DRAFT** — no feature was implemented, tested, or approved.
+
 ## How do I check or divide an existing plan?
 
 Use `intentline-audit` to compare a **saved acceptance plan** with its original request. The audit may record an advisory report in an authorized local work area; it does not approve the draft.
