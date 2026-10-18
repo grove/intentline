@@ -5,6 +5,7 @@ import json
 import os
 import sys
 
+from . import __version__
 from .errors import IntentlineError
 
 
@@ -16,7 +17,8 @@ class Parser(argparse.ArgumentParser):
 def parser():
     p = Parser(description="Plan acceptance without implementing or proving it.")
     p.add_argument("--json", action="store_true", help="emit intentline.result schema 1")
-    sub = p.add_subparsers(dest="command", required=True)
+    p.add_argument("--version", action="store_true", help="show the installed Intentline version")
+    sub = p.add_subparsers(dest="command")
     for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "amend-source", "reconcile", "inspect-native", "audit-record", "adopt", "export"):
         command = sub.add_parser(name)
         command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
@@ -150,9 +152,18 @@ def main(argv=None):
     json_mode = "--json" in actual
     command = None
     try:
-        args = parser().parse_args(actual)
-        command = args.command
-        data = execute(args)
+        parser_ = parser()
+        args = parser_.parse_args(actual)
+        if args.version:
+            if args.command is not None:
+                raise IntentlineError("--version cannot be combined with a command")
+            command = "version"
+            data = {"version": __version__, "summary": f"intentline {__version__}"}
+        else:
+            if args.command is None:
+                parser_.error("the following arguments are required: command")
+            command = args.command
+            data = execute(args)
         result = {"result": "intentline.result", "schema_version": 1,
                   "command": command, "ok": True, "data": data}
         code = data.get("exit_code", 0)
