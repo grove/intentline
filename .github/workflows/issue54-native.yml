@@ -1,0 +1,92 @@
+name: Temporary Intentline 54 native Deliver qualification
+
+# Bounded experiment on a feature branch. Removed before PR review.
+on:
+  push:
+    branches: [feat/54-cli-version]
+    paths: [.github/workflows/issue54-native.yml]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  native:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - name: Checkout temporary verification driver
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: driver
+          persist-credentials: false
+      - name: Checkout the exact frozen approved coding candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: grove/intentline
+          ref: 0fdabb996f94be5ffded5063551d65268ee1bf6f
+          path: product
+          persist-credentials: false
+      - name: Checkout pinned merged macOS-compatible Proofline
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: grove/proofline
+          ref: adc0eb21c17bc70310b5f231ba8a092ca0d7d4e4
+          path: tool
+          persist-credentials: false
+      - name: Python 3.12
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: '3.12'
+      - name: Node 22.16.0 for native Codex CLI install
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22.16.0'
+      - name: Install Codex CLI 0.162.1 and use its actual macOS native binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install -g @openai/codex@0.162.1 --ignore-scripts --no-audit --no-fund
+          case "$(uname -m)" in
+            arm64) triple=aarch64-apple-darwin ;;
+            x86_64) triple=x86_64-apple-darwin ;;
+            *) echo 'Unsupported architecture'; exit 2 ;;
+          esac
+          native="$(find "$(npm root -g)/@openai" -type f -path "*/vendor/$triple/bin/codex" -print -quit)"
+          test -n "$native"
+          test -x "$native"
+          mkdir -p "$RUNNER_TEMP/intentline54-native-bin"
+          ln -s "$native" "$RUNNER_TEMP/intentline54-native-bin/codex"
+          echo "$RUNNER_TEMP/intentline54-native-bin" >> "$GITHUB_PATH"
+          test "$("$native" --version)" = 'codex-cli 0.162.1'
+      - name: Capture complete public issue #54 source as original S1, no target modifications
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p "$RUNNER_TEMP/intentline54-native"
+          gh api repos/grove/intentline/issues/54 > "$RUNNER_TEMP/intentline54-native/issue54.json"
+          python3 -B - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ["RUNNER_TEMP"])/"intentline54-native/issue54.json"
+          issue=json.loads(p.read_bytes())
+          assert issue["number"] == 54 and issue["state"] == "open" and len(issue["body"])>100
+          print("Pinned public S1 source issue:",issue["html_url"],"body chars:",len(issue["body"]))
+          PY
+      - name: Produce real initial S1 export and run native R1, R1+R2 and wrong-map refusal
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          python3 -B driver/evaluation/issue54_native_trial.py
+      - name: Always upload original export, report, native receipts and honest blocked results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: intentline-54-native-deliver
+          path: ${{ runner.temp }}/intentline54-native/
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: warn
