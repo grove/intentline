@@ -47,7 +47,7 @@ The original request is included so you can try this without preparing a file. S
 
 ## 4. Here's an example of what the assistant might say
 
-<escape>**Illustrative response — not an actual Intentline run**</escape>
+**Illustrative response — not an actual Intentline run**
 
 > **Status: PROVISIONAL / UNSAVED** — not an approved or tested plan.
 >
@@ -61,7 +61,7 @@ The original request is included so you can try this without preparing a file. S
 >
 > **Not specified by the request:** The exact error wording, where the error appears, or other username rules. Don't add those as requirements without more source information.
 >
-> **Next action:** Confirm whether the user-visible error needs a specific form. Keep the original rejection rule even if that detail remains undecided.
+> **Next action:** Review the checklist and decide whether to keep a saved draft. Decide on error wording only if that matters for the feature.
 
 Notice the distinction: **R1 repeats what was requested**; the example checks make that request observable; unknown details remain **unknown**. It does not claim that the current application rejects these inputs or that tests have been run.
 
