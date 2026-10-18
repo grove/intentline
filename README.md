@@ -59,6 +59,8 @@ You'll get a draft checklist, suggestions, or a proposed breakdown of work. You 
 
 ## More help
 
+- **[Try a complete first plan](docs/FIRST_USE.md)** — an original request, sample checklist, and what to do next.
+- **[Which tool should I use?](docs/WHICH_TOOL.md)** — choose between Intentline, Gapline, Proofline, and Faultline.
 - **[Copy-and-paste prompts](docs/AGENT_PROMPTS.md)** — real requests for each skill, including creating GitHub issues.
 - **[Common questions and setup help](docs/FAQ.md)** — choosing a skill, saving plans, permissions, and troubleshooting.
 - **[Detailed setup and technical background](docs/ADVANCED.md)** — command-line tools, record formats, and advanced workflows.

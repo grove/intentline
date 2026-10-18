@@ -1,5 +1,7 @@
 # Coding-agent prompt cookbook
 
+New here? Start with the [first-use example](FIRST_USE.md) or [choose a tool](WHICH_TOOL.md) before exploring these detailed prompts.
+
 **Start with what you want to do.** Copy a prompt below into an existing coding agent, replace UPPERCASE placeholders, and make sure the agent can access the requested source or issue. These are requests to an agent using Intentline skills—not Intentline CLI commands, new automations, or guarantees that a tracker is connected.
 
 Intentline makes **acceptance promises inspectable before implementation**. Its skills help draft, audit, decompose, or put those promises into issue trackers. They **do not implement or test software, approve plans, or prove that a feature works**.
