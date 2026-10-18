@@ -3,6 +3,8 @@
 Python 3.11+ standard-library runtime, no peers/models/credentials needed.
 Select a supported interpreter explicitly; macOS system python3 may be too old.
 
+Before editing existing tests, check the byte-frozen baseline guidance below.
+
 ```
 python -B -m unittest discover -v
 python -m pip install build
@@ -17,6 +19,59 @@ runs the public manual fixture (Windows must refuse storage with exit 3). Buildi
 or isolated sdist install may fetch setuptools/build tools, never paid inference.
 Use a fresh artifact directory. CI runs this plus the offline suite on Linux,
 macOS and Windows, Python 3.11/3.14, at every final PR head.
+
+## Before changing historical tests
+
+Some historical tests, source snapshots and fixtures are **byte-frozen**: identity
+tests compare their exact SHA-256 hashes with recorded manifests. Even appending
+a useful assertion or changing whitespace can correctly fail these checks.
+For new CLI or feature behavior, prefer a new `tests/test_<feature>.py` module,
+leaving byte-pinned legacy tests and manifests untouched.
+
+At the revision you are changing, inspect the relevant identity manifest **and
+the test that consumes it**. Manifest paths have different bases:
+
+| Manifest | How its identity test resolves paths |
+| --- | --- |
+| [`baseline_04/identity.json`](../evaluation/baseline_04/identity.json) | `files` entries starting with `tests/` resolve from the repository root; other entries resolve inside `evaluation/baseline_04/`. See [`test_slicing_baseline.py`](../tests/test_slicing_baseline.py). |
+| [`baseline_05/identity.json`](../evaluation/baseline_05/identity.json) | `files` entries resolve inside `evaluation/baseline_05/`; `preserved` entries resolve from the repository root. See [`test_baseline_05.py`](../tests/test_baseline_05.py). |
+| [`baseline_06/identity.json`](../evaluation/baseline_06/identity.json) | `files` entries resolve inside `evaluation/baseline_06/`; `preserved` entries resolve from the repository root. See [`test_ai_development_06.py`](../tests/test_ai_development_06.py). |
+
+These manifests declare the frozen paths and expected hashes, not a blanket ban
+on editing current tests or source. For example, current `tests/test_cli.py` is
+pinned by all three, while a `files` entry for `docs/DEVELOPMENT.md` in baseline_05
+or baseline_06 pins the archived copy, not this live guide. Earlier baselines and
+capture directories also have identity manifests; follow their consuming tests
+to identify the exact protected bytes. Some tests additionally compare current
+schema/skill bytes with archived copies.
+
+Contributor decision tree:
+
+1. **Is the exact file byte-frozen at this revision?** If no, update ordinary
+   tests as needed and run the suite. Existing test code is not universally
+   immutable.
+2. **Is it frozen, and are you adding coverage for new behavior?** Keep the
+   historical file unchanged and add a new test module. If you already edited
+   it, move your additions and restore only your edits to the original bytes.
+3. **Must a historical baseline intentionally evolve?** Make that an explicit
+   separate decision with provenance review of the original commit, affected
+   evidence and compatibility claims before changing it. Never silently rewrite
+   a SHA-256 inventory to make CI green.
+
+The concrete example is [issue #54](https://github.com/grove/intentline/issues/54)
+and [PR #55](https://github.com/grove/intentline/pull/55): adding CLI version
+assertions to `tests/test_cli.py` produced three historical identity-test failures
+in [run 39133651219](https://github.com/grove/intentline/actions/runs/39133651219).
+Those failures correctly detected changed frozen bytes; they were not product
+defects. Restoring that file byte-for-byte and placing the new R1/R2 entrypoint
+checks in [`tests/test_cli_version.py`](../tests/test_cli_version.py) preserved the
+historical evidence. [Run 39133901642](https://github.com/grove/intentline/actions/runs/39133901642)
+then passed all seven jobs. If you hit this failure, inspect the named manifest
+and path first; keep archived manifests, historical source, frozen fixture bytes
+and existing baseline tests unchanged for ordinary feature work, then rerun the
+offline suite above.
+
+## Development boundaries
 
 0.2 dependency order: baseline/evaluator → one-request skill → semantic probes →
 direct handoff → optional Lore report input → integration. PRs are stacked until
