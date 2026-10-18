@@ -1,5 +1,7 @@
 # One request in an existing agent host
 
+Looking for **copy/paste prompts** for planning, auditing a draft, slicing, or GitHub issue review/create/update? Start with the [task-based prompt cookbook](AGENT_PROMPTS.md). This guide covers the more detailed host entry and runtime setup.
+
 Give a command-capable host the original source file and this instruction:
 
 > Read the installed Intentline intentline-plan/SKILL.md and use it to plan
