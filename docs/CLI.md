@@ -8,6 +8,16 @@ failure. Data-bearing status/check/render failures use `ok:false`, data.exit_cod
 and the process status. Diagnostics are stderr. `--help` uses ordinary argparse
 help text even with --json; no filesystem access is needed.
 
+**Version without a work record:** `python -B -m intentline --version` prints
+`intentline 0.5.0rc1` (using the running package's `__version__`) and exits 0.
+`python -B -m intentline --json --version` or `--version --json` instead prints
+one schema-1 `intentline.result` JSON object with `command: "version"`,
+`ok: true`, and `data.version` set to the same version. Both paths are
+read-only and do not inspect, create or adopt saved work. Combining `--version`
+with a subcommand is rejected (exit 2); existing commands still require their
+normal options. A source package version is **not** a claim of a published
+PyPI or GitHub release.
+
 | Command | Required options | Effect |
 |---|---|---|
 | prepare | --source FILE or -, optional repeated --context FILE, --root ROOT, --out DIR | Capture only explicit inputs |
