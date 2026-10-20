@@ -239,6 +239,16 @@ values for the same setting, with both passages cited beside the criterion.
 > verify the revised passages agree. The contradiction is directly demonstrated
 > in source; no runtime-reproduction gate is needed. No runtime failure is claimed.
 
+**Conflicting diagnostic identifier.** Suppose CLI documentation and its error
+mapping assign `ERR-42` to export integrity, but the central error registry
+assigns `ERR-42` to an unrelated condition. This is a source-demonstrated
+contract conflict, not evidence of a runtime export failure or the correct code.
+
+> Retain the behavior-level requirement: an incomplete export must fail without
+> a terminal success marker. Mark the precise error code **UNKNOWN**, name the
+> decision needed to reconcile the sources, and make the literal assertion
+> conditional. Do not claim the suspected export bug was reproduced.
+
 **Ordinary feature request.** Continue the requested CSV download above.
 
 > Next action: implement the requested CSV download, preserving the visible row
@@ -307,7 +317,12 @@ any necessary inference. A broad correctness policy does not settle every propos
 compatibility detail or implementation choice. If original support is unavailable,
 return a clearly provisional proposal naming that missing support; keep unsettled
 outcomes separate from missing observation infrastructure. No mandatory capture
-ceremony or automatic retrieval follows. The [authored source-grounding
+ceremony or automatic retrieval follows. For exact diagnostics, reconcile
+available caller, documentation and central definitions before requiring a
+literal value; unresolved conflicts leave the behavior-level requirement intact
+and the identifier **UNKNOWN**. Prefer commit-pinned source references when the
+inspected revision is known; state identity limits for relevant local changes.
+The [authored source-grounding
 probes](ORIGINAL_SOURCE_EXAMPLES.md) illustrate the distinction.
 
 Read the live issue, acceptance fields, and **relevant comments** that the
