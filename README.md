@@ -51,6 +51,43 @@ Replace the example link with yours. **Creating or updating** a GitHub issue is 
 
 To **save** an Intentline plan, or work with saved plans using `intentline-audit` and `intentline-slice`, you also need the [Intentline Python setup](docs/FAQ.md#what-if-i-want-to-save-a-plan). You can try an unsaved plan without it.
 
+### Optional: Find → Prepare → Publish with Faultline
+
+If you also use [Faultline](https://github.com/grove/faultline), install its
+skill in your project with `npx skills@latest add grove/faultline`. In the
+**same coding-agent conversation**, use these prompts:
+
+**Find** (Faultline reads code and tests; no execution):
+
+```text
+Use faultline-audit to find weak tests in this repository.
+Don't change files or execute project code.
+```
+
+**Prepare** (Intentline reviews one finding; no issue is published):
+
+```text
+Use intentline-issue in REVIEW mode to draft one GitHub issue from the
+Faultline finding above. Recheck evidence and expected behavior,
+keep suspected bugs and contract questions clearly qualified,
+and propose acceptance criteria and a test. Don't publish anything.
+```
+
+**Publish** (after reviewing and approving the draft):
+
+```text
+Use intentline-issue in CREATE mode to publish the approved draft as
+exactly one issue in OWNER/REPO. I authorize creation of this one issue.
+Check for duplicates, read back the result, and return the issue URL.
+Do not change code or run tests.
+```
+
+Replace `OWNER/REPO` with the intended repository. `intentline-issue` handles
+**one issue per CREATE request** and needs the coding agent's existing GitHub
+write access; installation does not grant it. A proposed test is
+**PROPOSED — NOT RUN**, not proof of a bug. The separate Intentline Python
+runtime is not required for drafting or publishing issues.
+
 ## 3. What happens next?
 
 You'll get a draft checklist, suggestions, or a proposed breakdown of work. You can discuss and revise it with your assistant.
