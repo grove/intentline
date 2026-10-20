@@ -247,6 +247,44 @@ issues, change local plans or execute checks.
 
 If you later want to **publish one** of these proposals, use the separate **CREATE** pattern above, naming the exact target and explicitly authorizing that write. The skill creates one work item per request, not a hierarchy of child issues from an audit or slice recommendation.
 
+## Optional: distinguish technical acceptance from product outcome
+
+**Use when:** an approved request defines what a feature must do, and a product owner may separately care whether it improves user outcomes. This is **not** a new Intentline skill, contract field, mandatory R requirement or executable measurement.
+
+For example, a request to download a displayed table as CSV while preserving its row order supports a **technical acceptance obligation** about exported row ordering. It does **not** by itself authorize a claim that customers will use the feature, that support tickets will fall, or that a KPI should improve by a particular percentage.
+
+```text
+Use intentline-plan on the original approved request at REQUEST_SOURCE.
+Read the actual request and any accessible accepted product decisions.
+
+First draft only source-grounded, independently observable technical
+acceptance criteria, constraints, exclusions and proposed checks.
+For a CSV-export request, a relevant acceptance condition might be:
+"Exported CSV rows retain the order currently shown in the table."
+Mark all unexecuted checks PROPOSED — NOT RUN.
+
+In a separate, clearly NON-CONTRACT section, identify a desired user
+or business outcome ONLY IF the original request or an approved product
+source explicitly supplies one. Include its exact source, how it might
+be observed after delivery, an authorized owner and data availability.
+If no approved target exists, write NO APPROVED OUTCOME TARGET and list
+one open product-owner question. Do not invent adoption thresholds,
+business impact, SLOs or success dates.
+
+Return a provisional DRAFT with technical obligations, optional
+outcome hypothesis, sources, unresolved decisions and an evidence plan.
+Do not save a record, edit code, run tests, approve requirements, create
+issues or retrieve private analytics.
+```
+
+**Illustrative output (not an actual saved plan or observed result):**
+
+- **Technical acceptance — DRAFT:** CSV export preserves the visible row order. **Evidence:** inspect exported rows for representative sort orders; **PROPOSED — NOT RUN**. The requirement must be supported by the actual request, not assumed from this example.
+- **Business outcome — OPEN DECISION:** There is no source-supported adoption or retention target. **NO APPROVED OUTCOME TARGET.** Ask the product owner whether and how usefulness should be evaluated, including appropriate privacy and permissions.
+- **After delivery — NOT OBSERVED:** A green test would not establish uptake, customer satisfaction or realized value; it can only support the specific behavior actually tested.
+
+If the owner later supplies a measurable objective, retain it as a separately source-backed outcome observation plan, **not** a silently invented technical R obligation. Production analytics, customer metrics and actual outcomes require separate permission and evidence. Intentline does not measure them or automatically approve the plan.
+
 ## Common misconceptions
 
 - **Skill vs runtime:** `npx skills` installs instructions for an agent. The Python CLI separately captures/validates/saves local acceptance records; it does not ask a model to invent requirements or operate GitHub.
