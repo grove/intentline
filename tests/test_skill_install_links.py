@@ -162,6 +162,37 @@ class StandaloneSkillInstall(unittest.TestCase):
                 with self.subTest(skill=name, phrase=phrase):
                     self.assertIn(phrase.casefold(), text)
 
+    def test_issue_exact_oracle_and_commit_source_handoff(self):
+        """Source-only instruction check, not measured issue-writing reliability."""
+        root = Path(__file__).resolve().parents[1]
+        portable = (root / 'intentline-issue/SKILL.md').read_text(encoding='utf-8')
+        packaged = (root / 'skills/intentline-issue/SKILL.md').read_text(encoding='utf-8')
+        self.assertEqual(portable, packaged)
+        text = ' '.join(portable.split())
+        for phrase in (
+            'exact proposed oracle (error code, status, protocol value)',
+            'applicable documentation, selected caller and central registry/definition',
+            'A code literal shows current behavior, not necessarily the accepted contract',
+            'supported behavior-level acceptance criterion',
+            'mark the exact value **UNKNOWN**',
+            'name the contract decision',
+            'do not add a repository-wide audit or approval step',
+            'inspected immutable commit',
+            'moving branch link',
+            'relevant uncommitted changes',
+            'do not demand a commit hash',
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase.casefold(), text.casefold())
+        guide = (root / 'docs/ISSUE_WORKFLOW.md').read_text(encoding='utf-8')
+        example = guide.split('**Conflicting diagnostic identifier.**', 1)[1].split(
+            '**Ordinary feature request.**', 1
+        )[0]
+        for phrase in ('ERR-42', 'central error registry', 'behavior-level requirement',
+                       '**UNKNOWN**', 'literal assertion', 'not evidence of a runtime'):
+            with self.subTest(example=phrase):
+                self.assertIn(phrase, example)
+
     def test_issue_skill_is_tracker_agnostic_and_preserves_native_fields(self):
         """Provider choices stay host-driven; no exclusive GitHub dependency."""
         root = Path(__file__).resolve().parents[1]

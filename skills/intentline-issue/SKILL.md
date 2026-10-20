@@ -77,6 +77,19 @@ scoped exceptions when a later report recommends otherwise. Code, existing tests
 hashes and structural validity establish neither independent authority nor runtime
 success. See the [original-source development probes][intentline-docs-original-source-examples].
 
+For an exact proposed oracle (error code, status, protocol value), briefly
+cross-check the applicable documentation, selected caller and central
+registry/definition when accessible. A code literal shows current behavior,
+not necessarily the accepted contract. If sources disagree, retain the
+supported behavior-level acceptance criterion, mark the exact value **UNKNOWN**,
+and name the contract decision before requiring that literal in verification.
+Keep the check bounded; do not add a repository-wide audit or approval step.
+
+When a source revision is known, link to the inspected immutable commit rather
+than replacing it with a moving branch link. If relevant uncommitted changes
+or missing identity prevent exact attribution, state the limit; do not demand
+a commit hash before providing a useful issue.
+
 If original support is unavailable or retrieval is not permitted, return a useful
 clearly provisional proposal and name the missing support. Keep unsupported
 expectations advisory and distinguish an unsettled intended outcome from missing
