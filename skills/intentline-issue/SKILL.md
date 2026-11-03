@@ -14,10 +14,28 @@ GitHub Issues is the initial installation example, not a required backend.
 `npx skills@latest add grove/intentline` installs the instruction, not
 credentials, a tracker connection, or the Intentline Python runtime.
 
-Read the [issue workflow][intentline-docs-issue-workflow],
-[acceptance principles][intentline-docs-contract], and
-[trust boundaries][intentline-docs-trust-and-authority]. Public references
-are not bundled into the standalone skill installation.
+## Ordinary requests are enough
+
+“Suggest improvements to this issue: URL” returns suggestions in chat.
+“Create one issue from this draft in OWNER/REPO” requests that one write.
+“Update that issue with these changes” requests an update to the issue already
+identified in the conversation. Infer REVIEW / CREATE / UPDATE internally;
+never require the user to name a mode or repeat authorization already supplied.
+“Help me improve this issue” without a clear write instruction returns suggestions.
+An issue draft needs no Python setup, original-source file, or saved plan.
+
+For a review, lead with the practical improvement and show the revised wording
+or a small patch. Include useful completion criteria and checks labeled as not
+run. Explain important unanswered questions; omit empty sections, repeated
+provenance, and administrative labels. If the issue is already clear, say so
+and leave it unchanged. For a write, lead with the verified issue link and what
+changed. Report a missing capability or failed write plainly, with a usable draft.
+
+Consult the [issue workflow][intentline-docs-issue-workflow] for detailed layouts
+and non-routine cases, [acceptance principles][intentline-docs-contract] for
+record semantics, and [trust boundaries][intentline-docs-trust-and-authority]
+when authority is unclear. These references are not bundled into a standalone
+skill installation; use the matching checkout or installed share tree offline.
 
 ## Choose the operation
 
@@ -28,7 +46,7 @@ are not bundled into the standalone skill installation.
 - **CREATE** (explicitly create/publish a new issue): write **one** issue
   in the requested tracker and project/workspace if the host has suitable
   write access and the user's authorization.
-- **UPDATE** (explicitly improve, fix, rewrite or update an existing issue):
+- **UPDATE** (explicitly apply, publish edits, or update an existing issue):
   refine that **same** item's acceptance content while preserving its
   existing promises and unrelated fields. "Evaluate this issue" is REVIEW,
   not authorization to UPDATE.
@@ -106,8 +124,8 @@ private storage location and an available Intentline CLI. REVIEW must not
 invoke record-producing CLI commands or write local files. An issue CREATE
 or UPDATE request alone does not authorize saving a separate record.
 Never fabricate verbatim source bytes, hashes, approvals, or saved records.
-Without the CLI, or without separate record authorization, provide a clearly
-identified **provisional issue draft**. There is no mandatory Python install,
+Without the CLI, issue-only work still returns a normal issue draft; disclose
+missing source support where relevant. There is no mandatory Python install,
 second model, audit, or slice plan.
 
 ## Draft the smallest complete acceptance content
@@ -269,10 +287,12 @@ Never publish to a different issue or project. No tool access means no write.
 
 ## Report the actual result
 
-State **REVIEW-ONLY**, **CREATED**, **UPDATED**, **UNCHANGED**, or
-**NOT PUBLISHED**; provide the *verified* issue URL or ID when available
-(not a made-up link), concise changes, and outstanding decisions versus
-evidence gaps. A proposal is not approval, an accepted contract, completed
+Make the action clear in ordinary language: “Suggested changes; issue unchanged,”
+“Created,” “Updated,” “Already clear; unchanged,” or **NOT PUBLISHED** if a requested
+write could not be completed. Internal labels REVIEW-ONLY / CREATED / UPDATED /
+UNCHANGED may be used by an integration, but are not a required response template.
+Provide the *verified* issue URL or ID when available (not a made-up link),
+concise changes, and important unresolved decisions or missing checks. A proposal is not approval, an accepted contract, completed
 implementation or observed proof. Never claim a tool action, model run,
 test result, PR, or provider integration that did not occur.
 

@@ -68,20 +68,21 @@ def main(argv=None):
                 text=skill.read_text(encoding='utf-8')
                 for link in re.findall(r'\]\(([^)]+)\)',text):
                     assert (skill.parent/link).is_file(),f'Broken installed skill link: {link}'
-            # Resolve the new reference-style skill URLs strictly to files
-            # inside each installed wheel/sdist. This performs no network I/O.
-            issue_text=(data/'skills/intentline-issue/SKILL.md').read_text(encoding='utf-8')
-            refs=re.findall(r'\[[^\]\n]+\]\[([a-z0-9-]+)\]',issue_text)
-            definitions=re.findall(r'^\[([a-z0-9-]+)\]:[ \t]+(\S+)[ \t]*$',issue_text,re.M)
-            assert refs and len(definitions)==len(set(key for key,_ in definitions))
-            assert set(refs)==set(key for key,_ in definitions), 'Broken issue-skill references'
-            prefix_url='https://github.com/grove/intentline/blob/main/'
-            for _,url in definitions:
-                assert url.startswith(prefix_url), 'Untrusted issue-skill URL: '+url
-                parts=PurePosixPath(url[len(prefix_url):]).parts
-                assert len(parts)==2 and parts[0] in ('docs','schema')
-                assert all(re.fullmatch(r'[A-Za-z0-9_.-]+',part) for part in parts)
-                assert (data.joinpath(*parts)).is_file(), 'Missing packaged issue-skill reference: '+url
+            # Both install paths ship the current skills and their conditional references.
+            for name in ('intentline-plan', 'intentline-issue'):
+                text=(data/'skills'/name/'SKILL.md').read_text(encoding='utf-8')
+                assert text == (Path(__file__).resolve().parents[1]/name/'SKILL.md').read_text(encoding='utf-8')
+                refs=re.findall(r'\[[^\]\n]+\]\[([a-z0-9-]+)\]',text)
+                definitions=re.findall(r'^\[([a-z0-9-]+)\]:[ \t]+(\S+)[ \t]*$',text,re.M)
+                assert refs and len(definitions)==len(set(key for key,_ in definitions))
+                assert set(refs)==set(key for key,_ in definitions), 'Broken skill references'
+                prefix_url='https://github.com/grove/intentline/blob/main/'
+                for _,url in definitions:
+                    assert url.startswith(prefix_url), 'Untrusted skill URL: '+url
+                    parts=PurePosixPath(url[len(prefix_url):]).parts
+                    assert len(parts)==2 and parts[0] in ('docs','schema')
+                    assert all(re.fullmatch(r'[A-Za-z0-9_.-]+',part) for part in parts)
+                    assert (data.joinpath(*parts)).is_file(), 'Missing packaged skill reference: '+url
             assert (data/'docs/SCORECARD_0.2.md').is_file()
             assert (data/'docs/SCORECARD_0.3.md').is_file()
             assert (data/'docs/SCORECARD_0.4.md').is_file()
@@ -108,6 +109,7 @@ def main(argv=None):
                 run(python,'-B','-m','intentline',command,'--help',cwd=root,env=env)
             executable=prefix/('Scripts/intentline.exe' if os.name == 'nt' else 'bin/intentline')
             run(executable,'--help',cwd=root,env=env)
+            assert 'Use intentline-plan to clarify' in run(executable,cwd=root,env=env)
             assert run(python,'-B','-c','import intentline; print(intentline.__version__)',cwd=root,env=env).strip() == '0.5.0rc1'
             # Installed manual workflow uses the shipped public example, not a live agent.
             source=data/'examples/username-validation/request.md';work=root/(kind+'-work')
@@ -132,6 +134,11 @@ def main(argv=None):
                 before={str(p.relative_to(work)):p.read_bytes() for p in work.rglob('*') if p.is_file()}
                 for command in ('check','render','status','review','approval-request'):
                     run(python,'-B','-m','intentline',command,'--work',work,'--json',cwd=root,env=env)
+                human=run(executable,'render','--work',work,cwd=root,env=env)
+                detailed=run(executable,'render','--work',work,'--details',cwd=root,env=env)
+                assert 'What should work' in human and 'Suggested checks' in human
+                assert '--details' in human and pointer['contract_sha256'] not in human
+                assert pointer['contract_sha256'] in detailed and '| ID |' in detailed
                 assert before == {str(p.relative_to(work)):p.read_bytes() for p in work.rglob('*') if p.is_file()}, 'Read-only command wrote files'
                 # Authored installed-fixture controls, not human or real-agent observations.
                 for scenario in ('docs','gap','decision'):

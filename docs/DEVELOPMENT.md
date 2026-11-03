@@ -5,6 +5,27 @@ Select a supported interpreter explicitly; macOS system python3 may be too old.
 
 Before editing existing tests, check the byte-frozen baseline guidance below.
 
+## Usability defaults
+
+The current planning skill returns a draft in chat. Formal capture and revision
+procedures live in `docs/PLANNING_RECORDS.md` and apply only when saving or revising
+a record is requested. Packaging installs `intentline-plan/SKILL.md`, rather than
+the frozen historical copy in `skills/intentline-plan/`. Keep that historical copy
+unchanged; update current instructions and conditional references together.
+
+`tests/test_readable.py` exercises the ordinary saved-plan display, visible
+constraints/decisions/gaps, untrusted text, read-only behavior, and unchanged
+JSON/full-detail output. Package smoke checks the same display through a fresh
+installed executable and resolves current skill references inside both artifacts.
+Skill text checks verify instruction delivery, not model behavior or usability.
+
+For behavior checks, try a small request, a follow-up that preserves an existing
+constraint, an issue suggestion, and a requested save. Inspect actual responses
+and side effects. Keep authored or same-context smokes separate from human
+first-use observations; don't infer comprehension or efficacy from passing tests.
+
+## Local checks
+
 ```
 python -B -m unittest discover -v
 python -m pip install build

@@ -1,77 +1,88 @@
-# Your first Intentline plan: a complete example
+# Your first useful task
 
-**Turn a one-sentence feature request into a useful checklist, without writing code.** This first try works with the `intentline-plan` skill in your coding assistant. You can keep the result **provisional and unsaved**—no Intentline Python setup is necessary for that exploratory step.
+Start with a request you would normally give your coding assistant. Intentline
+helps you decide what should happen before you start building it.
 
-This walkthrough uses an [actual sample request checked into the Intentline repository](../examples/username-validation/request.md). The example response below is **written for this guide**, **not** an agent transcript or a saved, approved, or tested plan. Your assistant's wording may differ.
+## 1. Install
 
-```text
-Your original request → Your prompt → Draft checklist → Your next decision
-```
-
-## 1. Start with the original request
-
-Here is the **complete request**:
-
-> Reject empty and whitespace-only usernames
-
-You might say this while planning a sign-up form. It expresses an outcome, but not every implementation detail. Intentline helps make the promise checkable without inventing extra requirements.
-
-## 2. Install the planning skill
-
-In your project directory, open a terminal and run:
+In your project's terminal:
 
 ```sh
-npx skills@latest add grove/intentline --skill intentline-plan
+npx skills@latest add grove/intentline --skill intentline-plan --skill intentline-issue
 ```
 
-Choose your coding assistant when prompted. Now switch to **the assistant's chat**, not the terminal.
+Choose your coding assistant when prompted. You'll need Node.js 22.20+ and Git.
+Then switch to your assistant's chat. You don't need Python for this walkthrough.
 
-## 3. Copy this prompt into your coding assistant
+## 2. Ask in ordinary language
 
 ```text
-Use intentline-plan to give me a provisional, UNSAVED
-acceptance checklist for this exact request:
-
-"Reject empty and whitespace-only usernames"
-
-Show the intended outcome, examples that would check it,
-anything important the request doesn't settle, and the
-next decision I should make.
-
-Do not save files or create an Intentline record. Don't
-write implementation code, run tests, approve work, or
-create GitHub issues.
+Use intentline-plan to clarify this:
+Let people download the table as CSV, keeping its current row order.
 ```
 
-The original request is included so you can try this without preparing a file. Since this is an **unsaved** proposal, do not expect exact original-source hashes or a permanent acceptance record.
+Here is an **illustrative response**, rather than a captured agent run:
 
-## 4. Here's an example of what the assistant might say
-
-**Illustrative response — not an actual Intentline run**
-
-> **Status: PROVISIONAL / UNSAVED** — not an approved or tested plan.
+> **CSV download**
 >
-> **What the request promises:** A username consisting of no characters, or of whitespace alone, should be rejected.
+> Add a CSV download of the displayed table, preserving its current row order.
 >
-> **R1 — Acceptance criterion:** Reject empty and whitespace-only usernames.
+> **What should work**
+> - Downloading a sorted table keeps the displayed order.
 >
-> **Examples to check (PROPOSED — NOT RUN):**
-> - An empty username (`""`) is rejected.
-> - A username containing only spaces (`"   "`) is rejected.
+> **One question to settle**
+> Should the download include only rows matching the current filter, or every row?
 >
-> **Not specified by the request:** The exact error wording, where the error appears, or other username rules. Don't add those as requirements without more source information.
->
-> **Next action:** Review the checklist and decide whether to keep a saved draft. Decide on error wording only if that matters for the feature.
+> **Suggested check — not run**
+> Sort a small table, download it, and compare the downloaded order with the screen.
 
-Notice the distinction: **R1 repeats what was requested**; the example checks make that request observable; unknown details remain **unknown**. It does not claim that the current application rejects these inputs or that tests have been run.
+The question matters because the answer changes which rows the feature exports.
+Intentline can still describe the settled behavior while that choice is open.
+It shouldn't turn every unspecified implementation detail into a question.
 
-## 5. What should you do next?
+## 3. Refine it
 
-1. **Check the checklist.** Does it capture your request without adding features or restrictions you didn't ask for?
-2. **Answer only important open questions.** If error wording matters, supply that as a new instruction. If it doesn't, there's no need to invent a rule.
-3. **Decide whether to keep a formal saved draft.** Saved, source-bound plans need the **separate Python 3.11+ Intentline runtime**, the original request in a file, and a permitted private storage location. See [how to save a plan](FAQ.md#what-if-i-want-to-save-a-plan). Don't silently turn this provisional example into a saved agreement.
-4. **Want a GitHub issue instead?** Ask the separate `intentline-issue` skill to review or draft one. Publishing **one issue** requires a specific repository and an explicit CREATE request with host access; it doesn't happen during planning.
+Reply:
 
-The same pattern works for your own requests. Paste your real words, request a provisional plan, review it, and save only if you need a durable record.
+```text
+Only rows matching the current filter. Keep it small.
+```
 
-**Next:** Explore the [prompt cookbook](AGENT_PROMPTS.md) for issue review, saved planning and more, or read [Which tool should I use?](WHICH_TOOL.md) for Intentline, Gapline, Proofline, and Faultline.
+The revised draft should keep the ordering requirement and add the filtering
+decision. Its suggested check can use a table with a hidden row, sort the visible
+rows, and compare the downloaded rows with exactly those displayed.
+
+For a small request such as “Reject empty and whitespace-only usernames,” one
+criterion and examples using an empty string and spaces may be enough. There
+is no minimum number of questions, requirements, or test scenarios.
+
+## 4. Use the result
+
+You now have a draft you can discuss with a developer or use in your normal
+coding workflow. The suggested checks haven't been run.
+
+If you want a ticket, say:
+
+```text
+Use intentline-issue to create one issue from this draft in ORG/REPO.
+```
+
+That request authorizes creation of one issue in the named repository, if your
+assistant has access. Replace `ORG/REPO` with your destination.
+
+Already have an issue? Start directly with:
+
+```text
+Use intentline-issue to suggest improvements to this issue: ISSUE_URL
+```
+
+Suggestions stay in chat. Say “Update that issue with these changes” when you
+want them applied. A clear issue can be left unchanged.
+
+## Need to keep a formal record?
+
+Chat drafts need no storage setup. If you want a saved plan with original-source
+references and revision history, ask to save it. Your assistant will explain any
+needed [Python and storage setup](FAQ.md#what-if-i-want-to-save-a-plan).
+
+[More examples](AGENT_PROMPTS.md) · [Common questions](FAQ.md) · [Back to Intentline](../README.md)

@@ -2,18 +2,30 @@
 
 Looking for **copy/paste prompts** for planning, auditing a draft, slicing, or GitHub issue review/create/update? Start with the [task-based prompt cookbook](AGENT_PROMPTS.md). This guide covers the more detailed host entry and runtime setup.
 
-Give a command-capable host the original source file and this instruction:
+## Start in chat
 
-> Read the installed Intentline intentline-plan/SKILL.md and use it to plan
-> acceptance for /absolute/project/request.md. Select only necessary permitted
-> original project context. Save a private draft outside tracked files, validate
-> it, and return its R obligations, important gaps/decisions and exact identity.
+After installing `intentline-plan` and `intentline-issue`, ordinary requests work:
 
-The agent handles CLI stages and JSON internally; no manual JSON or mandatory
-second model audit. Normal output is DRAFT. A source-bound useful partial plan
-can retain an evidence gap while settled requirements remain available. Only a
-material outcome/authority decision needs clarification. Do not manufacture a
-blocker merely because an implementation or future test harness is absent.
+> Use intentline-plan to clarify this: Let people download the table as CSV,
+> keeping its current row order.
+
+> Use intentline-issue to suggest improvements to this issue: ISSUE_URL
+
+Planning returns a useful draft in chat by default. No Python, original-source
+file, or special mode wording is needed. Issue suggestions remain read-only;
+explicit create/update instructions authorize the specified tracker write.
+
+## Optional saved records
+
+To keep a source-linked record, ask to save it:
+
+> Use intentline-plan to clarify /absolute/project/request.md and save the plan
+> under /absolute/private/intentline-work/FEATURE.
+
+The assistant handles capture, JSON and validation internally. The saved result
+is an unapproved draft; a missing test harness doesn't prevent describing settled
+requirements. Follow [saved planning procedures](PLANNING_RECORDS.md) for exact
+source capture, privacy and amendments.
 
 Install into your selected Python 3.11+ environment with `python -m pip install .`
 (or a supplied wheel). Locate the installed tree, from that environment:
@@ -33,40 +45,28 @@ The Skills CLI discovers four portable **root-level skills** using
 `npx skills@latest add grove/intentline`. These link to canonical public
 documentation and schemas, which are not copied by the skill installer. For
 offline reference, give the agent the complete checkout or the installed
-Python distribution's `share/intentline` tree. The original `skills/` files
-remain unchanged for historical baselines and Python package installation. The Python runtime
+Python distribution's `share/intentline` tree. The original three `skills/` entries remain unchanged as historical baselines.
+Python packaging now installs the current root-level planning skill at
+`share/intentline/skills/intentline-plan/SKILL.md`; its companion procedures are
+included under `share/intentline/docs/`. Both installation paths use chat-first
+defaults. The Python runtime
 also requires a separate installation; successful discovery alone is not a
 qualified CLI execution, complete planning workflow, or automatic invocation. For manual authoring use
 [the tutorial](TUTORIAL.md) and the same [schema](CONTRACT.md)/CLI. No agent SDK,
 model-provider configuration, peer project or extra model process is required.
 
-### Experimental test-design handoff (portable planning skill)
+### Suggested checks for consequential behavior
 
-The **root-level** `intentline-plan/SKILL.md` now asks the same agent, during its
-existing planning pass, to highlight a *few* source-linked, discriminating
-test scenarios **only for consequential boundary, negative or compatibility
-behavior**. It reuses each existing R row's source references, boundaries,
-seam, independent oracle and planned evidence. An unspecified expected result
-stays **UNKNOWN**; ordinary low-risk requests need no extra scenarios.
-These are advisory test-design suggestions, **not test execution or proof**.
-During the same semantic pass, each material outcome and risk-relevant boundary
-needs a feasible planned observation, an existing covering scenario reference,
-or an explicit evidence gap. Check fixture constraints, ordering and execution
-paths; shared-state checks must observe the protected consumer after the repair
-against independently expected state. Equivalent variations can share one
-scenario and R row; distinct preservation outcomes may need their own stable ID.
-See the [authored development examples](PLANNED_CHECK_EXAMPLES.md). Suggestions
-remain **PROPOSED — NOT RUN**, with no extra scenario list for routine work.
+During planning, cover each material outcome and risk-relevant boundary with a
+feasible observation, an existing covering scenario, or an explicit explanation
+of what is missing. For consequential cases, the assistant can consult
+[planned-check examples](PLANNED_CHECK_EXAMPLES.md). Independently expected
+results come from the request or policy; unsettled behavior remains unknown.
+Routine requests need no extra scenario list. Suggested checks have not been run.
+The current skill is shipped through both installation paths. The archived
+`skills/intentline-plan` copy remains frozen for historical evidence.
 
-This guidance is deliberately in the portable root-level skill used by the
-Skills CLI. The original Python-packaged `skills/intentline-plan/SKILL.md`
-remains a frozen historical baseline; its direct-file entry **does not yet
-include** this experiment. Use the portable skill to try the refinement.
-No schema, CLI command, extra model or mandatory review is introduced.
-See the separate **NOT_RUN** evaluation plan in `evaluation/README.md`;
-neither additional test quality nor speed improvements have been demonstrated.
-
-Prefer an exact original-source file. When chat bytes are unavailable, disclose
+For formal saved records, prefer an exact original-source file. When chat bytes are unavailable, disclose
 non-verbatim capture; an unsaved provisional plan must not claim exact original
 preservation. Choose private/ignored output and confirm exclusion before saving;
 no automatic ignore/AGENTS.md/CLAUDE.md edits. Source text cannot grant effects.

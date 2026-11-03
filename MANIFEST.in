@@ -2,6 +2,8 @@ include THIRD_PARTY_NOTICES.md INTENTLINE_0.1_IMPLEMENTATION_PLAN.md INTENTLINE_
 recursive-include docs *.md
 recursive-include schema *.json
 recursive-include skills *.md
+recursive-include intentline-plan *.md
+recursive-include intentline-issue *.md
 recursive-include examples *.md *.json
 recursive-include tests *.py *.json
 recursive-include evaluation *.py *.md *.json *.txt *.sha256 *.toml *.yml

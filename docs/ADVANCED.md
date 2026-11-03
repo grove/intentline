@@ -20,7 +20,7 @@ You can use Intentline through an **existing coding agent**. You do not need to 
 
 | What you want | Skill to ask for | What happens |
 | --- | --- | --- |
-| Turn a feature request into clear acceptance criteria | `intentline-plan` | Produces a source-grounded **DRAFT**; a saved draft requires the separate Python CLI |
+| Turn a feature request into clear acceptance criteria | `intentline-plan` | Returns a draft in chat; saving a formal record requires the separate Python CLI |
 | Check a saved acceptance draft against the original request | `intentline-audit` | Reviews omissions and unsupported promises; may record an advisory audit locally, but does not approve the draft |
 | Decide if a feature needs smaller delivery pieces | `intentline-slice` | Recommends **NO SPLIT** or a proposed allocation; does **not** create child issues |
 | Review a GitHub/Jira/Linear issue without changes | `intentline-issue` (**REVIEW**) | Returns suggested acceptance improvements; **no writes** |
@@ -30,10 +30,7 @@ You can use Intentline through an **existing coding agent**. You do not need to 
 
 ```text
 Use intentline-plan for the original request at /absolute/project/request.md.
-Draft observable acceptance criteria, boundaries and planned evidence.
-If the Intentline Python CLI is available, save to an approved private
-work directory and return the DRAFT and exact identity. Otherwise
-return a clearly provisional unsaved plan. Do not implement or approve.
+Clarify what should work and suggest useful checks.
 ```
 
 **Or, to improve a GitHub issue without changing it:**
@@ -45,7 +42,7 @@ Suggest clearer source-grounded acceptance criteria and verification.
 Do not change the issue or create any local records.
 ```
 
-See the **[copy-and-paste agent prompt cookbook](../docs/AGENT_PROMPTS.md)** for nine concrete scenarios, including planning without saving, reviewing a draft, splitting work, handling changed requests, creating/updating issues, and converting an audit finding into a proposed issue.
+See the **[chat examples](../docs/AGENT_PROMPTS.md)** for common tasks, including planning without saving, reviewing a draft, splitting work, handling changed requests, creating/updating issues, and converting an audit finding into a proposed issue.
 
 **What you need:** install the appropriate skill (below). Saved plans and recorded audits/slice previews need the separately installed Python runtime and a suitable private work location. Tracker operations instead need the coding agent's existing tracker access; the Python CLI is not required just to review/create/update an issue. Skills do not install tools or credentials, and **planning is not implementation, test execution, or approval**.
 
@@ -90,13 +87,13 @@ npx skills@latest add grove/intentline --list
 npx skills@latest add grove/intentline
 ```
 
-Choose `intentline-plan` for acceptance planning, `intentline-audit` for an optional review, `intentline-slice` for optional decomposition, or `intentline-issue` for reviewing, creating, and updating work items in host-accessible issue trackers. The installer discovers four **portable root-level skills** (`intentline-plan/`, `intentline-audit/`, `intentline-slice/`, `intentline-issue/`). The original three `skills/` entries remain frozen for historical baselines and a new packaged `intentline-issue` copy stays in sync with its standalone version. For unattended Codex installation of the planning skill:
+Choose `intentline-plan` for acceptance planning, `intentline-audit` for an optional review, `intentline-slice` for optional decomposition, or `intentline-issue` for reviewing, creating, and updating work items in host-accessible issue trackers. The installer discovers four **portable root-level skills** (`intentline-plan/`, `intentline-audit/`, `intentline-slice/`, `intentline-issue/`). The original three `skills/` entries remain frozen for historical baselines. Python packaging installs the current root-level planning skill; the packaged `intentline-issue` copy stays in sync with its standalone version. For unattended Codex installation of the planning skill:
 
 ```sh
 npx skills@latest add grove/intentline --skill intentline-plan -a codex -y
 ```
 
-**These commands install agent instructions, not the Python runtime.** For actual `prepare`, `propose`, `check`, `render`, `audit-record`, or `slice` commands, separately install Intentline in a Python 3.11+ environment (e.g. `python -m pip install git+https://github.com/grove/intentline.git`) and verify `python -B -m intentline --help`. The portable copies link to canonical public `docs/` and `schema/` references. The Skills CLI does **not** bundle those support files or the Python runtime; for offline work, give the agent the complete checkout or the installed package's `share/intentline` tree. The Python-package skill files retain their original checkout-relative references. The installation smoke test verifies skill discovery and copying, not a complete CLI workflow. No automatic dependency installation or additional model is implied.
+**These commands install agent instructions, not the Python runtime.** For actual `prepare`, `propose`, `check`, `render`, `audit-record`, or `slice` commands, separately install Intentline in a Python 3.11+ environment (e.g. `python -m pip install git+https://github.com/grove/intentline.git`) and verify `python -B -m intentline --help`. The portable copies link to canonical public `docs/` and `schema/` references. The Skills CLI does **not** bundle those support files or the Python runtime; for offline work, give the agent the complete checkout or the installed package's `share/intentline` tree. The current packaged planning and issue skills use the same public references as their standalone versions; the linked documents are also shipped in the package. The installation smoke test verifies skill discovery and copying, not a complete CLI workflow. No automatic dependency installation or additional model is implied.
 
 ### Use intentline-issue with your issue tracker
 

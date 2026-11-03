@@ -1,4 +1,26 @@
-# CLI contracts
+# CLI reference
+
+Most users start in their coding assistant with `intentline-plan` or
+`intentline-issue`. This optional CLI stores and inspects formal planning records;
+it does not generate requirements itself.
+
+## Read a saved plan
+
+```sh
+intentline render --work /private/path/to/plan
+intentline render --work /private/path/to/plan --details
+intentline status --work /private/path/to/plan --json
+```
+
+`render` shows the intended behavior, constraints, exclusions, questions and
+suggested checks first. Material stale-source or review problems remain visible.
+`--details` shows the full technical Markdown with citations, hashes and history.
+`render --json` retains the full technical Markdown in the schema-1 result.
+The JSON envelope, saved record bytes, exports, review and approval displays are
+unchanged. Calling `intentline` without arguments shows help without accessing
+saved records; `intentline --json` still diagnoses a missing command.
+
+## Technical contracts
 
 `python -B -m intentline` and installed `intentline` accept the same commands.
 Use Python 3.11+. `--json` works before or after the subcommand. Each operation

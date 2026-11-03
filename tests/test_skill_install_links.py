@@ -5,14 +5,16 @@ import unittest
 
 
 class StandaloneSkillInstall(unittest.TestCase):
-    def test_portable_entries_match_frozen_skill_metadata_and_link_to_support_files(self):
+    def test_current_entries_keep_names_and_link_to_support_files(self):
         root = Path(__file__).resolve().parents[1]
         prefix = 'https://github.com/grove/intentline/blob/main/'
         for name in ('intentline-plan', 'intentline-audit', 'intentline-slice', 'intentline-issue'):
             with self.subTest(skill=name):
                 original = (root / 'skills' / name / 'SKILL.md').read_text(encoding='utf-8')
                 portable = (root / name / 'SKILL.md').read_text(encoding='utf-8')
-                self.assertEqual(original.split('---', 2)[1], portable.split('---', 2)[1])
+                self.assertIn(f'name: {name}\n', portable.split('---', 2)[1])
+                if name != 'intentline-plan':
+                    self.assertEqual(original.split('---', 2)[1], portable.split('---', 2)[1])
                 if name == 'intentline-issue':
                     self.assertEqual(original, portable, 'The portable and packaged new skill must match')
                 self.assertIn('npx skills@latest add grove/intentline', portable)
@@ -34,6 +36,7 @@ class StandaloneSkillInstall(unittest.TestCase):
         """Guard the instruction change, not the quality of a future model response."""
         root = Path(__file__).resolve().parents[1]
         portable = (root / 'intentline-plan/SKILL.md').read_text(encoding='utf-8')
+        portable += '\n' + (root / 'docs/PLANNING_RECORDS.md').read_text(encoding='utf-8')
         historical = (root / 'skills/intentline-plan/SKILL.md').read_text(encoding='utf-8')
         self.assertIn('Optional test-design handoff, same planning pass', portable)
         self.assertNotIn('Optional test-design handoff, same planning pass', historical)
@@ -117,7 +120,10 @@ class StandaloneSkillInstall(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         for name in ('intentline-plan/SKILL.md', 'intentline-issue/SKILL.md',
                      'skills/intentline-issue/SKILL.md'):
-            text = ' '.join((root / name).read_text(encoding='utf-8').split()).casefold()
+            instructions = (root / name).read_text(encoding='utf-8')
+            if name == 'intentline-plan/SKILL.md':
+                instructions += '\n' + (root / 'docs/PLANNING_RECORDS.md').read_text(encoding='utf-8')
+            text = ' '.join(instructions.split()).casefold()
             for phrase in (
                 'risk-relevant boundary', 'feasible', 'observation',
                 'existing covering scenario', 'equivalent', 'stable r id',
@@ -147,7 +153,10 @@ class StandaloneSkillInstall(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         for name in ('intentline-plan/SKILL.md', 'intentline-issue/SKILL.md',
                      'skills/intentline-issue/SKILL.md'):
-            text = ' '.join((root / name).read_text(encoding='utf-8').split()).casefold()
+            instructions = (root / name).read_text(encoding='utf-8')
+            if name == 'intentline-plan/SKILL.md':
+                instructions += '\n' + (root / 'docs/PLANNING_RECORDS.md').read_text(encoding='utf-8')
+            text = ' '.join(instructions.split()).casefold()
             for phrase in (
                 'audit-derived', 'permitted original', 'applicable scope',
                 'supporting navigation/analysis', 'not accepted product policy',

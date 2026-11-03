@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "intentline"
 version = "0.5.0rc1"
-description = "Source-grounded acceptance agreements, without implementation or proof"
+description = "Turn rough requests into clear tasks someone can build and check"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
@@ -19,7 +19,7 @@ include = ["intentline*", "evaluation"]
 
 [tool.setuptools.data-files]
 "share/intentline/schema" = ["schema/*.json"]
-"share/intentline/skills/intentline-plan" = ["skills/intentline-plan/*.md"]
+"share/intentline/skills/intentline-plan" = ["intentline-plan/*.md"]
 "share/intentline/skills/intentline-audit" = ["skills/intentline-audit/*.md"]
 "share/intentline/skills/intentline-slice" = ["skills/intentline-slice/*.md"]
 "share/intentline/skills/intentline-issue" = ["skills/intentline-issue/*.md"]

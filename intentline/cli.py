@@ -15,12 +15,38 @@ class Parser(argparse.ArgumentParser):
 
 
 def parser():
-    p = Parser(description="Plan acceptance without implementing or proving it.")
+    p = Parser(
+        description=("Clarify what a task should do and how to check it.\n\n"
+                     "Start in your coding assistant:\n"
+                     "  Use intentline-plan to clarify this: ...\n"
+                     "  Use intentline-issue to suggest improvements to this issue: URL\n"
+                     "No Python runtime is needed for chat drafts or issue-only work."),
+        epilog=("This CLI manages optional saved plans. Read one with:\n"
+                "  intentline render --work PATH\n"
+                "  intentline render --work PATH --details  (full technical record)\n"
+                "Your assistant handles prepare/propose and record revisions when you ask to save."),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     p.add_argument("--json", action="store_true", help="emit intentline.result schema 1")
     p.add_argument("--version", action="store_true", help="show the installed Intentline version")
-    sub = p.add_subparsers(dest="command")
-    for name in ("prepare", "propose", "check", "render", "status", "review", "approval-request", "amend-source", "reconcile", "inspect-native", "audit-record", "adopt", "export"):
-        command = sub.add_parser(name)
+    sub = p.add_subparsers(dest="command", title="Saved-plan commands", metavar="COMMAND")
+    descriptions = {
+        "prepare": "Capture the request and selected source files",
+        "propose": "Save a draft authored by you or your assistant",
+        "check": "Check saved record structure and source freshness",
+        "render": "Read a saved plan in plain language",
+        "status": "Inspect saved record state",
+        "review": "Inspect the full record and revision changes",
+        "approval-request": "Prepare a template for an external approval assertion",
+        "amend-source": "Capture a changed request without overwriting its history",
+        "reconcile": "Save a successor with requirement continuity",
+        "inspect-native": "Inspect a previously exported native bundle",
+        "audit-record": "Attach an advisory review report",
+        "adopt": "Record an explicitly supplied external approval assertion",
+        "export": "Export an advisory handoff",
+    }
+    for name in ("render", "status", "review", "prepare", "propose", "check", "approval-request", "amend-source", "reconcile", "inspect-native", "audit-record", "adopt", "export"):
+        command = sub.add_parser(name, help=descriptions[name], description=descriptions[name])
         command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
         if name not in ("prepare", "inspect-native"):
             command.add_argument("--work", required=True)
@@ -46,6 +72,8 @@ def parser():
             command.add_argument("--draft", required=True)
         if name == "render":
             command.add_argument("--format", choices=["markdown"], default="markdown")
+            command.add_argument("--details", action="store_true",
+                                 help="show the full technical record, including hashes and source references")
         if name == "review":
             command.add_argument("--against-revision", type=int)
         if name == "audit-record":
@@ -57,7 +85,7 @@ def parser():
             command.add_argument("--format", choices=["proofline-direct", "proofline-native", "markdown", "json"], required=True)
             command.add_argument("--out", required=True)
             command.add_argument("--product-root", help="exact downstream checkout for binding project references")
-    command = sub.add_parser("slice")
+    command = sub.add_parser("slice", help="Suggest and inspect a breakdown of a saved plan")
     command.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
     actions = command.add_subparsers(dest="slice_command", required=True)
     for name in ("preview", "record", "status", "render", "audit-record", "impact", "export", "inspect"):
@@ -127,12 +155,14 @@ def execute(args):
         if args.command == "render":
             if contract is None:
                 raise IntentlineError("No current contract to render")
-            from .render import markdown
+            from .render import markdown, readable
             from .paths import Directory
             from .sources import bundle
             with Directory(args.work) as work:
                 manifest, _, _ = bundle(work)
-            status["markdown"] = markdown(contract, status, manifest)
+            # Preserve the machine view and export/approval identities.
+            view = markdown if args.details or args.json else readable
+            status["markdown"] = view(contract, status, manifest)
         return status
     if args.command == "audit-record":
         from .audits import audit_record
@@ -161,6 +191,9 @@ def main(argv=None):
             data = {"version": __version__, "summary": f"intentline {__version__}"}
         else:
             if args.command is None:
+                if not actual:
+                    parser_.print_help()
+                    return 0
                 parser_.error("the following arguments are required: command")
             command = args.command
             data = execute(args)
